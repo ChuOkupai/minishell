@@ -1,0 +1,10 @@
+Collection of malicious tests:
+
+""
+''
+> f
+< f
+> f # with non writable file
+< f # with non readable file
+(echo 1 && echo 2) > f # fail with minishell?
+echo ;;
