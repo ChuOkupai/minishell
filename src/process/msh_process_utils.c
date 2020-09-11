@@ -1,20 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msh_perror.c                                       :+:      :+:    :+:   */
+/*   msh_process_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/06 13:01:58 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/06 14:15:54 by asoursou         ###   ########.fr       */
+/*   Created: 2020/09/10 18:24:00 by asoursou          #+#    #+#             */
+/*   Updated: 2020/09/11 16:19:07 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include "libft/ft_stdio.h"
-#include "const.h"
+#include <stdlib.h>
+#include "process.h"
+#include "utils.h"
 
-void	msh_perror(const char *message)
+void		msh_process_clear(t_process *p)
 {
-	ft_dprintf(STDERR_FILENO, MSH ": %s\n", message);
+	free(p->argv);
+	free(p);
+}
+
+t_process	*msh_process_new(char **argv)
+{
+	t_process *p;
+
+	if (!(p = malloc(sizeof(t_process))))
+		msh_abort();
+	p->argv = argv;
+	return (p);
 }

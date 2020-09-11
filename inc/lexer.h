@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 16:20:11 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/10 01:49:41 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/11 16:49:10 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@
 */
 enum	e_token_type
 {
-	TOKEN_LEFT_PARENTHESIS,
-	TOKEN_RIGHT_PARENTHESIS,
+	TOKEN_WORD,
+	TOKEN_REDIRECTION,
 	TOKEN_PIPE,
 	TOKEN_SEMICOLON,
-	TOKEN_REDIR,
 	TOKEN_LOGICAL_OP,
-	TOKEN_WORD
+	TOKEN_LEFT_PARENTHESIS,
+	TOKEN_RIGHT_PARENTHESIS
 };
 typedef enum e_token_type	t_token_type;
 
@@ -58,6 +58,7 @@ void	msh_token_clear(t_token *token);
 /*
 ** Tries to find a token from the lexer in the given string s.
 ** Returns the address of the static token if found in the lexer.
+** Returns NULL if the token is of type TOKEN_WORD.
 */
 t_token	*msh_token_find(const char *s);
 

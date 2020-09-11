@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/07 14:24:41 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/09 21:05:28 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/11 13:14:01 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static t_token	*next_token(const char *s)
 	s2 = (char *)s--;
 	while (*(++s) && !ft_isspace(*s) && !msh_token_find(s))
 		if (*s == '\\')
-			s += s[1];
+			s += s[1] != '\0';
 		else if (*s == '\'' || *s == '"')
 		{
 			while ((s = ft_strchr(s + 1, *s)) && s[-1] == '\\')

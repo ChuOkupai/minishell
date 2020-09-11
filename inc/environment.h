@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 17:44:27 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/08 14:52:13 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/11 16:25:55 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,9 @@ t_list		*msh_env_copy(char **env);
 const char	*msh_env_get(t_list *env, const char *name);
 
 /*
-** Searches the environment list to find the environment variable name,
-** and returns a pointer to the corresponding list node.
-** Returns NULL if not found.
-*/
-t_list		*msh_env_search(t_list *env, const char *name);
-
-/*
 ** Add or edit a variable using the given environment list.
 */
-const char	*msh_env_set(t_list **env, const char *name, const char *value);
+void		msh_env_set(t_list **env, const char *name, const char *value);
 
 /*
 ** Deletes a variable in the environment list.

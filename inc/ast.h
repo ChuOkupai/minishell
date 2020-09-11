@@ -6,13 +6,13 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 01:05:52 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/10 01:58:07 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/11 16:09:03 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef AST_H
 # define AST_H
-# include "command.h"
+# include "libft.h"
 
 /*
 ** All possible node types in the abstract syntax tree (AST).
@@ -20,22 +20,17 @@
 enum	e_ast_type
 {
 	AST_AND,
-	AST_OR,
-	AST_PIPE,
-	AST_SEMICOLON,
-	AST_COMMAND
+	AST_OR
 };
 typedef enum e_ast_type	t_ast_type;
 
 /*
 ** Represents a node in the AST.
-** type:    type of AST node
-** command: contains a command structure if type == AST_COMMAND
+** type: type of AST node
 */
 struct	s_ast
 {
 	t_ast_type	type;
-	t_command	*command;
 };
 typedef struct s_ast	t_ast;
 
@@ -53,6 +48,6 @@ void	msh_ast_clear(t_ast *node);
 /*
 ** Creates a new AST node.
 */
-t_ast	*msh_ast_new(t_ast_type type, t_command *command);
+t_ast	*msh_ast_new(t_ast_type type);
 
 #endif

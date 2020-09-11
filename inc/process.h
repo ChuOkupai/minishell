@@ -1,19 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msh_env_get.c                                      :+:      :+:    :+:   */
+/*   process.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/31 18:21:20 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/08 14:51:07 by asoursou         ###   ########.fr       */
+/*   Created: 2020/09/10 01:57:36 by asoursou          #+#    #+#             */
+/*   Updated: 2020/09/11 16:18:08 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "environment.h"
+#ifndef PROCESS_H
+# define PROCESS_H
+# include "libft.h"
 
-const char	*msh_env_get(t_list *env, const char *name)
+/*
+** Represents a single process.
+** argv: an array which contains command arguments
+*/
+struct		s_process
 {
-	env = msh_env_search(env, name);
-	return (env ? (const char *)(env->content) + ft_strlen(name) + 1 : NULL);
-}
+	char **argv;
+};
+typedef struct s_process	t_process;
+
+/*
+** Free a single process.
+*/
+void		msh_process_clear(t_process *p);
+
+/*
+** Creates a new single process.
+*/
+t_process	*msh_process_new(char **argv);
+
+#endif

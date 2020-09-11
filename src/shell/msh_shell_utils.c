@@ -1,18 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msh_shell_init.c                                   :+:      :+:    :+:   */
+/*   msh_shell_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/31 18:26:50 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/08 15:08:16 by asoursou         ###   ########.fr       */
+/*   Created: 2020/09/11 16:10:33 by asoursou          #+#    #+#             */
+/*   Updated: 2020/09/11 16:15:37 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include <unistd.h>
 #include "shell.h"
 #include "utils.h"
+
+void	msh_shell_clear(t_shell *shell)
+{
+	ft_list_clear(&shell->env, &free);
+	if (shell->stdin)
+		ft_fclose(shell->stdin);
+	free(shell);
+}
 
 t_shell	*msh_shell_init(void)
 {

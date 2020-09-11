@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/06 12:59:25 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/08 17:02:21 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/11 16:29:28 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,21 @@
 void	msh_abort(void);
 
 /*
+** Compares two pointer.
+** Returns 0 if the two addresses are identical.
+*/
+int		msh_compare_pointer(const void *a, const void *b);
+
+/*
 ** Prints and error message.
-** Used for error handling.
+** Used for errors handling.
 */
 void	msh_perror(const char *message);
 
 /*
 ** Prints and error message using the given format.
-** Used for error handling.
+** Used for errors handling.
 */
 void	msh_perror_format(const char *format, ...);
-
-/*
-** Prints and unexpected token error message.
-** Used for error handling.
-*/
-void	msh_perror_unexpected(char token);
 
 #endif
