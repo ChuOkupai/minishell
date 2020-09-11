@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 16:20:11 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/11 16:49:10 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/11 18:35:37 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,16 @@ enum	e_token_type
 	TOKEN_SEMICOLON,
 	TOKEN_LOGICAL_OP,
 	TOKEN_LEFT_PARENTHESIS,
-	TOKEN_RIGHT_PARENTHESIS
+	TOKEN_RIGHT_PARENTHESIS,
+	TOKEN_SIZE
 };
 typedef enum e_token_type	t_token_type;
 
 /*
 ** Represents a token.
-** type:  type of the token
-** value: graphical representation
-** size:  size of value (avoid calls to ft_strlen)
+** type:	type of the token
+** value:	graphical representation
+** size:	size of value (avoid calls to ft_strlen)
 */
 struct	s_token
 {

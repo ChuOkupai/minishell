@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 01:05:52 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/11 16:09:03 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/11 17:42:35 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef enum e_ast_type	t_ast_type;
 
 /*
 ** Represents a node in the AST.
-** type: type of AST node
+** type:	type of AST node
 */
 struct	s_ast
 {

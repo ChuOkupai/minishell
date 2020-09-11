@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/06 13:25:49 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/08 15:38:39 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/11 17:42:48 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # include "libft.h"
 
 /*
-** dump_tokens: show the tokenization process
+** dump_tokens:	show the tokenization process
 */
 typedef struct s_option	t_option;
 struct	s_option
@@ -24,9 +24,9 @@ struct	s_option
 };
 
 /*
-** env: list of environment variables
-** keep: loop as long as this variable is set to true
-** stdin: input file stream
+** env:		list of environment variables
+** keep:	loop as long as this variable is set to true
+** stdin:	input file stream
 */
 typedef struct s_shell	t_shell;
 struct	s_shell
