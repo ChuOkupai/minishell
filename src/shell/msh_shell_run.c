@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 18:35:11 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/11 19:45:48 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/12 18:49:48 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ static bool	read_cmd(t_shell *s, const char *str)
 
 	if (!(l = msh_tokenize(str)))
 		return (true);
-	if (!msh_is_valid(l))
-		return (!ft_list_clear(&l, (t_gfunction) & msh_token_clear));
 	if (s->opt.dump_tokens)
 		ft_list_print(l, (t_gprint) & msh_token_print);
+	if (!msh_is_valid(l, s->opt.dump_states))
+		return (!ft_list_clear(&l, (t_gfunction) & msh_token_clear));
 	str = msh_token(l)->type == TOKEN_WORD && !ft_list_at(l, 1) ?
 	msh_token(l)->value : "";
 	if (!ft_strcmp(str, "exit"))
@@ -41,7 +41,7 @@ int			msh_shell_run(t_shell *s)
 
 	while (s->keep)
 	{
-		ft_putstr_fd(MSH_PS1, STDERR_FILENO);
+		ft_putstr(MSH_PS1);
 		ft_getline(&line, s->stdin);
 		if (ft_ferror(s->stdin))
 			msh_abort();
@@ -50,7 +50,7 @@ int			msh_shell_run(t_shell *s)
 			ft_memdel(line);
 			if (!(line = ft_strdup("exit")))
 				msh_abort();
-			ft_putendl_fd(line, STDERR_FILENO);
+			ft_putendl(line);
 		}
 		s->keep = read_cmd(s, line);
 		ft_memdel(line);

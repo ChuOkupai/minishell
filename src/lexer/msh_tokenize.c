@@ -6,12 +6,13 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/07 14:24:41 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/11 13:14:01 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/12 16:49:36 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "lexer.h"
+#include "parser.h"
 #include "utils.h"
 
 /*

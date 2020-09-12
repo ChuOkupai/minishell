@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 16:20:11 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/11 18:35:37 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/12 16:02:21 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@
 enum	e_token_type
 {
 	TOKEN_WORD,
-	TOKEN_REDIRECTION,
+	TOKEN_REDIRECT,
 	TOKEN_PIPE,
 	TOKEN_SEMICOLON,
 	TOKEN_LOGICAL_OP,
-	TOKEN_LEFT_PARENTHESIS,
-	TOKEN_RIGHT_PARENTHESIS,
+	TOKEN_LEFT_PAR,
+	TOKEN_RIGHT_PAR,
 	TOKEN_SIZE
 };
 typedef enum e_token_type	t_token_type;

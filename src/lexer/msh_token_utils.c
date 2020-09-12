@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/07 15:37:20 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/11 16:49:20 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/12 16:02:21 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ void	msh_token_clear(t_token *t)
 t_token	*msh_token_find(const char *s)
 {
 	static const t_token	lexer[] = {
-		{ TOKEN_LEFT_PARENTHESIS, "(", 1 },
-		{ TOKEN_RIGHT_PARENTHESIS, ")", 1 },
+		{ TOKEN_LEFT_PAR, "(", 1 },
+		{ TOKEN_RIGHT_PAR, ")", 1 },
 		{ TOKEN_PIPE, "|", 1 },
 		{ TOKEN_SEMICOLON, ";", 1 },
-		{ TOKEN_REDIRECTION, "<", 1 },
-		{ TOKEN_REDIRECTION, ">", 1 },
-		{ TOKEN_REDIRECTION, "<<", 2 },
-		{ TOKEN_REDIRECTION, ">>", 2 },
+		{ TOKEN_REDIRECT, "<", 1 },
+		{ TOKEN_REDIRECT, ">", 1 },
+		{ TOKEN_REDIRECT, "<<", 2 },
+		{ TOKEN_REDIRECT, ">>", 2 },
 		{ TOKEN_LOGICAL_OP, "&&", 2 },
 		{ TOKEN_LOGICAL_OP, "||", 2 }
 	};
