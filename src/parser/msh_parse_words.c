@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 20:47:38 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/14 17:08:33 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/14 19:29:22 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static size_t	parse_variable(char **dst, char **src, t_list *env)
 		++i;
 	tmp = s[i];
 	s[i] = '\0';
-	value = msh_env_get(env, s);
+	value = i ? msh_env_get(env, s) : NULL;
 	s[i] = tmp;
 	*src = s + i;
 	if ((i = value ? ft_strlen(value) : 0) && *dst)
