@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/07 14:24:41 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/12 16:49:36 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/14 17:14:38 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,12 @@ static t_token	*next_token(const char *s)
 	while (*(++s) && !ft_isspace(*s) && !msh_token_find(s))
 		if (*s == '\\')
 			s += s[1] != '\0';
-		else if (*s == '\'' || *s == '"')
+		else if (*s == '\'')
+		{
+			if (!(s = ft_strchr(s + 1, '\'')))
+				return (NULL);
+		}
+		else if (*s == '"')
 		{
 			while ((s = ft_strchr(s + 1, *s)) && s[-1] == '\\')
 				continue ;
@@ -48,14 +53,16 @@ t_list			*msh_tokenize(const char *s)
 	l = NULL;
 	while (*(s = ft_strwhile(s, &ft_isspace)))
 		if (!(t = next_token(s)))
-		{
-			msh_perror("unsupported multiline quoted string");
-			ft_list_clear(&l, (t_gfunction) & msh_token_clear);
 			break ;
-		}
 		else if (!ft_list_push(&l, ft_list_new(t)))
 			msh_abort();
 		else
 			s += t->size;
+	if (*s || ((t = msh_token(l)) && t->type == TOKEN_WORD &&
+	!ft_strcmp(t->value, "\\")))
+	{
+		msh_perror("unsupported multiline quoted string");
+		ft_list_clear(&l, (t_gfunction) & msh_token_clear);
+	}
 	return (ft_list_rev(l));
 }
