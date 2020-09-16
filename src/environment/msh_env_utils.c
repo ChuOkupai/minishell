@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_env_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 18:21:20 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/11 16:27:59 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/16 15:59:10 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static t_list	*search(t_list *env, const char *name)
 	size_t n;
 
 	n = ft_strlen(name);
-	while (env && ft_memcmp(env->content, name, n))
+	while (env && (ft_memcmp(env->content, name, n) || 
+	((char *)env->content)[n] != '='))
 		env = env->next;
 	return (env);
 }
