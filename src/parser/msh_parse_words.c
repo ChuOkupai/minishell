@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 20:47:38 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/14 19:29:22 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/16 19:43:11 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void			msh_parse_words(t_list *l, t_list *env)
 		{
 			t->size = parse_word(NULL, t->value, env);
 			if (!(d = malloc((t->size + 1) * sizeof(char))))
-				msh_abort();
+				msh_abort("parser");
 			d[t->size] = '\0';
 			parse_word(d, t->value, env);
 			free(t->value);

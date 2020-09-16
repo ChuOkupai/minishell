@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/07 15:37:20 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/12 16:02:21 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/16 20:06:14 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_token	*msh_token_new(char *value, size_t size)
 	t_token *t;
 
 	if (!(t = malloc(sizeof(t_token))) || !value)
-		msh_abort();
+		msh_abort("parser");
 	t->type = TOKEN_WORD;
 	t->value = value;
 	t->size = size;

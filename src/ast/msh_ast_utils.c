@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 01:49:16 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/11 16:24:51 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/16 19:39:13 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_ast	*msh_ast_new(t_ast_type type)
 	t_ast *a;
 
 	if (!(a = malloc(sizeof(t_ast))))
-		msh_abort();
+		msh_abort("ast");
 	a->type = type;
 	return (a);
 }

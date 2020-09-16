@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 18:35:11 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/14 17:12:10 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/16 19:56:34 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,16 @@ int			msh_shell_run(t_shell *s)
 
 	while (s->keep)
 	{
+		msh_termcaps_update(s->term);
 		ft_putstr(MSH_PS1);
 		ft_getline(&line, s->stdin);
 		if (ft_ferror(s->stdin))
-			msh_abort();
+			msh_abort("readline");
 		else if (ft_feof(s->stdin))
 		{
 			ft_memdel(line);
 			if (!(line = ft_strdup("exit")))
-				msh_abort();
+				msh_abort("readline");
 			ft_putendl(line);
 		}
 		s->keep = read_cmd(s, line);

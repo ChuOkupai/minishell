@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msh_env_init.c                                     :+:      :+:    :+:   */
+/*   msh_env_new.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 18:21:32 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/16 13:52:05 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/16 20:12:50 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "const.h"
 #include "environment.h"
 #include "utils.h"
 
-t_list		*msh_env_init(char **env)
+t_list	*msh_env_new(char **env)
 {
 	t_list	*l;
 	char	*s;
@@ -22,8 +23,7 @@ t_list		*msh_env_init(char **env)
 	l = NULL;
 	while (*env)
 		if (!(s = ft_strdup(*env++)) || !ft_list_push(&l, ft_list_new(s)))
-			msh_abort();
-	l = ft_list_rev(l);
+			break ;
 	msh_env_set(&l, "SHELL", MSH);
-	return (l);
+	return (ft_list_rev(l));
 }

@@ -1,0 +1,19 @@
+~- OLDPWD
+~+ PWD
+~ HOME
+
+if HOME unset -> etc/fstab (last line)
+
+cd: if HOME
+
+mkdir dir
+cd dir
+rmdir ../dir
+pwd
+cd .
+echo $?
+pwd
+cd .
+echo $?
+pwd
+# enjoy

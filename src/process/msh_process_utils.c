@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 18:24:00 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/11 16:19:07 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/16 19:43:29 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_process	*msh_process_new(char **argv)
 	t_process *p;
 
 	if (!(p = malloc(sizeof(t_process))))
-		msh_abort();
+		msh_abort("process");
 	p->argv = argv;
 	return (p);
 }

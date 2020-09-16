@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/07 14:24:41 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/14 17:14:38 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/16 20:11:56 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_list			*msh_tokenize(const char *s)
 		if (!(t = next_token(s)))
 			break ;
 		else if (!ft_list_push(&l, ft_list_new(t)))
-			msh_abort();
+			msh_abort("parser");
 		else
 			s += t->size;
 	if (*s || ((t = msh_token(l)) && t->type == TOKEN_WORD &&

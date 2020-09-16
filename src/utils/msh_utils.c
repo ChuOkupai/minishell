@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/11 16:12:37 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/11 16:34:19 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/16 19:53:33 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ void	msh_perror(const char *message)
 	ft_dprintf(STDERR_FILENO, MSH ": %s\n", message);
 }
 
-void	msh_abort(void)
+void	msh_abort(const char *section)
 {
-	msh_perror(strerror(errno));
+	ft_dprintf(STDERR_FILENO, MSH ": %s: %s\n", section, strerror(errno));
 	exit(EXIT_FAILURE);
 }
 

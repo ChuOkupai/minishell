@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/11 17:26:20 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/13 17:19:09 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/16 19:42:43 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static bool	check(t_list *l, t_pda *a, bool output)
 	l2 = NULL;
 	while (l && (s = next(l->content, a, a->last[s], s)) >= 0)
 		if (output && !ft_list_push(&l2, ft_list_new((void *)((size_t)s))))
-			msh_abort();
+			msh_abort("parser");
 		else
 			l = l->next;
 	if (output)
