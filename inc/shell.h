@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/06 13:25:49 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/12 16:48:18 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/16 13:37:13 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	msh_shell_clear(t_shell *shell);
 /*
 ** Initialize a new shell.
 */
-t_shell	*msh_shell_init(void);
+t_shell	*msh_shell_init(char **env);
 
 /*
 ** Execute a shell that loops indefinitely as long as the user does not exit the

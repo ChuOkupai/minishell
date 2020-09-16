@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/27 16:22:36 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/12 16:49:07 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/16 13:37:24 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ int			main(int ac, char **av, char **env)
 	t_shell	*shell;
 	int		ret;
 
-	shell = msh_shell_init();
-	shell->env = msh_env_copy(env);
+	shell = msh_shell_init(env);
 	parse_opt(&shell->opt, ac, av);
 	ret = msh_shell_run(shell);
 	msh_shell_clear(shell);

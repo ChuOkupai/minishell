@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 17:44:27 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/11 16:25:55 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/16 13:33:25 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 /*
 ** Initialize a new environment from an array of environment variables.
 */
-t_list		*msh_env_copy(char **env);
+t_list		*msh_env_init(char **env);
 
 /*
 ** Searches the environment list to find the environment variable name,

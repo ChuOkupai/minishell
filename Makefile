@@ -6,7 +6,7 @@
 #    By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/27 16:09:01 by asoursou          #+#    #+#              #
-#    Updated: 2020/09/13 20:47:25 by asoursou         ###   ########.fr        #
+#    Updated: 2020/09/16 13:35:14 by asoursou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ DIRS	:= $(addprefix $(BUILD)/, $(SUB_DIR))
 NAME	:= minishell
 SUB_SRC	:= msh_ast_utils.c
 SRC		:= $(addprefix ast/, $(SUB_SRC))
-SUB_SRC	:= msh_env_copy.c \
+SUB_SRC	:= msh_env_init.c \
 		   msh_env_utils.c
 SRC		+= $(addprefix environment/, $(SUB_SRC))
 SUB_SRC	:= msh_token_utils.c \
