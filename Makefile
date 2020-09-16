@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+         #
+#    By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/27 16:09:01 by asoursou          #+#    #+#              #
-#    Updated: 2020/09/16 19:48:34 by asoursou         ###   ########.fr        #
+#    Updated: 2020/09/16 20:31:31 by gdinet           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,9 @@ SRC		+= $(addprefix lexer/, $(SUB_SRC))
 SUB_SRC	:= msh_is_valid.c \
 		   msh_parse_words.c
 SRC		+= $(addprefix parser/, $(SUB_SRC))
-SUB_SRC	:= msh_process_utils.c
+SUB_SRC	:= msh_process_utils.c \
+		   msh_pipe.c \
+		   msh_redirect.c
 SRC		+= $(addprefix process/, $(SUB_SRC))
 SUB_SRC	:= msh_shell_run.c \
 		   msh_shell_utils.c
