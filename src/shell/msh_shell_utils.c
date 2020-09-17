@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/11 16:10:33 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/16 20:03:41 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/17 17:05:27 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	parse_opt(t_option *opt, int n, char **av)
 		else if (!ft_strcmp(av[i], "--dump-tokens"))
 			opt->dump_tokens = true;
 		else
-			msh_perror_format("warning - unrecognized option '%s'", av[i]);
+			msh_perror("warning - unrecognized option '%s'", av[i]);
 }
 
 void		*msh_shell_clear(t_shell *shell)
@@ -56,7 +56,6 @@ t_shell		*msh_shell_new(int ac, char **av, char **env)
 	shell->term = msh_termcaps_init(msh_env_get(shell->env, "TERM"));
 	if (!shell->term)
 		return (msh_shell_clear(shell));
-	shell->keep = true;
 	parse_opt(&shell->opt, ac, av);
 	return (shell);
 }

@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/06 13:25:49 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/16 19:32:39 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/17 16:16:23 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ struct	s_option
 
 /*
 ** env:		list of environment variables
+** hist:	commands history
 ** stdin:	input file stream
 ** term;	structure for termcaps
 ** keep:	loop as long as this variable is set to true
@@ -37,6 +38,7 @@ typedef struct s_shell	t_shell;
 struct	s_shell
 {
 	t_list		*env;
+	t_list		*hist;
 	t_file		*stdin;
 	t_term		*term;
 	bool		keep;

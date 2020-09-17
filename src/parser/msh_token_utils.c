@@ -6,12 +6,12 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/07 15:37:20 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/16 20:06:14 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/17 17:50:08 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "lexer.h"
+#include "parser.h"
 #include "utils.h"
 
 t_token	*msh_token(t_list *element)
@@ -21,48 +21,21 @@ t_token	*msh_token(t_list *element)
 
 void	msh_token_clear(t_token *t)
 {
-	if (t->type != TOKEN_WORD)
+	if (t->type != TOKEN_WORD && t->type != TOKEN_MULTILINE)
 		return ;
 	free(t->value);
 	free(t);
 }
 
-t_token	*msh_token_find(const char *s)
-{
-	static const t_token	lexer[] = {
-		{ TOKEN_LEFT_PAR, "(", 1 },
-		{ TOKEN_RIGHT_PAR, ")", 1 },
-		{ TOKEN_PIPE, "|", 1 },
-		{ TOKEN_SEMICOLON, ";", 1 },
-		{ TOKEN_REDIRECT, "<", 1 },
-		{ TOKEN_REDIRECT, ">", 1 },
-		{ TOKEN_REDIRECT, "<<", 2 },
-		{ TOKEN_REDIRECT, ">>", 2 },
-		{ TOKEN_LOGICAL_OP, "&&", 2 },
-		{ TOKEN_LOGICAL_OP, "||", 2 }
-	};
-	size_t					i;
-
-	i = sizeof(lexer) / sizeof(*lexer);
-	while (i--)
-		if (!ft_memcmp(s, lexer[i].value, lexer[i].size))
-			return ((t_token *)lexer + i);
-	return (NULL);
-}
-
-t_token	*msh_token_new(char *value, size_t size)
-{
-	t_token *t;
-
-	if (!(t = malloc(sizeof(t_token))) || !value)
-		msh_abort("parser");
-	t->type = TOKEN_WORD;
-	t->value = value;
-	t->size = size;
-	return (t);
-}
-
 void	msh_token_print(t_token *t)
 {
-	ft_printf((t->type == TOKEN_WORD ? "WORD(%s)" : "%s"), t->value);
+	const char *format;
+
+	if (t->type == TOKEN_WORD)
+		format = "WORD(%s)";
+	else if (t->type == TOKEN_MULTILINE)
+		format = "MULTILINE(%s)";
+	else
+		format = "%s";
+	ft_printf(format, t->value);
 }

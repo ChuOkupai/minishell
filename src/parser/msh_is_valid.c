@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/11 17:26:20 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/16 19:42:43 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/17 16:40:48 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int	next(t_token *t, t_pda *a, int n, int state)
 	return (-1);
 }
 
-static bool	check(t_list *l, t_pda *a, bool output)
+static int	check(t_list *l, t_pda *a, bool output)
 {
 	t_list	*l2;
 	int		s;
@@ -71,15 +71,15 @@ static bool	check(t_list *l, t_pda *a, bool output)
 		ft_list_clear(&l2, NULL);
 	}
 	if (l)
-		msh_perror_format(MSH_UNEXPECTED "`%s'", msh_token(l)->value);
+		msh_perror(MSH_UNEXPECTED "`%s'", msh_token(l)->value);
 	else if (a->stack)
-		msh_perror_format(MSH_UNEXPECTED "`%c'", (a->stack < 0 ? ')' : '('));
+		msh_perror(MSH_UNEXPECTED "`%c'", (a->stack < 0 ? ')' : '('));
 	else if (!a->final[s])
 		msh_perror(MSH_UNEXPECTED "`newline'");
 	return (l ? false : a->final[s]);
 }
 
-bool		msh_is_valid(t_list *tokens, bool ouput_sequence)
+int			msh_is_valid(t_list *tokens, bool ouput_sequence)
 {
 	static bool			initialized = false;
 	static t_pda		a;
@@ -97,6 +97,8 @@ bool		msh_is_valid(t_list *tokens, bool ouput_sequence)
 		{ 5, 5, TOKEN_RIGHT_PAR, STACK_POP }
 	};
 
+	if (tokens && msh_token(ft_list_last(tokens))->type == TOKEN_MULTILINE)
+		return (-1);
 	if (!initialized)
 		initialized = init(&a, rule, sizeof(rule) / sizeof(*rule));
 	return (check(tokens, &a, ouput_sequence));

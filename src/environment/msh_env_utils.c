@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 18:21:20 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/16 19:47:04 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/17 16:26:11 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,20 +31,24 @@ const char		*msh_env_get(t_list *env, const char *name)
 	return (env ? (const char *)(env->content) + ft_strlen(name) + 1 : NULL);
 }
 
-void			msh_env_set(t_list **env, const char *name, const char *value)
+int				msh_env_set(t_list **env, const char *name, const char *value)
 {
 	void	*s;
 	t_list	*l;
 
 	if (!(s = ft_strjoin3(name, "=", value)))
-		msh_abort("setenv");
-	else if ((l = search(*env, name)))
+		return (-1);
+	if (!(l = search(*env, name)))
 	{
 		ft_memdel(l->content);
 		l->content = s;
 	}
 	else if (!ft_list_push(env, ft_list_new(s)))
-		msh_abort("setenv");
+	{
+		ft_memdel(s);
+		return (-1);
+	}
+	return (0);
 }
 
 void			msh_env_unset(t_list **env, const char *name)

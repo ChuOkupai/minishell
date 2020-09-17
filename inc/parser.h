@@ -6,13 +6,44 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/11 17:08:34 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/14 17:06:55 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/17 17:49:26 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
-# include "lexer.h"
+# include "libft.h"
+
+/*
+** All known symbols type.
+*/
+enum	e_token_type
+{
+	TOKEN_WORD,
+	TOKEN_REDIRECT,
+	TOKEN_PIPE,
+	TOKEN_SEMICOLON,
+	TOKEN_LOGICAL_OP,
+	TOKEN_LEFT_PAR,
+	TOKEN_RIGHT_PAR,
+	TOKEN_MULTILINE,
+	TOKEN_SIZE
+};
+typedef enum e_token_type	t_token_type;
+
+/*
+** Represents a token.
+** type:	type of the token
+** value:	graphical representation
+** size:	size of value (avoid calls to ft_strlen)
+*/
+struct	s_token
+{
+	t_token_type	type;
+	char			*value;
+	size_t			size;
+};
+typedef struct s_token	t_token;
 
 /*
 ** All known stack events.
@@ -71,14 +102,38 @@ typedef struct s_pda	t_pda;
 /*
 ** Checks if the given list of tokens is a valid expression.
 ** If ouput_sequence, every states are displayed to STDERR_FILENO.
-** Returns true if the expression is valid.
+** Returns 1 if the expression is valid, 0 if invalid, -1 if multiline.
 */
-bool	msh_is_valid(t_list *tokens, bool ouput_sequence);
+int		msh_is_valid(t_list *tokens, bool ouput_sequence);
 
 /*
 ** Expands all tokens of type TOKEN_WORD into arguments.
 ** The list of tokens MUST be valid before calling this function.
 */
 void	msh_parse_words(t_list *tokens, t_list *env);
+
+/*
+** Get the token stored in a list of tokens.
+** Returns NULL if the element does not exist.
+*/
+t_token	*msh_token(t_list *element);
+
+/*
+** Free a token of type TOKEN_WORD or TOKEN_MULTILINE.
+** If the token is already from the g_lexer, nothing happens.
+*/
+void	msh_token_clear(t_token *token);
+
+/*
+** Prints a token to the standard ouput.
+*/
+void	msh_token_print(t_token *token);
+
+/*
+** Creates a list of tokens from a string.
+** Allocates memory only for tokens of type TOKEN_WORD or TOKEN_MULTILINE.
+** Returns the new list of tokens.
+*/
+t_list	*msh_tokenize(const char *string);
 
 #endif

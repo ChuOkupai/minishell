@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 18:35:11 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/16 19:56:34 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/17 17:18:21 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int			msh_shell_run(t_shell *s)
 {
 	char *line;
 
+	s->keep = true;
 	while (s->keep)
 	{
 		msh_termcaps_update(s->term);

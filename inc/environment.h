@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 17:44:27 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/16 20:04:48 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/17 16:31:23 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,9 @@ t_list		*msh_env_new(char **env);
 
 /*
 ** Add or edit a variable using the given environment list.
+** Returns -1 on error, else 0.
 */
-void		msh_env_set(t_list **env, const char *name, const char *value);
+int			msh_env_set(t_list **env, const char *name, const char *value);
 
 /*
 ** Deletes a variable in the environment list.

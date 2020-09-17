@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/06 12:59:25 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/16 19:53:15 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/17 17:36:53 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 /*
 ** Prints and error message using the errno variable and exit.
-** Used for fatal errors handling (such as a failed malloc).
+** Used for fatal errors handling.
 */
 void	msh_abort(const char *section);
 
@@ -26,15 +26,9 @@ void	msh_abort(const char *section);
 int		msh_compare_pointer(const void *a, const void *b);
 
 /*
-** Prints and error message.
-** Used for errors handling.
-*/
-void	msh_perror(const char *message);
-
-/*
 ** Prints and error message using the given format.
 ** Used for errors handling.
 */
-void	msh_perror_format(const char *format, ...);
+void	msh_perror(const char *format, ...);
 
 #endif

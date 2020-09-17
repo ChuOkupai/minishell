@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+         #
+#    By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/27 16:09:01 by asoursou          #+#    #+#              #
-#    Updated: 2020/09/16 20:31:31 by gdinet           ###   ########.fr        #
+#    Updated: 2020/09/17 17:51:44 by asoursou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,14 +15,13 @@ CC		:= gcc
 CFLAGS	:= -Wall -Wextra -Werror -Wpedantic -Wvla -Ofast -fno-builtin
 DFLAGS	= -MP -MMD -MF $(BUILD)/$*.d -MT $@
 IFLAGS	= -isystem./$(FT)/inc -I./inc
-LDFLAGS	= -L./$(FT) -lft -lcurses
+LDFLAGS	= -L./$(FT) -lft -ltermcap
 
 # DIRECTORIES
 FT		:= libft
 BUILD	:= .build
 SUB_DIR	+= ast \
 		   environment \
-		   lexer \
 		   parser \
 		   process \
 		   shell \
@@ -37,11 +36,10 @@ SRC		:= $(addprefix ast/, $(SUB_SRC))
 SUB_SRC	:= msh_env_new.c \
 		   msh_env_utils.c
 SRC		+= $(addprefix environment/, $(SUB_SRC))
-SUB_SRC	:= msh_token_utils.c \
-		   msh_tokenize.c
-SRC		+= $(addprefix lexer/, $(SUB_SRC))
 SUB_SRC	:= msh_is_valid.c \
-		   msh_parse_words.c
+		   msh_parse_words.c \
+		   msh_token_utils.c \
+		   msh_tokenize.c
 SRC		+= $(addprefix parser/, $(SUB_SRC))
 SUB_SRC	:= msh_process_utils.c \
 		   msh_pipe.c \

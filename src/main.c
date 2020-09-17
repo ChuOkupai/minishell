@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/27 16:22:36 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/16 19:37:55 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/17 16:18:05 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int			main(int ac, char **av, char **env)
 	int		ret;
 
 	if (!(shell = msh_shell_new(ac, av, env)))
-		msh_abort("init");
+		msh_abort("initialization");
 	ret = msh_shell_run(shell);
 	msh_shell_clear(shell);
 	return (ret);
