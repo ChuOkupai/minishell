@@ -3,13 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   msh_pipe.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 19:07:29 by gdinet            #+#    #+#             */
-/*   Updated: 2020/09/16 20:41:33 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/09/17 15:25:22 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <sys/types.h>
+#include <sys/wait.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include "process.h"
@@ -24,8 +26,7 @@ void	msh_pipe(t_list *process)
 	fd_in = 0;
 	while (process != NULL)
 	{
-		pipe(p);
-		if ((pid = fork()) == -1)
+		if (pipe(p) < 0 || (pid = fork()) == -1)
 			msh_abort("process");
 		else if (pid == 0)
 		{

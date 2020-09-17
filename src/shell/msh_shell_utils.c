@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/11 16:10:33 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/17 17:05:27 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/17 18:08:45 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,7 @@ static void	parse_opt(t_option *opt, int n, char **av)
 
 	i = 0;
 	while (++i < n)
-		if (!ft_strcmp(av[i], "--dump-states"))
-			opt->dump_states = true;
-		else if (!ft_strcmp(av[i], "--dump-tokens"))
+		if (!ft_strcmp(av[i], "--dump-tokens"))
 			opt->dump_tokens = true;
 		else
 			msh_perror("warning - unrecognized option '%s'", av[i]);

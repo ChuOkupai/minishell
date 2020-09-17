@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/07 14:24:41 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/17 17:50:12 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/17 20:24:56 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ t_list			*msh_tokenize(const char *s)
 
 	l = NULL;
 	while (*(s = ft_strwhile(s, &ft_isspace)))
-		if (!(t = next_token(s)) || !ft_list_push(&l, ft_list_new(t)))
+		if (!(t = next_token(s)) || !ft_list_push(&l, t))
 		{
 			ft_memdel(t);
 			ft_list_clear(&l, (t_gfunction) & msh_token_clear);

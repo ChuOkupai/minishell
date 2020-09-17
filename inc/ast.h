@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 01:05:52 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/11 17:42:35 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/17 18:36:54 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@
 enum	e_ast_type
 {
 	AST_AND,
-	AST_OR
+	AST_OR,
+	AST_PROCESS
 };
 typedef enum e_ast_type	t_ast_type;
 
@@ -35,10 +36,22 @@ struct	s_ast
 typedef struct s_ast	t_ast;
 
 /*
-** Get the AST node stored in a t_btree node.
+** Get the AST node stored in a list of ASTs.
+** Returns NULL if the element does not exist.
+*/
+t_btree	*msh_ast_node(t_list *element);
+
+/*
+** Get the AST stored in a t_btree node.
 ** Returns NULL if the element does not exist.
 */
 t_ast	*msh_ast(t_btree *element);
+
+/*
+** Build a list of ASTs from a list of valid tokens.
+** Returns the list of ASTs.
+*/
+t_list	*msh_ast_build(t_list *tokens);
 
 /*
 ** Free an AST node.

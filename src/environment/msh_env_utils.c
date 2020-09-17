@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 18:21:20 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/17 16:26:11 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/17 20:24:51 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int				msh_env_set(t_list **env, const char *name, const char *value)
 		ft_memdel(l->content);
 		l->content = s;
 	}
-	else if (!ft_list_push(env, ft_list_new(s)))
+	else if (!ft_list_push(env, s))
 	{
 		ft_memdel(s);
 		return (-1);

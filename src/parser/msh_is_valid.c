@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/11 17:26:20 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/17 16:40:48 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/17 18:15:32 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,35 +51,28 @@ static int	next(t_token *t, t_pda *a, int n, int state)
 	return (-1);
 }
 
-static int	check(t_list *l, t_pda *a, bool output)
+static int	check(t_list *l, t_pda *a)
 {
-	t_list	*l2;
-	int		s;
+	int s;
 
 	s = 0;
 	a->stack = 0;
-	l2 = NULL;
 	while (l && (s = next(l->content, a, a->last[s], s)) >= 0)
-		if (output && !ft_list_push(&l2, ft_list_new((void *)((size_t)s))))
-			msh_abort("parser");
-		else
-			l = l->next;
-	if (output)
-	{
-		l2 = ft_list_rev(l2);
-		ft_list_print_fd(l2, (t_gprint_fd) & ft_putnbr_fd, STDERR_FILENO);
-		ft_list_clear(&l2, NULL);
-	}
+		l = l->next;
 	if (l)
 		msh_perror(MSH_UNEXPECTED "`%s'", msh_token(l)->value);
 	else if (a->stack)
-		msh_perror(MSH_UNEXPECTED "`%c'", (a->stack < 0 ? ')' : '('));
+	{
+		if (a->stack > 0)
+			return (-1);
+		msh_perror(MSH_UNEXPECTED "`)'");
+	}
 	else if (!a->final[s])
 		msh_perror(MSH_UNEXPECTED "`newline'");
-	return (l ? false : a->final[s]);
+	return (l || a->stack || !a->final[s] ? 0 : a->final[s]);
 }
 
-int			msh_is_valid(t_list *tokens, bool ouput_sequence)
+int			msh_is_valid(t_list *tokens)
 {
 	static bool			initialized = false;
 	static t_pda		a;
@@ -101,5 +94,5 @@ int			msh_is_valid(t_list *tokens, bool ouput_sequence)
 		return (-1);
 	if (!initialized)
 		initialized = init(&a, rule, sizeof(rule) / sizeof(*rule));
-	return (check(tokens, &a, ouput_sequence));
+	return (check(tokens, &a));
 }

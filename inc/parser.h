@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/11 17:08:34 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/17 17:49:26 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/17 18:20:49 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,10 +101,9 @@ typedef struct s_pda	t_pda;
 
 /*
 ** Checks if the given list of tokens is a valid expression.
-** If ouput_sequence, every states are displayed to STDERR_FILENO.
 ** Returns 1 if the expression is valid, 0 if invalid, -1 if multiline.
 */
-int		msh_is_valid(t_list *tokens, bool ouput_sequence);
+int		msh_is_valid(t_list *tokens);
 
 /*
 ** Expands all tokens of type TOKEN_WORD into arguments.
@@ -131,7 +130,6 @@ void	msh_token_print(t_token *token);
 
 /*
 ** Creates a list of tokens from a string.
-** Allocates memory only for tokens of type TOKEN_WORD or TOKEN_MULTILINE.
 ** Returns the new list of tokens.
 */
 t_list	*msh_tokenize(const char *string);

@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/06 13:25:49 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/17 16:16:23 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/17 18:08:33 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,11 @@
 # include "termcaps.h"
 
 /*
-** dump_states: show states when tokens are checked in the finite state machine.
 ** dump_tokens:	show the tokenization process
 */
 typedef struct s_option	t_option;
 struct	s_option
 {
-	bool	dump_states;
 	bool	dump_tokens;
 };
 

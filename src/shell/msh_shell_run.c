@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 18:35:11 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/17 17:18:21 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/17 18:24:12 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,17 @@
 
 static bool	read_cmd(t_shell *s, const char *str)
 {
-	t_list *l;
+	t_list	*l;
+	int		r;
 
 	if (!(l = msh_tokenize(str)))
 		return (true);
-	if (s->opt.dump_tokens)
-		ft_list_print(l, (t_gprint) & msh_token_print);
-	if (!msh_is_valid(l, s->opt.dump_states))
+	if (!(r = msh_is_valid(l)) || r < 0)
+	{
+		if (r < 0)
+			msh_perror("warning: Unsupported multiline commands");
 		return (!ft_list_clear(&l, (t_gfunction) & msh_token_clear));
+	}
 	msh_parse_words(l, s->env);
 	if (s->opt.dump_tokens)
 		ft_list_print(l, (t_gprint) & msh_token_print);
