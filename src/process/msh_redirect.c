@@ -3,16 +3,59 @@
 /*                                                        :::      ::::::::   */
 /*   msh_redirect.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 19:51:50 by gdinet            #+#    #+#             */
-/*   Updated: 2020/09/16 20:34:49 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/09/18 15:34:14 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
+#include <stdlib.h>
 #include "process.h"
 
-void	msh_redirect(t_process *process)
+void	msh_change_fd(t_redirection *r)
 {
-	(void)process;
+	int fd;
+
+	if (r->type == INPUT)
+	{
+		fd = open(r->path, O_RDONLY);
+		dup2(fd, 0);
+		close(fd);
+	}
+	else if (r->type == OUTPUT)
+	{
+		fd = open(r->path, O_WRONLY | O_CREAT | O_TRUNC);
+		dup2(fd, 1);
+		close(fd);
+	}
+	else if (r->type == APPENDING_OUTPUT)
+	{
+		fd = open(r->path, O_WRONLY | O_CREAT | O_APPEND)
+		dup2(fd, 1);
+		close(fd);
+	}
+}
+
+void	msh_redirect(t_process *process, t_list *env)
+{
+	pid_t			pid;
+	t_list			r;
+
+	if ((pid = fork()) == -1)
+		msh_abort("process");
+	else if (pid == 0)
+	{
+		r = process->redirection;
+		while (r)
+		{
+			msh_change_fd(r->content)
+			r = r->next;
+		}
+		execve(process->argv[0], process->argv + 1,
+				(char **)(ft_list_to_array(env)));
+		exit(0);
+	}
+	wait(NULL);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_pipe.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 19:07:29 by gdinet            #+#    #+#             */
-/*   Updated: 2020/09/17 15:25:22 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/18 15:03:41 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include "process.h"
 #include "utils.h"
 
-void	msh_pipe(t_list *process)
+void	msh_pipe(t_list *process, t_list *env)
 {
 	pid_t	pid;
 	int		p[2];
@@ -34,7 +34,7 @@ void	msh_pipe(t_list *process)
 			if (process->next != NULL)
 				dup2(p[1], 1);
 			close(p[0]);
-			msh_redirect(process->content);
+			msh_redirect(process->content, env);
 			exit(0);
 		}
 		wait(NULL);
