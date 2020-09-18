@@ -6,11 +6,12 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 18:35:11 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/17 18:24:12 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/18 14:22:08 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
+#include "ast.h"
 #include "const.h"
 #include "parser.h"
 #include "shell.h"
@@ -32,6 +33,7 @@ static bool	read_cmd(t_shell *s, const char *str)
 	msh_parse_words(l, s->env);
 	if (s->opt.dump_tokens)
 		ft_list_print(l, (t_gprint) & msh_token_print);
+	//l = msh_ast_build(l);
 	str = msh_token(l)->type == TOKEN_WORD && !ft_list_at(l, 1) ?
 	msh_token(l)->value : "";
 	if (!ft_strcmp(str, "exit"))

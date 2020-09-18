@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_process_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 18:24:00 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/16 20:38:25 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/09/18 13:54:27 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,20 @@
 #include "utils.h"
 #include "libft.h"
 
-void			msh_redirection_clear(t_redirection *r)
+void				msh_redirect_clear(t_redirection *r)
 {
 	free(r->path);
 	free(r);
 }
 
-void			msh_process_clear(t_process *p)
+void				msh_process_clear(t_process *p)
 {
 	free(p->argv);
-	ft_list_clear(&(p->redirection), (t_gfunction) & msh_redirection_clear);
+	ft_list_clear(&(p->redirection), (t_gfunction) & msh_redirect_clear);
 	free(p);
 }
 
-t_process		*msh_process_new(char **argv, t_list *redirection)
+t_process			*msh_process_new(char **argv, t_list *redirection)
 {
 	t_process *p;
 
@@ -39,7 +39,7 @@ t_process		*msh_process_new(char **argv, t_list *redirection)
 	return (p);
 }
 
-t_redirection	*msh_redirection_new(t_redirection_type type, char *path)
+t_redirection		*msh_redirect_new(t_redirection_type type, char *path)
 {
 	t_redirection	*r;
 
@@ -48,4 +48,17 @@ t_redirection	*msh_redirection_new(t_redirection_type type, char *path)
 	r->type = type;
 	r->path = path;
 	return (r);
+}
+
+t_redirection_type	msh_redirect_type(const char *value)
+{
+	if (!ft_strcmp(value, "<"))
+		return (INPUT);
+	else if (!ft_strcmp(value, "<<"))
+		return (HEREDOC_INPUT);
+	else if (!ft_strcmp(value, ">"))
+		return (OUTPUT);
+	else if (!ft_strcmp(value, ">>"))
+		return (APPENDING_OUTPUT);
+	return (-1);
 }

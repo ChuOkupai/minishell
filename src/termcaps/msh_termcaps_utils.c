@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 18:20:46 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/17 17:47:24 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/18 12:38:43 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,15 @@ t_term	*msh_termcaps_init(const char *termtype)
 	return (term);
 }
 
+/*
+** Temporary to prevent false positive with valgrind.
+*/
+
 void	msh_termcaps_update(t_term *term)
 {
 	int r;
 
+	return ;
 	if (!(r = tgetent(term->buffer, term->type)))
 		msh_perror("Terminal type `%s' is not defined.", term->type);
 	else if (r < 0)

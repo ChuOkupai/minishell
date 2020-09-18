@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/11 17:26:20 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/17 18:15:32 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/18 14:22:36 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int			msh_is_valid(t_list *tokens)
 		{ 2, 1, TOKEN_WORD, 0 },
 		{ 3, 1, TOKEN_WORD, 0 }, { 3, 2, TOKEN_REDIRECT, 0 },
 		{ 4, 1, TOKEN_WORD, 0 }, { 4, 2, TOKEN_REDIRECT, 0 },
-		{ 4, 5, TOKEN_LEFT_PAR, STACK_PUSH },
+		{ 4, 4, TOKEN_LEFT_PAR, STACK_PUSH },
 		{ 5, 0, TOKEN_SEMICOLON, STACK_EMPTY }, { 5, 4, TOKEN_LOGICAL_OP, 0 },
 		{ 5, 5, TOKEN_RIGHT_PAR, STACK_POP }
 	};

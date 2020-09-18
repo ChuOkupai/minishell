@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 01:57:36 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/16 20:40:47 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/09/18 13:54:09 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 /*
 ** All existing redirections.
 */
-enum			e_redirection_type
+enum				e_redirection_type
 {
 	INPUT,
 	HEREDOC_INPUT,
@@ -31,7 +31,7 @@ typedef enum e_redirection_type	t_redirection_type;
 ** type:	type of the redirection
 ** path:	path to the redirected file
 */
-struct			s_redirection
+struct				s_redirection
 {
 	t_redirection_type	type;
 	char				*path;
@@ -43,7 +43,7 @@ typedef struct s_redirection	t_redirection;
 ** argv:		an array which contains command arguments
 ** redirection:	a list which contains redirections
 */
-struct			s_process
+struct				s_process
 {
 	char	**argv;
 	t_list	*redirection;
@@ -53,31 +53,37 @@ typedef struct s_process		t_process;
 /*
 ** Free a single redirection.
 */
-void			msh_redirection_clear(t_redirection *r);
+void				msh_redirect_clear(t_redirection *r);
 
 /*
 ** Creates a new redirection.
 */
-t_redirection	*msh_redirection_new(t_redirection_type type, char *path);
+t_redirection		*msh_redirect_new(t_redirection_type type, char *path);
+
+/*
+** Get the redirection type from a string.
+** Returns -1 if unknown.
+*/
+t_redirection_type	msh_redirect_type(const char *value);
 
 /*
 ** Free a single process.
 */
-void			msh_process_clear(t_process *p);
+void				msh_process_clear(t_process *p);
 
 /*
 ** Creates a new single process.
 */
-t_process		*msh_process_new(char **argv, t_list *redirection);
+t_process			*msh_process_new(char **argv, t_list *redirection);
 
 /*
 ** Pipe a list of process.
 */
-void			msh_pipe(t_list *process);
+void				msh_pipe(t_list *process);
 
 /*
 ** Redirect and execute a process
 */
-void			msh_redirect(t_process *process);
+void				msh_redirect(t_process *process);
 
 #endif

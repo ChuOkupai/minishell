@@ -6,7 +6,7 @@
 #    By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/27 16:09:01 by asoursou          #+#    #+#              #
-#    Updated: 2020/09/17 17:51:44 by asoursou         ###   ########.fr        #
+#    Updated: 2020/09/18 12:24:19 by asoursou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,8 @@ DIRS	:= $(addprefix $(BUILD)/, $(SUB_DIR))
 
 # FILES
 NAME	:= minishell
-SUB_SRC	:= msh_ast_utils.c
+SUB_SRC	:= msh_ast_build.c \
+		   msh_ast_utils.c
 SRC		:= $(addprefix ast/, $(SUB_SRC))
 SUB_SRC	:= msh_env_new.c \
 		   msh_env_utils.c

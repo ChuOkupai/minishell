@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 01:49:16 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/17 18:36:49 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/18 13:32:23 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ t_ast	*msh_ast(t_btree *element)
 
 void	msh_ast_clear(t_ast *node)
 {
+	if (node->type == AST_PROCESS)
+		ft_list_clear(&node->sequence, (t_gfunction) & msh_process_clear);
 	free(node);
 }
 
@@ -36,5 +38,14 @@ t_ast	*msh_ast_new(t_ast_type type)
 	if (!(a = malloc(sizeof(t_ast))))
 		msh_abort("ast");
 	a->type = type;
+	a->sequence = NULL;
 	return (a);
+}
+
+void	msh_ast_print(t_ast *node)
+{
+	if (node->type == AST_PROCESS)
+		ft_printf("process sequence");
+	else
+		ft_printf(node->type == AST_AND ? "AND" : "OR");
 }

@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/07 14:24:41 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/17 20:24:56 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/18 12:48:16 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 /*
 ** Tries to find a token from the lexer in the given string s.
 ** Returns the address of the static token if found in the lexer.
+** Operator precedence for TOKEN_LOGICAL_OP is determined by their position.
 ** Returns NULL if the token is of type TOKEN_WORD.
 */
 
@@ -31,8 +32,8 @@ static t_token	*find_in_lexer(const char *s)
 		{ TOKEN_REDIRECT, ">", 1 },
 		{ TOKEN_REDIRECT, "<<", 2 },
 		{ TOKEN_REDIRECT, ">>", 2 },
-		{ TOKEN_LOGICAL_OP, "&&", 2 },
-		{ TOKEN_LOGICAL_OP, "||", 2 }
+		{ TOKEN_LOGICAL_OP, "||", 2 },
+		{ TOKEN_LOGICAL_OP, "&&", 2 }
 	};
 	size_t					i;
 
