@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/11 16:12:37 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/17 17:26:20 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/18 15:55:40 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,6 @@
 #include <unistd.h>
 #include "libft/ft_stdio.h"
 #include "const.h"
-
-int		msh_compare_pointer(const void *a, const void *b)
-{
-	return (a != b);
-}
 
 void	msh_abort(const char *section)
 {

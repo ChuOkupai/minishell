@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 01:49:16 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/18 13:32:23 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/18 18:16:58 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,29 @@
 #include "ast.h"
 #include "utils.h"
 
-t_btree	*msh_ast_node(t_list *element)
+t_btree	*msh_astnode(t_list *element)
 {
 	return (element ? element->content : NULL);
+}
+
+void	msh_astnode_print(t_btree *node, int deep)
+{
+	t_ast *a;
+
+	if (!node)
+		return ;
+	a = msh_ast(node);
+	if (deep)
+		ft_printf("%*c ", 2 * deep, ' ');
+	if (a->type == AST_PROCESS)
+	{
+		ft_putendl("PROCESS");
+		ft_list_print(a->sequence, (t_gprint) & msh_process_print);
+	}
+	else
+		ft_putendl(a->type == AST_AND ? "AND" : "OR");
+	msh_astnode_print(node->left, ++deep);
+	msh_astnode_print(node->right, deep);
 }
 
 t_ast	*msh_ast(t_btree *element)
@@ -24,28 +44,11 @@ t_ast	*msh_ast(t_btree *element)
 	return (element ? element->content : NULL);
 }
 
-void	msh_ast_clear(t_ast *node)
+t_ast_type	msh_ast_type(const char *value)
 {
-	if (node->type == AST_PROCESS)
-		ft_list_clear(&node->sequence, (t_gfunction) & msh_process_clear);
-	free(node);
-}
-
-t_ast	*msh_ast_new(t_ast_type type)
-{
-	t_ast *a;
-
-	if (!(a = malloc(sizeof(t_ast))))
-		msh_abort("ast");
-	a->type = type;
-	a->sequence = NULL;
-	return (a);
-}
-
-void	msh_ast_print(t_ast *node)
-{
-	if (node->type == AST_PROCESS)
-		ft_printf("process sequence");
-	else
-		ft_printf(node->type == AST_AND ? "AND" : "OR");
+	if (!ft_strcmp(value, "&&"))
+		return (AST_AND);
+	else if (!ft_strcmp(value, "||"))
+		return (AST_OR);
+	return (AST_PROCESS);
 }

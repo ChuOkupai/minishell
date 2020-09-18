@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_process_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 18:24:00 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/18 16:01:09 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/18 18:15:21 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@ void				msh_redirect_clear(t_redirection *r)
 
 void				msh_process_clear(t_process *p)
 {
+	char **argv;
+
+	argv = p->argv;
+	while (*argv)
+		free(*argv++);
 	free(p->argv);
 	ft_list_clear(&(p->redirection), (t_gfunction) & msh_redirect_clear);
 	free(p);
@@ -66,26 +71,29 @@ t_redirection_type	msh_redirect_type(const char *value)
 void				msh_print_redirection(t_redirection *r)
 {
 	if (r->type == INPUT)
-		ft_printf(" < %s", r->path);
+		ft_printf("< %s", r->path);
 	else if (r->type == HEREDOC_INPUT)
-		ft_printf(" << %s", r->path);
+		ft_printf("<< %s", r->path);
 	else if (r->type == OUTPUT)
-		ft_printf(" > %s", r->path);
+		ft_printf("> %s", r->path);
 	else if (r->type == APPENDING_OUTPUT)
-		ft_printf(" >> %s", r->path);
+		ft_printf(">> %s", r->path);
 }
 
-void				msh_print_process(t_process *p)
+
+void				msh_process_print(t_process *p)
 {
-	int i;
+	size_t i;
+	size_t n;
 
 	i = 0;
-	while (p->argv[i])
-		ft_printf("%s ", p->argv[i++]);
+	n = ft_memsize((void **)p->argv);
+	ft_putchar('(');
+	while (i < n)
+	{
+		ft_printf("%s%c", p->argv[i], (i + 1 == n ? ')' : ' '));
+		++i;
+	}
+	ft_putchar(' ');
 	ft_list_print(p->redirection, (t_gprint) & msh_print_redirection);
-}
-
-void				msh_print_process_lst(t_list *process)
-{
-	ft_list_print(process, (t_gprint) & msh_print_process);
 }

@@ -6,13 +6,12 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 18:21:20 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/17 20:24:51 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/18 15:56:12 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "environment.h"
-#include "utils.h"
 
 static t_list	*search(t_list *env, const char *name)
 {
@@ -56,5 +55,5 @@ void			msh_env_unset(t_list **env, const char *name)
 	t_list *l;
 
 	if ((l = search(*env, name)))
-		ft_list_remove_one(env, l->content, &msh_compare_pointer, &free);
+		ft_list_remove_one(env, l->content, &ft_compare_pointer, &free);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 01:57:36 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/18 16:02:14 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/18 17:59:31 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,9 @@ void				msh_process_clear(t_process *p);
 t_process			*msh_process_new(char **argv, t_list *redirection);
 
 /*
-** Print a full list of process.
+** Print a single process.
 */
-void				msh_print_process_lst(t_list *process);
+void				msh_process_print(t_process *process);
 
 /*
 ** Pipe a list of process.
