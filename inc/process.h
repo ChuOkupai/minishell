@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 01:57:36 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/18 15:52:29 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/18 16:02:14 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,11 @@ void				msh_print_process_lst(t_list *process);
 /*
 ** Pipe a list of process.
 */
-void				msh_pipe(t_list *process);
+void				msh_pipe(t_list *process, t_list *env);
 
 /*
 ** Redirect and execute a process
 */
-void				msh_redirect(t_process *process);
+void				msh_redirect(t_process *process, t_list *env);
 
 #endif

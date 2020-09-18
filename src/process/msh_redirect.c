@@ -6,13 +6,18 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 19:51:50 by gdinet            #+#    #+#             */
-/*   Updated: 2020/09/18 15:34:14 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/18 16:15:19 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdlib.h>
+#include <fcntl.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <sys/stat.h>
 #include "process.h"
+#include "utils.h"
 
 void	msh_change_fd(t_redirection *r)
 {
@@ -26,13 +31,13 @@ void	msh_change_fd(t_redirection *r)
 	}
 	else if (r->type == OUTPUT)
 	{
-		fd = open(r->path, O_WRONLY | O_CREAT | O_TRUNC);
+		fd = open(r->path, O_WRONLY | O_CREAT | O_TRUNC, 00755);
 		dup2(fd, 1);
 		close(fd);
 	}
 	else if (r->type == APPENDING_OUTPUT)
 	{
-		fd = open(r->path, O_WRONLY | O_CREAT | O_APPEND)
+		fd = open(r->path, O_WRONLY | O_CREAT | O_APPEND, 00755);
 		dup2(fd, 1);
 		close(fd);
 	}
@@ -41,7 +46,7 @@ void	msh_change_fd(t_redirection *r)
 void	msh_redirect(t_process *process, t_list *env)
 {
 	pid_t			pid;
-	t_list			r;
+	t_list			*r;
 
 	if ((pid = fork()) == -1)
 		msh_abort("process");
@@ -50,7 +55,7 @@ void	msh_redirect(t_process *process, t_list *env)
 		r = process->redirection;
 		while (r)
 		{
-			msh_change_fd(r->content)
+			msh_change_fd(r->content);
 			r = r->next;
 		}
 		execve(process->argv[0], process->argv + 1,

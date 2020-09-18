@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 18:24:00 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/18 15:55:03 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/18 16:01:09 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,11 @@ void				msh_print_redirection(t_redirection *r)
 	if (r->type == INPUT)
 		ft_printf(" < %s", r->path);
 	else if (r->type == HEREDOC_INPUT)
-		ft_putstr(" << %s", r->path);
+		ft_printf(" << %s", r->path);
 	else if (r->type == OUTPUT)
-		ft_putstr(" > %s", r->path);
+		ft_printf(" > %s", r->path);
 	else if (r->type == APPENDING_OUTPUT)
-		ft_putstr(" >> %s", r->path);
+		ft_printf(" >> %s", r->path);
 }
 
 void				msh_print_process(t_process *p)
