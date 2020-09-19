@@ -6,7 +6,7 @@
 #    By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/27 16:09:01 by asoursou          #+#    #+#              #
-#    Updated: 2020/09/18 15:25:05 by asoursou         ###   ########.fr        #
+#    Updated: 2020/09/19 13:43:06 by asoursou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,10 +31,11 @@ DIRS	:= $(addprefix $(BUILD)/, $(SUB_DIR))
 
 # FILES
 NAME	:= minishell
-SUB_SRC	:= msh_ast_alloc.c \
-		   msh_ast_build_seq.c \
+SUB_SRC	:= msh_ast_build_seq.c \
 		   msh_ast_build.c \
-		   msh_ast_utils.c
+		   msh_ast_utils.c \
+		   msh_astnode_alloc.c \
+		   msh_astnode_utils.c
 SRC		:= $(addprefix ast/, $(SUB_SRC))
 SUB_SRC	:= msh_env_new.c \
 		   msh_env_utils.c
@@ -44,7 +45,8 @@ SUB_SRC	:= msh_is_valid.c \
 		   msh_token_utils.c \
 		   msh_tokenize.c
 SRC		+= $(addprefix parser/, $(SUB_SRC))
-SUB_SRC	:= msh_process_utils.c \
+SUB_SRC	:= msh_process_alloc.c \
+		   msh_process_utils.c \
 		   msh_pipe.c \
 		   msh_redirect.c
 SRC		+= $(addprefix process/, $(SUB_SRC))

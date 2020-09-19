@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 14:03:23 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/18 17:27:46 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/19 13:54:12 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	create_pipeline(t_list **l, t_list **seq, t_list **argv,
 	*redir = NULL;
 }
 
-t_list		*msh_ast_build_seq(t_list **l)
+t_list		*msh_ast_seq(t_list **l)
 {
 	t_list		*seq;
 	t_list		*argv;

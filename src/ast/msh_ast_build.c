@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/17 18:34:01 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/18 17:42:37 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/19 13:35:49 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,8 @@ static void		push_priority_op(t_list **l, t_list **out, t_list **stack,
 	s = *stack;
 	while (s && msh_token(s)->type == TOKEN_LOGICAL_OP && (void*)t < s->content)
 	{
-		a = msh_ast_new(msh_ast_type(msh_token(s)->value), NULL);
-		free(ft_list_pushl(out, ft_list_popl(&s))->content);
-		(*out)->content = a;
+		a = msh_astnode_new(msh_ast_type(msh_token(s)->value), NULL);
+		ft_list_pushl(out, ft_list_popl(&s))->content = a;
 	}
 	ft_list_pushl(&s, ft_list_popl(l));
 	*stack = s;
@@ -44,9 +43,8 @@ static void		push_right_par(t_list **l, t_list **out, t_list **stack)
 	s = *stack;
 	while (s && msh_token(s)->type != TOKEN_LEFT_PAR)
 	{
-		a = msh_ast_new(msh_ast_type(msh_token(s)->value), NULL);
-		free(ft_list_pushl(out, ft_list_popl(&s))->content);
-		(*out)->content = a;
+		a = msh_astnode_new(msh_ast_type(msh_token(s)->value), NULL);
+		ft_list_pushl(out, ft_list_popl(&s))->content = a;
 	}
 	ft_list_pop(l, (t_gfunction) & msh_token_clear);
 	ft_list_pop(&s, (t_gfunction) & msh_token_clear);
@@ -63,6 +61,7 @@ static t_list	*convert(t_list **l)
 	t_list	*out;
 	t_list	*stack;
 	t_token	*t;
+	t_btree	*a;
 
 	out = NULL;
 	stack = NULL;
@@ -72,17 +71,36 @@ static t_list	*convert(t_list **l)
 		else if (t->type == TOKEN_RIGHT_PAR)
 			push_right_par(l, &out, &stack);
 		else if (t->type == TOKEN_WORD || t->type == TOKEN_REDIRECT)
-			ft_list_push(&out, msh_ast_new(AST_PROCESS, msh_ast_build_seq(l)));
+			ft_list_push(&out, msh_astnode_new(AST_PROCESS, msh_ast_seq(l)));
 		else
 			ft_list_pushl(&stack, ft_list_popl(l));
-	while (stack && msh_token(stack)->type != TOKEN_LEFT_PAR)
-		ft_list_pushl(&out, ft_list_popl(&stack));
+	while (stack)
+	{
+		a = msh_astnode_new(msh_ast_type(msh_token(stack)->value), NULL);
+		ft_list_pushl(&out, ft_list_popl(&stack))->content = a;
+	}
 	return (ft_list_rev(out));
 }
 
 static t_list	*build_tree(t_list *l)
 {
-	return (l);
+	t_list	*stack;
+	t_ast	*ast;
+	t_btree	*right;
+	t_btree	*left;
+
+	stack = NULL;
+	while (l)
+	{
+		if ((ast = msh_ast(l->content))->type != AST_PROCESS)
+		{
+			right = ft_list_pop(&stack, NULL);
+			left = ft_list_pop(&stack, NULL);
+			l->content = ft_btree_merge(l->content, left, right);
+		}
+		ft_list_pushl(&stack, ft_list_popl(&l));
+	}
+	return (stack);
 }
 
 t_list			*msh_ast_build(t_list *tokens)
@@ -94,15 +112,6 @@ t_list			*msh_ast_build(t_list *tokens)
 		if (msh_token(tokens)->type == TOKEN_SEMICOLON)
 			ft_list_pop(&tokens, (t_gfunction) & msh_token_clear);
 		else
-			asts = ft_list_merge(asts, build_tree(convert(&tokens)));
-	asts = ft_list_rev(asts);
-	while (asts)
-	{
-		ft_putendl("AST:");
-		msh_astnode_print(asts->content, 0);
-		ft_btree_clear((t_btree **)(&asts->content),
-		(t_gfunction) & msh_ast_clear);
-		ft_list_pop(&asts, NULL);
-	}
-	return (asts);
+			ft_list_pushl(&asts, build_tree(convert(&tokens)));
+	return (ft_list_rev(asts));
 }

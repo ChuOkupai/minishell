@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msh_ast_alloc.c                                    :+:      :+:    :+:   */
+/*   msh_astnode_alloc.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 14:42:43 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/18 16:37:21 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/19 13:31:22 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,27 @@
 #include "ast.h"
 #include "utils.h"
 
-void	msh_ast_clear(t_ast *node)
+static void	ast_clear(t_ast *a)
 {
-	if (node->type == AST_PROCESS)
-		ft_list_clear(&node->sequence, (t_gfunction) & msh_process_clear);
-	free(node);
+	if (a->type == AST_PROCESS)
+		ft_list_clear(&a->sequence, (t_gfunction) & msh_process_clear);
+	free(a);
 }
 
-t_btree	*msh_ast_new(t_ast_type type, t_list *sequence)
+void		*msh_astnode_clear(t_list *l)
+{
+	t_btree *b;
+
+	while (l)
+	{
+		b = msh_astnode(l);
+		ft_btree_clear(&b, (t_gfunction) & ast_clear);
+		ft_list_pop(&l, NULL);
+	}
+	return (NULL);
+}
+
+t_btree		*msh_astnode_new(t_ast_type type, t_list *sequence)
 {
 	t_ast *a;
 

@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/06 13:25:49 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/17 18:08:33 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/19 13:10:43 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,13 @@
 
 /*
 ** dump_tokens:	show the tokenization process
+** dump_ast:	show the AST before execution
 */
 typedef struct s_option	t_option;
 struct	s_option
 {
 	bool	dump_tokens;
+	bool	dump_ast;
 };
 
 /*

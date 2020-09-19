@@ -1,35 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msh_ast_utils.c                                    :+:      :+:    :+:   */
+/*   msh_astnode_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/10 01:49:16 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/19 13:42:02 by asoursou         ###   ########.fr       */
+/*   Created: 2020/09/19 13:18:30 by asoursou          #+#    #+#             */
+/*   Updated: 2020/09/19 13:28:52 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "ast.h"
 
-t_ast		*msh_ast(t_btree *element)
+t_btree	*msh_astnode(t_list *element)
 {
 	return (element ? element->content : NULL);
 }
 
-void		msh_ast_print(t_ast *a)
+void	msh_astnode_print(t_btree *node)
 {
-	if (a->type == AST_PROCESS)
-		ft_putstr("SEQUENCE");
-	else
-		ft_putstr(a->type == AST_AND ? "AND" : "OR");
-}
+	t_ast *a;
 
-t_ast_type	msh_ast_type(const char *value)
-{
-	if (!ft_strcmp(value, "&&"))
-		return (AST_AND);
-	else if (!ft_strcmp(value, "||"))
-		return (AST_OR);
-	return (-1);
+	if (!node)
+		return ;
+	if ((a = msh_ast(node))->type == AST_PROCESS)
+	{
+		ft_putstr((ft_list_size(a->sequence) > 1 ? "pipeline" : "command"));
+		return ;
+	}
+	ft_putstr(a->type == AST_AND ? "AND(" : "OR(");
+	msh_astnode_print(node->left);
+	ft_putstr(", ");
+	msh_astnode_print(node->right);
+	ft_putchar(')');
 }

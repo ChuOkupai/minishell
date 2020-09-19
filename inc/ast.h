@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 01:05:52 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/18 16:47:17 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/19 13:32:07 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,26 @@ struct		s_ast
 typedef struct s_ast	t_ast;
 
 /*
+** Clear a list of ASTs.
+** Returns NULL.
+*/
+void		*msh_astnode_clear(t_list *asts);
+
+/*
 ** Get the AST node stored in a list of ASTs.
 ** Returns NULL if the element does not exist.
 */
 t_btree		*msh_astnode(t_list *element);
 
 /*
+** Creates a new AST node.
+*/
+t_btree		*msh_astnode_new(t_ast_type type, t_list *sequence);
+
+/*
 ** Prints an AST node to the standard ouput.
 */
-void		msh_astnode_print(t_btree *node, int deep);
+void		msh_astnode_print(t_btree *node);
 
 /*
 ** Get the AST content stored in a t_btree node.
@@ -60,7 +71,7 @@ t_ast		*msh_ast(t_btree *element);
 ** Utility function used in msh_ast_build.
 ** Returns a list of process.
 */
-t_list		*msh_ast_build_seq(t_list **tokens);
+t_list		*msh_ast_seq(t_list **tokens);
 
 /*
 ** Build a list of ASTs from a list of valid tokens.
@@ -69,17 +80,13 @@ t_list		*msh_ast_build_seq(t_list **tokens);
 t_list		*msh_ast_build(t_list *tokens);
 
 /*
-** Free an AST node.
+** Prints an AST to the standard ouput.
 */
-void		msh_ast_clear(t_ast *node);
+void		msh_ast_print(t_ast *a);
 
 /*
-** Creates a new AST node.
-*/
-t_btree		*msh_ast_new(t_ast_type type, t_list *sequence);
-
-/*
-** Get the AST node type from a string.
+** Get the AST type from a string.
+** Returns -1 if unknown.
 */
 t_ast_type	msh_ast_type(const char *value);
 

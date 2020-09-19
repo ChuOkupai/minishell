@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 18:35:11 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/18 17:37:21 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/19 13:25:03 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ static bool	read_cmd(t_shell *s, const char *str)
 		return (ft_list_clear(&l, (t_gfunction) & msh_token_clear));
 	if (!ft_strcmp(str, "env"))
 		ft_list_foreach(s->env, (t_gfunction) & ft_putendl);
-	return (!msh_ast_build(l));
+	l = msh_ast_build(l);
+	if (s->opt.dump_ast)
+		ft_list_print(l, (t_gprint) & msh_astnode_print);
+	return (!msh_astnode_clear(l));
 }
 
 int			msh_shell_run(t_shell *s)
