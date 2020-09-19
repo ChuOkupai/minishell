@@ -6,13 +6,19 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 17:44:27 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/17 16:31:23 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/19 14:48:19 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ENVIRONMENT_H
 # define ENVIRONMENT_H
 # include "libft.h"
+
+/*
+** Expands a string using the given environment.
+** Returns a new allocated string or NULL on failure.
+*/
+char		*msh_env_expand(t_list *env, char *s);
 
 /*
 ** Searches the environment list to find the environment variable name,

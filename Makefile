@@ -6,7 +6,7 @@
 #    By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/27 16:09:01 by asoursou          #+#    #+#              #
-#    Updated: 2020/09/19 13:43:06 by asoursou         ###   ########.fr        #
+#    Updated: 2020/09/19 14:35:32 by asoursou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,8 @@ SUB_SRC	:= msh_ast_build_seq.c \
 		   msh_astnode_alloc.c \
 		   msh_astnode_utils.c
 SRC		:= $(addprefix ast/, $(SUB_SRC))
-SUB_SRC	:= msh_env_new.c \
+SUB_SRC	:= msh_env_expand.c \
+		   msh_env_new.c \
 		   msh_env_utils.c
 SRC		+= $(addprefix environment/, $(SUB_SRC))
 SUB_SRC	:= msh_is_valid.c \

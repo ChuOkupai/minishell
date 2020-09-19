@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/06 13:25:49 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/19 13:10:43 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/19 14:31:47 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ struct	s_option
 ** term;	structure for termcaps
 ** keep:	loop as long as this variable is set to true
 ** opt:		set of enabled options
+** ps1:		primary prompt value
 */
 typedef struct s_shell	t_shell;
 struct	s_shell
@@ -43,6 +44,7 @@ struct	s_shell
 	t_term		*term;
 	bool		keep;
 	t_option	opt;
+	char		*ps1;
 };
 
 /*

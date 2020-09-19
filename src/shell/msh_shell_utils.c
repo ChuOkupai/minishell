@@ -6,12 +6,13 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/11 16:10:33 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/19 13:21:48 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/19 14:50:23 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <unistd.h>
+#include "const.h"
 #include "environment.h"
 #include "shell.h"
 #include "utils.h"
@@ -38,6 +39,7 @@ void		*msh_shell_clear(t_shell *shell)
 		if (shell->stdin)
 			ft_fclose(shell->stdin);
 		msh_termcaps_clear(shell->term);
+		ft_memdel(shell->ps1);
 		free(shell);
 	}
 	return (NULL);
@@ -45,7 +47,8 @@ void		*msh_shell_clear(t_shell *shell)
 
 t_shell		*msh_shell_new(int ac, char **av, char **env)
 {
-	t_shell *shell;
+	t_shell	*shell;
+	char	*s;
 
 	if (!(shell = ft_calloc(1, sizeof(t_shell))))
 		return (NULL);
@@ -54,7 +57,11 @@ t_shell		*msh_shell_new(int ac, char **av, char **env)
 	if (!shell->stdin)
 		return (msh_shell_clear(shell));
 	shell->term = msh_termcaps_init(msh_env_get(shell->env, "TERM"));
-	if (!shell->term)
+	if (!shell->term || !(s = ft_strdup(MSH_PS1)))
+		return (msh_shell_clear(shell));
+	shell->ps1 = msh_env_expand(shell->env, s);
+	ft_memdel(s);
+	if (!shell->ps1)
 		return (msh_shell_clear(shell));
 	parse_opt(&shell->opt, ac, av);
 	return (shell);
