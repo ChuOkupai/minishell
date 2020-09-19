@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 18:21:20 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/18 15:56:12 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/19 15:10:05 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int				msh_env_set(t_list **env, const char *name, const char *value)
 
 	if (!(s = ft_strjoin3(name, "=", value)))
 		return (-1);
-	if (!(l = search(*env, name)))
+	if ((l = search(*env, name)))
 	{
 		ft_memdel(l->content);
 		l->content = s;
