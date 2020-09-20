@@ -8,3 +8,4 @@ Collection of malicious tests:
 < f # with non readable file
 (echo 1 && echo 2) > f # fail with minishell?
 echo ;;
+echo $ \$USER $USER '$' '\$' '\$USER' '$USER' "$" "\$" "\$USER" "$USER"

@@ -6,11 +6,12 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/19 14:33:18 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/19 14:48:13 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/20 19:22:57 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include "const.h"
 #include "environment.h"
 
 static size_t	parse_variable(char **dst, char **src, t_list *env)
@@ -22,14 +23,14 @@ static size_t	parse_variable(char **dst, char **src, t_list *env)
 
 	s = *src + 1;
 	i = 0;
-	while (s[i] && ft_isalnum(s[i]) && !ft_strchr("\"'\\$", s[i]))
+	while (s[i] && ft_isalnum(s[i]) && !ft_strchr(MSH_STOKEN, s[i]))
 		++i;
 	tmp = s[i];
 	s[i] = '\0';
-	value = i ? msh_env_get(env, s) : NULL;
+	value = i ? msh_env_get(env, s) : "$";
 	s[i] = tmp;
 	*src = s + i;
-	if ((i = value ? ft_strlen(value) : 0) && *dst)
+	if ((i = ft_strlen(value)) && *dst)
 		*dst = (char *)ft_memcpy(*dst, value, i) + i;
 	return (i);
 }
@@ -65,7 +66,7 @@ static size_t	parse_word(char *d, char *s, t_list *env)
 		}
 		else
 		{
-			if (*s == '\\' && s[1])
+			if (*s == '\\' && s[1] && ft_strchr(MSH_STOKEN, s[1]))
 				++s;
 			if (d)
 				*d++ = *s;
