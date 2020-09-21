@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+         #
+#    By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/27 16:09:01 by asoursou          #+#    #+#              #
-#    Updated: 2020/09/19 14:35:32 by asoursou         ###   ########.fr        #
+#    Updated: 2020/09/21 14:42:36 by gdinet           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,8 +47,8 @@ SUB_SRC	:= msh_is_valid.c \
 		   msh_tokenize.c
 SRC		+= $(addprefix parser/, $(SUB_SRC))
 SUB_SRC	:= msh_process_alloc.c \
+		   msh_process_exec.c \
 		   msh_process_utils.c \
-		   msh_pipe.c \
 		   msh_redirect.c
 SRC		+= $(addprefix process/, $(SUB_SRC))
 SUB_SRC	:= msh_shell_run.c \

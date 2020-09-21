@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_redirect.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 19:51:50 by gdinet            #+#    #+#             */
-/*   Updated: 2020/09/19 13:52:02 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/21 14:44:31 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,48 +19,36 @@
 #include "process.h"
 #include "utils.h"
 
-void	msh_change_fd(t_redirection *r)
+static void	msh_duplicate_fd(int fd, int fd2, const char *path)
 {
-	int fd;
-
-	if (r->type == REDIR_INPUT)
-	{
-		fd = open(r->path, O_RDONLY);
-		dup2(fd, 0);
-		close(fd);
-	}
-	else if (r->type == REDIR_OUTPUT)
-	{
-		fd = open(r->path, O_WRONLY | O_CREAT | O_TRUNC, 00755);
-		dup2(fd, 1);
-		close(fd);
-	}
-	else if (r->type == REDIR_APPENDING_OUTPUT)
-	{
-		fd = open(r->path, O_WRONLY | O_CREAT | O_APPEND, 00755);
-		dup2(fd, 1);
-		close(fd);
-	}
+	if (fd == -1 || dup2(fd, fd2) == -1)
+		msh_abort(path);
+	close(fd);
 }
 
-void	msh_redirect(t_process *process, t_list *env)
+static void	msh_change_fd(t_redirection *r)
 {
-	pid_t			pid;
-	t_list			*r;
+	if (r->type == REDIR_INPUT)
+		msh_duplicate_fd(open(r->path, O_RDONLY), STDIN_FILENO, r->path);
+	else if (r->type == REDIR_OUTPUT)
+		msh_duplicate_fd(open(r->path, O_WRONLY | O_CREAT | O_TRUNC, 755),
+		STDOUT_FILENO, r->path);
+	else if (r->type == REDIR_APPENDING_OUTPUT)
+		msh_duplicate_fd(open(r->path, O_WRONLY | O_CREAT | O_APPEND, 755),
+		STDOUT_FILENO, r->path);
+}
 
-	if ((pid = fork()) == -1)
-		msh_abort("process");
-	else if (pid == 0)
+void		msh_redirect(t_process *process, t_list *env)
+{
+	t_list		*r;
+
+	r = process->redirection;
+	while (r)
 	{
-		r = process->redirection;
-		while (r)
-		{
-			msh_change_fd(r->content);
-			r = r->next;
-		}
-		execve(process->argv[0], process->argv + 1,
-				(char **)(ft_list_to_array(env)));
-		exit(0);
+		msh_change_fd(r->content);
+		r = r->next;
 	}
-	wait(NULL);
+	if ((execve(process->argv[0], process->argv + 1,
+			(char **)(ft_list_to_array(env)))) == -1)
+		msh_abort(process->argv[0]);
 }
