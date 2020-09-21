@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/06 12:59:25 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/18 15:55:48 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/21 19:42:28 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,12 @@ void	msh_abort(const char *section);
 ** Used for errors handling.
 */
 void	msh_perror(const char *format, ...);
+
+/*
+** Prints and error message using the given format.
+** Used for errors handling.
+** Returns the ret value.
+*/
+int		msh_perrorr(int ret, const char *format, ...);
 
 #endif

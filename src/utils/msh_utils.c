@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/11 16:12:37 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/18 15:55:40 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/21 19:43:30 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,16 @@ void	msh_perror(const char *format, ...)
 	ft_vdprintf(STDERR_FILENO, format, l);
 	va_end(l);
 	ft_putchar_fd('\n', STDERR_FILENO);
+}
+
+int		msh_perrorr(int ret, const char *format, ...)
+{
+	va_list l;
+
+	ft_putstr_fd(MSH ": ", STDERR_FILENO);
+	va_start(l, format);
+	ft_vdprintf(STDERR_FILENO, format, l);
+	va_end(l);
+	ft_putchar_fd('\n', STDERR_FILENO);
+	return (ret);
 }
