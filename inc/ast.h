@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 01:05:52 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/19 13:32:07 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/21 15:15:05 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ typedef struct s_ast	t_ast;
 
 /*
 ** Clear a list of ASTs.
-** Returns NULL.
 */
 void		*msh_astnode_clear(t_list *asts);
 
@@ -65,6 +64,17 @@ void		msh_astnode_print(t_btree *node);
 ** Returns NULL if the element does not exist.
 */
 t_ast		*msh_ast(t_btree *element);
+
+/*
+** Clear an AST.
+*/
+void		msh_ast_clear(t_ast *a);
+
+/*
+** Execute an AST.
+** Returns the exit status.
+*/
+int			msh_ast_exec(t_btree *root, t_list *env);
 
 /*
 ** Creates a new sequence of process from the given list of tokens.

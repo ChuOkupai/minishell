@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+         #
+#    By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/27 16:09:01 by asoursou          #+#    #+#              #
-#    Updated: 2020/09/21 14:42:36 by gdinet           ###   ########.fr        #
+#    Updated: 2020/09/21 15:04:57 by asoursou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ DIRS	:= $(addprefix $(BUILD)/, $(SUB_DIR))
 NAME	:= minishell
 SUB_SRC	:= msh_ast_build_seq.c \
 		   msh_ast_build.c \
+		   msh_ast_exec.c \
 		   msh_ast_utils.c \
 		   msh_astnode_alloc.c \
 		   msh_astnode_utils.c

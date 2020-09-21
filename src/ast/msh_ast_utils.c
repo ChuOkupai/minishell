@@ -6,15 +6,23 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 01:49:16 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/19 13:42:02 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/21 15:16:02 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "ast.h"
 
 t_ast		*msh_ast(t_btree *element)
 {
 	return (element ? element->content : NULL);
+}
+
+void		msh_ast_clear(t_ast *a)
+{
+	if (a->type == AST_PROCESS)
+		ft_list_clear(&a->sequence, (t_gfunction) & msh_process_clear);
+	free(a);
 }
 
 void		msh_ast_print(t_ast *a)

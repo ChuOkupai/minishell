@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_redirect.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 19:51:50 by gdinet            #+#    #+#             */
-/*   Updated: 2020/09/21 14:44:31 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/09/21 16:00:23 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ static void	msh_change_fd(t_redirection *r)
 	if (r->type == REDIR_INPUT)
 		msh_duplicate_fd(open(r->path, O_RDONLY), STDIN_FILENO, r->path);
 	else if (r->type == REDIR_OUTPUT)
-		msh_duplicate_fd(open(r->path, O_WRONLY | O_CREAT | O_TRUNC, 755),
+		msh_duplicate_fd(open(r->path, O_WRONLY | O_CREAT | O_TRUNC, 0755),
 		STDOUT_FILENO, r->path);
 	else if (r->type == REDIR_APPENDING_OUTPUT)
-		msh_duplicate_fd(open(r->path, O_WRONLY | O_CREAT | O_APPEND, 755),
+		msh_duplicate_fd(open(r->path, O_WRONLY | O_CREAT | O_APPEND, 0755),
 		STDOUT_FILENO, r->path);
 }
 
@@ -48,7 +48,7 @@ void		msh_redirect(t_process *process, t_list *env)
 		msh_change_fd(r->content);
 		r = r->next;
 	}
-	if ((execve(process->argv[0], process->argv + 1,
+	if ((execve(process->argv[0], process->argv,
 			(char **)(ft_list_to_array(env)))) == -1)
 		msh_abort(process->argv[0]);
 }
