@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 18:35:11 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/21 18:30:11 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/21 19:16:10 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,41 +39,41 @@ static bool	is_builtin(t_shell *s, t_list *l)
 	return (false);
 }
 
-static void	execute_cmds(t_list *l)
+static void	execute_cmds(t_list *l, t_env *env)
 {
 	t_btree	*b;
 
 	while (l)
 	{
-		b = msh_astnode(l);
+		msh_ast_exec((b = msh_astnode(l)), env);
 		ft_btree_clear(&b, (t_gfunction) & msh_ast_clear);
 		ft_list_pop(&l, NULL);
 	}
 }
 
-static bool	read_cmd(t_shell *s, const char *str)
+static void	read_cmd(t_shell *s, const char *str)
 {
 	t_list	*l;
 	int		r;
 
 	if (!(l = msh_tokenize(str)))
-		return (true);
+		return ;
 	if (!(r = msh_is_valid(l)) || r < 0)
 	{
 		if (r < 0)
 			msh_perror("warning: Unsupported multiline commands");
-		return (!ft_list_clear(&l, (t_gfunction) & msh_token_clear));
+		ft_list_clear(&l, (t_gfunction) & msh_token_clear);
+		return ;
 	}
 	msh_parse_words(l, s->env);
 	if (s->opt.dump_tokens)
 		ft_list_print(l, (t_gprint) & msh_token_print);
 	if (is_builtin(s, l))
-		return (true);
+		return ;
 	l = msh_ast_build(l);
 	if (s->opt.dump_ast)
 		ft_list_print(l, (t_gprint) & msh_astnode_print);
-	execute_cmds(l);
-	return (false);
+	execute_cmds(l, s->env);
 }
 
 int			msh_shell_run(t_shell *s)
