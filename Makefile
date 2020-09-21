@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+         #
+#    By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/27 16:09:01 by asoursou          #+#    #+#              #
-#    Updated: 2020/09/21 16:56:29 by asoursou         ###   ########.fr        #
+#    Updated: 2020/09/21 20:05:24 by gdinet           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ LDFLAGS	= -L./$(FT) -lft -ltermcap
 FT		:= libft
 BUILD	:= .build
 SUB_DIR	+= ast \
+		   builtin \
 		   environment \
 		   parser \
 		   process \
@@ -38,6 +39,10 @@ SUB_SRC	:= msh_ast_build_seq.c \
 		   msh_astnode_alloc.c \
 		   msh_astnode_utils.c
 SRC		:= $(addprefix ast/, $(SUB_SRC))
+SUB_SRC := msh_echo.c \
+		   msh_export.c \
+		   msh_pwd.c
+SRC		+= $(addprefix builtin/, $(SUB_SRC))
 SUB_SRC	:= msh_env_alloc.c \
 		   msh_env_expand.c \
 		   msh_env_utils.c
