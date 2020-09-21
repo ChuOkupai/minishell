@@ -6,14 +6,14 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 14:45:28 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/21 15:03:30 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/21 17:59:42 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ast.h"
 #include "process.h"
 
-int	msh_ast_exec(t_btree *root, t_list *env)
+int	msh_ast_exec(t_btree *root, t_env *env)
 {
 	t_ast	*a;
 	int		r;

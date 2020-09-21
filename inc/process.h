@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   process.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 01:57:36 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/21 14:42:39 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/09/21 18:00:13 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PROCESS_H
 # define PROCESS_H
-# include "libft.h"
+# include "environment.h"
 
 /*
 ** All existing redirections.
@@ -68,12 +68,12 @@ void			msh_process_print(t_process *process);
 /*
 ** Execute a pipe-lined list of process.
 */
-int				msh_process_exec(t_list *process, t_list *env);
+int				msh_process_exec(t_list *process, t_env *env);
 
 /*
 ** Redirect and execute a process
 */
-void			msh_redirect(t_process *process, t_list *env);
+void			msh_redirect(t_process *process, t_env *env);
 
 /*
 ** Free a single redirection.

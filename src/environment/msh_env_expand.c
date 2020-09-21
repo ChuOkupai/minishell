@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/19 14:33:18 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/20 19:22:57 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/21 18:27:28 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "const.h"
 #include "environment.h"
 
-static size_t	parse_variable(char **dst, char **src, t_list *env)
+static size_t	parse_variable(char **dst, char **src, t_env *env)
 {
 	char		*s;
 	size_t		i;
@@ -23,7 +23,8 @@ static size_t	parse_variable(char **dst, char **src, t_list *env)
 
 	s = *src + 1;
 	i = 0;
-	while (s[i] && ft_isalnum(s[i]) && !ft_strchr(MSH_STOKEN, s[i]))
+	while (s[i] && (ft_isalnum(s[i]) || s[i] == '_') &&
+	!ft_strchr(MSH_STOKEN, s[i]))
 		++i;
 	tmp = s[i];
 	s[i] = '\0';
@@ -47,7 +48,7 @@ static size_t	parse_single_quote(char **dst, char **src)
 	return (n);
 }
 
-static size_t	parse_word(char *d, char *s, t_list *env)
+static size_t	parse_word(char *d, char *s, t_env *env)
 {
 	bool	dq;
 	size_t	n;
@@ -76,7 +77,7 @@ static size_t	parse_word(char *d, char *s, t_list *env)
 	return (n);
 }
 
-char			*msh_env_expand(t_list *env, char *s)
+char			*msh_env_expand(t_env *env, char *s)
 {
 	char	*d;
 	size_t	n;

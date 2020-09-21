@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/11 16:10:33 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/19 14:50:23 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/21 18:18:03 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void		*msh_shell_clear(t_shell *shell)
 {
 	if (shell)
 	{
-		ft_list_clear(&shell->env, &free);
+		msh_env_clear(shell->env);
 		if (shell->stdin)
 			ft_fclose(shell->stdin);
 		msh_termcaps_clear(shell->term);
@@ -53,8 +53,7 @@ t_shell		*msh_shell_new(int ac, char **av, char **env)
 	if (!(shell = ft_calloc(1, sizeof(t_shell))))
 		return (NULL);
 	shell->env = msh_env_new(env);
-	shell->stdin = ft_fdopen(STDIN_FILENO, "r");
-	if (!shell->stdin)
+	if (!shell->env || !(shell->stdin = ft_fdopen(STDIN_FILENO, "r")))
 		return (msh_shell_clear(shell));
 	shell->term = msh_termcaps_init(msh_env_get(shell->env, "TERM"));
 	if (!shell->term || !(s = ft_strdup(MSH_PS1)))

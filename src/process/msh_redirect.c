@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 19:51:50 by gdinet            #+#    #+#             */
-/*   Updated: 2020/09/21 16:00:23 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/21 18:00:42 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	msh_change_fd(t_redirection *r)
 		STDOUT_FILENO, r->path);
 }
 
-void		msh_redirect(t_process *process, t_list *env)
+void		msh_redirect(t_process *process, t_env *env)
 {
 	t_list		*r;
 
@@ -48,7 +48,6 @@ void		msh_redirect(t_process *process, t_list *env)
 		msh_change_fd(r->content);
 		r = r->next;
 	}
-	if ((execve(process->argv[0], process->argv,
-			(char **)(ft_list_to_array(env)))) == -1)
+	if ((execve(process->argv[0], process->argv, env->array)) == -1)
 		msh_abort(process->argv[0]);
 }

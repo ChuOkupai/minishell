@@ -6,13 +6,13 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/11 17:08:34 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/17 18:20:49 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/21 17:56:48 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
-# include "libft.h"
+# include "environment.h"
 
 /*
 ** All known symbols type.
@@ -109,7 +109,7 @@ int		msh_is_valid(t_list *tokens);
 ** Expands all tokens of type TOKEN_WORD into arguments.
 ** The list of tokens MUST be valid before calling this function.
 */
-void	msh_parse_words(t_list *tokens, t_list *env);
+void	msh_parse_words(t_list *tokens, t_env *env);
 
 /*
 ** Get the token stored in a list of tokens.
