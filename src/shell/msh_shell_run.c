@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 18:35:11 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/21 19:16:10 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/26 16:05:33 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ int			msh_shell_run(t_shell *s)
 				msh_abort("readline");
 			ft_putendl(line);
 		}
+		if (s->histcursize < s->histsize)
+			ft_list_push(&s->hist, ft_strdup(line));
 		read_cmd(s, line);
 		ft_memdel(line);
 	}

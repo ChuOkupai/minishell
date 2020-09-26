@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/11 16:10:33 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/21 18:18:03 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/26 15:55:31 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void		*msh_shell_clear(t_shell *shell)
 	if (shell)
 	{
 		msh_env_clear(shell->env);
+		ft_list_clear(&shell->hist, &free);
 		if (shell->stdin)
 			ft_fclose(shell->stdin);
 		msh_termcaps_clear(shell->term);
