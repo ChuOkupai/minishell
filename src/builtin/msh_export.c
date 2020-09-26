@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 18:56:27 by gdinet            #+#    #+#             */
-/*   Updated: 2020/09/21 20:10:02 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/09/26 14:12:26 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static bool	msh_find_equal(char *arg, char *value)
 	return (false);
 }
 
-int			msh_export(char **argv, t_env *env)
+int			msh_export(char **argv, t_shell *shell)
 {
 	int			i;
 	char		*value;
@@ -75,11 +75,11 @@ int			msh_export(char **argv, t_env *env)
 		}
 		if (plus)
 		{
-			old_value = msh_env_get(env, argv[i]);
+			old_value = msh_env_get(shell->env, argv[i]);
 			value = ft_strjoin(old_value, value);
 			free(value);
 		}
-		msh_env_set(env, argv[i], value);
+		msh_env_set(shell->env, argv[i], value);
 		if (plus)
 			ft_memdel(value);
 	}

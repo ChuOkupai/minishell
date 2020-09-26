@@ -6,11 +6,12 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 16:49:41 by gdinet            #+#    #+#             */
-/*   Updated: 2020/09/21 20:07:41 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/09/26 14:15:02 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "builtin.h"
 
 static int	msh_option_n(char *arg)
 {
@@ -27,11 +28,12 @@ static int	msh_option_n(char *arg)
 	return (n);
 }
 
-int			msh_echo(char **argv)
+int			msh_echo(char **argv, t_shell *shell)
 {
 	int		i;
 	int		n;
 
+	(void)shell;
 	i = 1;
 	n = 0;
 	while (argv[i] && argv[i][0] == '-' && !(msh_option_n(argv[i])))
