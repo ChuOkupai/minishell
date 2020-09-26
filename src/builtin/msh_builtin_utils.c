@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   const.h                                            :+:      :+:    :+:   */
+/*   msh_builtin_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/06 13:03:06 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/26 17:47:04 by gdinet           ###   ########.fr       */
+/*   Created: 2020/09/26 16:28:12 by gdinet            #+#    #+#             */
+/*   Updated: 2020/09/26 16:29:39 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CONST_H
-# define CONST_H
+#include "builtin.h"
+#include "libft.h"
 
-# define MSH		"minishell"
-# define MSH_PS1	"\x1B[92m$USER\x1B[0m: \x1B[94m$SHELL\x1B[0m \\$ "
-# define MSH_PS2	"> "
+int		msh_check_name(char *name)
+{
+	int i;
 
-# define MSH_STOKEN	"'\"$~*"
-
-# define MSH_UNEXPECTED	"syntax error near unexpected token "
-
-# define MSH_PWDMAX_SIZE		8192
-
-# define MSH_TERMBUFFER_SIZE	2048
-
-#endif
+	if (!name[0] || (!ft_isalpha(name[0]) && name[0] != '_'))
+		return (0);
+	i = 1;
+	while (name[i])
+	{
+		if (!ft_isalnum(name[i]) && name[i] != '_')
+			return (0);
+	}
+	return (1);
+}

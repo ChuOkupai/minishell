@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 17:15:40 by gdinet            #+#    #+#             */
-/*   Updated: 2020/09/26 16:10:36 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/09/26 18:28:56 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 # define BUILTIN_H
 # include "environment.h"
 # include "shell.h"
+
+/*
+** Check if a variable name is valid
+*/
+int		msh_check_name(char *name);
 
 /*
 ** The echo utility writes any specified operands, separated by single blank
@@ -38,5 +43,15 @@ int		msh_export(char **argv, t_shell *shell);
 ** Change the current working directory
 */
 int		msh_cd(char **argv, t_shell *shell);
+
+/*
+** Print the list of environment variables
+*/
+int		msh_env(char **argv, t_shell *shell);
+
+/*
+** Exit the minishell
+*/
+int		exit(char **argv, t_shell *shell);
 
 #endif

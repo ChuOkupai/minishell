@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_cd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 14:34:39 by gdinet            #+#    #+#             */
-/*   Updated: 2020/09/26 16:31:52 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/26 17:40:23 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #include "builtin.h"
 #include "libft.h"
 #include "const.h"
-#include "environment.h"
 #include "utils.h"
 
 static int	msh_cd_home(t_env *env)

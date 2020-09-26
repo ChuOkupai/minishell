@@ -1,28 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   const.h                                            :+:      :+:    :+:   */
+/*   msh_unset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/06 13:03:06 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/26 17:47:04 by gdinet           ###   ########.fr       */
+/*   Created: 2020/09/26 16:27:48 by gdinet            #+#    #+#             */
+/*   Updated: 2020/09/26 17:47:14 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CONST_H
-# define CONST_H
+#include "builtin.h"
 
-# define MSH		"minishell"
-# define MSH_PS1	"\x1B[92m$USER\x1B[0m: \x1B[94m$SHELL\x1B[0m \\$ "
-# define MSH_PS2	"> "
+int		msh_unset(char **argv, t_shell *shell)
+{
+	int		i;
+	int		ret;
 
-# define MSH_STOKEN	"'\"$~*"
-
-# define MSH_UNEXPECTED	"syntax error near unexpected token "
-
-# define MSH_PWDMAX_SIZE		8192
-
-# define MSH_TERMBUFFER_SIZE	2048
-
-#endif
+	i = 1;
+	ret = 0;
+	while (argv[i])
+	{
+		if (!msh_check_name(argv[i]))
+		{
+			msh_perror("%s: %s: not a valid identifier", argv[0], argv[i]);
+			ret = 1;
+		}
+		msh_env_unset(shell->env, argv[i]);
+	}
+	return (ret);
+}

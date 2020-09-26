@@ -6,34 +6,17 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 18:56:27 by gdinet            #+#    #+#             */
-/*   Updated: 2020/09/26 14:12:26 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/09/26 17:44:28 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
-#include "libft.h"
 #include "const.h"
-#include "environment.h"
 #include "utils.h"
 #include <unistd.h>
 #include <stdlib.h>
 
-static int	msh_check_name(char *name)
-{
-	int i;
-
-	if (!name[0] || (!ft_isalpha(name[0]) && name[0] != '_'))
-		return (0);
-	i = 1;
-	while (name[i])
-	{
-		if (!ft_isalnum(name[i]) && name[i] != '_')
-			return (0);
-	}
-	return (1);
-}
-
-static bool	msh_find_equal(char *arg, char *value)
+static bool	msh_find_equal(char *arg, char **value)
 {
 	int		i;
 
@@ -43,13 +26,13 @@ static bool	msh_find_equal(char *arg, char *value)
 		if (arg[i] == '=')
 		{
 			arg[i] = '\0';
-			value = arg + i + 1;
+			*value = arg + i + 1;
 			return (false);
 		}
 		if (arg[i] == '+' && arg[i + 1] == '=')
 		{
 			arg[i] = '\0';
-			value = arg + i + 2;
+			*value = arg + i + 2;
 			return (true);
 		}
 		i++;
@@ -64,20 +47,19 @@ int			msh_export(char **argv, t_shell *shell)
 	const char	*old_value;
 	bool		plus;
 
-	i = 0;
+	i = 1;
 	while (argv[i])
 	{
-		plus = msh_find_equal(argv[i], value);
+		plus = msh_find_equal(argv[i], &value);
 		if (!msh_check_name(argv[i]))
 		{
-			return (msh_perrorr(1, "%s: %s: not a valid identifier\n",
+			return (msh_perrorr(1, "%s: %s: not a valid identifier",
 			argv[0], argv[i]));
 		}
 		if (plus)
 		{
 			old_value = msh_env_get(shell->env, argv[i]);
 			value = ft_strjoin(old_value, value);
-			free(value);
 		}
 		msh_env_set(shell->env, argv[i], value);
 		if (plus)
