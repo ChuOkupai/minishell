@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+         #
+#    By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/27 16:09:01 by asoursou          #+#    #+#              #
-#    Updated: 2020/09/26 18:28:50 by gdinet           ###   ########.fr        #
+#    Updated: 2020/09/26 19:23:51 by asoursou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,7 +66,8 @@ SRC		+= $(addprefix process/, $(SUB_SRC))
 SUB_SRC	:= msh_shell_run.c \
 		   msh_shell_utils.c
 SRC		+= $(addprefix shell/, $(SUB_SRC))
-SUB_SRC	:= msh_termcaps_utils.c
+SUB_SRC	:= msh_termcaps_getc.c \
+		   msh_termcaps_utils.c
 SRC		+= $(addprefix termcaps/, $(SUB_SRC))
 SUB_SRC	:= msh_utils.c
 SRC		+= $(addprefix utils/, $(SUB_SRC))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   const.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/06 13:03:06 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/26 17:47:04 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/09/26 19:27:43 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,10 @@
 # define MSH_PWDMAX_SIZE		8192
 
 # define MSH_TERMBUFFER_SIZE	2048
+
+# define MSH_KEY_UP		256
+# define MSH_KEY_DOWN	257
+# define MSH_KEY_RIGHT	258
+# define MSH_KEY_LEFT	259
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 18:17:35 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/16 19:30:03 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/26 19:24:17 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define TERMCAPS_H
 # include <curses.h>
 # include <term.h>
+# include "libft.h"
 
 /*
 ** type:	terminal type ($TERM variable)
@@ -31,6 +32,13 @@ struct	s_term
 ** Returns NULL.
 */
 void	*msh_termcaps_clear(t_term *term);
+
+/*
+** Get the next character from the file f.
+** The character value is a MSH_KEY (value > 255) or a char.
+** Returns the next character, or FT_EOF on error or end-of-file.
+*/
+int		msh_termcaps_getc(t_file *f);
 
 /*
 ** Termcaps initialization.
