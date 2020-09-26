@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 17:43:09 by gdinet            #+#    #+#             */
-/*   Updated: 2020/09/26 14:15:07 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/09/26 15:17:39 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-int			msh_pwd(char **argv, t_shell *shell)
+int		msh_pwd(char **argv, t_shell *shell)
 {
 	char	*buf;
 	int		size;

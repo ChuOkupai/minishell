@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/06 13:03:06 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/26 14:03:44 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/09/26 15:36:59 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # define MSH_STOKEN	"'\"$~*"
 
 # define MSH_UNEXPECTED	"syntax error near unexpected token "
+
+# define MSH_PWDMAX_SIZE		8192
 
 # define MSH_TERMBUFFER_SIZE	2048
 

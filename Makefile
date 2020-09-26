@@ -6,7 +6,7 @@
 #    By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/27 16:09:01 by asoursou          #+#    #+#              #
-#    Updated: 2020/09/21 20:05:24 by gdinet           ###   ########.fr        #
+#    Updated: 2020/09/26 16:12:24 by gdinet           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,12 +39,14 @@ SUB_SRC	:= msh_ast_build_seq.c \
 		   msh_astnode_alloc.c \
 		   msh_astnode_utils.c
 SRC		:= $(addprefix ast/, $(SUB_SRC))
-SUB_SRC := msh_echo.c \
+SUB_SRC := msh_cd.c \
+		   msh_echo.c \
 		   msh_export.c \
 		   msh_pwd.c
 SRC		+= $(addprefix builtin/, $(SUB_SRC))
 SUB_SRC	:= msh_env_alloc.c \
 		   msh_env_expand.c \
+		   msh_env_update_pwd.c \
 		   msh_env_utils.c
 SRC		+= $(addprefix environment/, $(SUB_SRC))
 SUB_SRC	:= msh_is_valid.c \

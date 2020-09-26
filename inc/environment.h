@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 17:44:27 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/21 18:32:40 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/26 15:55:54 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 ** status:		status of the last command ($?)
 ** status_val:	status converted as a string
 ** pwd:			pwd buffer
+** old_pwd		old pwd buffer
+** pwd_size		size of pwd buffer
 */
 typedef struct s_env	t_env;
 struct		s_env
@@ -29,6 +31,8 @@ struct		s_env
 	int			status;
 	char		*status_val;
 	char		*pwd;
+	char		*old_pwd;
+	size_t		pwd_size;
 };
 
 /*
@@ -70,5 +74,10 @@ void		msh_env_setstatus(t_env *env, int status);
 ** Deletes a variable in the environment.
 */
 void		msh_env_unset(t_env *env, const char *name);
+
+/*
+** Update the pwd variable
+*/
+int			msh_update_pwd(t_env *env);
 
 #endif

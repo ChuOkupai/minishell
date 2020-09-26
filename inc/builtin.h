@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 17:15:40 by gdinet            #+#    #+#             */
-/*   Updated: 2020/09/26 14:12:37 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/09/26 16:10:36 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,10 @@ int		msh_pwd(char **argv, t_shell *shell);
 ** Export arguments as environment variables
 */
 int		msh_export(char **argv, t_shell *shell);
+
+/*
+** Change the current working directory
+*/
+int		msh_cd(char **argv, t_shell *shell);
 
 #endif
