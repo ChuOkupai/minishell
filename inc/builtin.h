@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 17:15:40 by gdinet            #+#    #+#             */
-/*   Updated: 2020/09/26 18:28:56 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/09/26 19:28:46 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,11 @@ int		msh_env(char **argv, t_shell *shell);
 /*
 ** Exit the minishell
 */
-int		exit(char **argv, t_shell *shell);
+int		msh_exit(char **argv, t_shell *shell);
+
+/*
+** Unset an environment variable
+*/
+int		msh_unset(char **argv, t_shell *shell);
 
 #endif

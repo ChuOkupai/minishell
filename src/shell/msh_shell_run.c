@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_shell_run.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 18:35:11 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/26 16:05:33 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/26 20:16:21 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,23 +29,18 @@ static bool	is_builtin(t_shell *s, t_list *l)
 		s->keep = false;
 		builtin = true;
 	}
-	if (!ft_strcmp(str, "env"))
-	{
-		ft_list_foreach(s->env->list, (t_gfunction) & ft_putendl);
-		builtin = true;
-	}
 	if (builtin)
 		return (!ft_list_clear(&l, (t_gfunction) & msh_token_clear));
 	return (false);
 }
 
-static void	execute_cmds(t_list *l, t_env *env)
+static void	execute_cmds(t_list *l, t_shell *shell)
 {
 	t_btree	*b;
 
 	while (l)
 	{
-		msh_ast_exec((b = msh_astnode(l)), env);
+		msh_ast_exec((b = msh_astnode(l)), shell);
 		ft_btree_clear(&b, (t_gfunction) & msh_ast_clear);
 		ft_list_pop(&l, NULL);
 	}
@@ -73,7 +68,7 @@ static void	read_cmd(t_shell *s, const char *str)
 	l = msh_ast_build(l);
 	if (s->opt.dump_ast)
 		ft_list_print(l, (t_gprint) & msh_astnode_print);
-	execute_cmds(l, s->env);
+	execute_cmds(l, s);
 }
 
 int			msh_shell_run(t_shell *s)

@@ -6,7 +6,11 @@
 #    By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/27 16:09:01 by asoursou          #+#    #+#              #
+<<<<<<< Updated upstream
 #    Updated: 2020/09/26 19:23:51 by asoursou         ###   ########.fr        #
+=======
+#    Updated: 2020/09/26 20:19:30 by gdinet           ###   ########.fr        #
+>>>>>>> Stashed changes
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +50,7 @@ SUB_SRC := msh_builtin_utils.c \
 		   msh_exit.c \
 		   msh_export.c \
 		   msh_pwd.c \
-		   msh_unset.c \
+		   msh_unset.c
 SRC		+= $(addprefix builtin/, $(SUB_SRC))
 SUB_SRC	:= msh_env_alloc.c \
 		   msh_env_expand.c \
@@ -58,7 +62,8 @@ SUB_SRC	:= msh_is_valid.c \
 		   msh_token_utils.c \
 		   msh_tokenize.c
 SRC		+= $(addprefix parser/, $(SUB_SRC))
-SUB_SRC	:= msh_process_alloc.c \
+SUB_SRC	:= msh_pipe.c \
+		   msh_process_alloc.c \
 		   msh_process_exec.c \
 		   msh_process_utils.c \
 		   msh_redirect.c

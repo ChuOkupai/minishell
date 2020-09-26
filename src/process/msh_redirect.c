@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_redirect.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 19:51:50 by gdinet            #+#    #+#             */
-/*   Updated: 2020/09/21 18:00:42 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/26 20:01:36 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	msh_change_fd(t_redirection *r)
 		STDOUT_FILENO, r->path);
 }
 
-void		msh_redirect(t_process *process, t_env *env)
+void		msh_redirect(t_process *process)
 {
 	t_list		*r;
 
@@ -48,6 +48,4 @@ void		msh_redirect(t_process *process, t_env *env)
 		msh_change_fd(r->content);
 		r = r->next;
 	}
-	if ((execve(process->argv[0], process->argv, env->array)) == -1)
-		msh_abort(process->argv[0]);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 01:05:52 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/21 17:59:20 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/26 19:36:04 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void		msh_ast_clear(t_ast *a);
 ** Execute an AST.
 ** Returns the exit status.
 */
-int			msh_ast_exec(t_btree *root, t_env *env);
+int			msh_ast_exec(t_btree *root, t_shell *shell);
 
 /*
 ** Creates a new sequence of process from the given list of tokens.

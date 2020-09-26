@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   process.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 01:57:36 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/21 18:00:13 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/26 20:12:44 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PROCESS_H
 # define PROCESS_H
 # include "environment.h"
+# include "libft.h"
+# include "shell.h"
 
 /*
 ** All existing redirections.
@@ -68,12 +70,12 @@ void			msh_process_print(t_process *process);
 /*
 ** Execute a pipe-lined list of process.
 */
-int				msh_process_exec(t_list *process, t_env *env);
+int				msh_pipe(t_list *process, t_env *env);
 
 /*
-** Redirect and execute a process
+** Redirect a process
 */
-void			msh_redirect(t_process *process, t_env *env);
+void			msh_redirect(t_process *process);
 
 /*
 ** Free a single redirection.
@@ -90,5 +92,10 @@ t_redirection	*msh_redirect_new(t_redirect_type type, char *path);
 ** Returns -1 if unknown.
 */
 t_redirect_type	msh_redirect_type(const char *value);
+
+/*
+** Execute processes
+*/
+int				msh_process_exec(t_list *process, t_shell *shell);
 
 #endif

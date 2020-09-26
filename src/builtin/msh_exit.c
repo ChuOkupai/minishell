@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 17:59:50 by gdinet            #+#    #+#             */
-/*   Updated: 2020/09/26 18:28:51 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/09/26 20:21:24 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "libft.h"
 #include "utils.h"
 
-int		exit(char **argv, t_shell *shell)
+int		msh_exit(char **argv, t_shell *shell)
 {
 	unsigned char	ret;
 

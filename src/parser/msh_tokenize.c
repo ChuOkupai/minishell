@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_tokenize.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/07 14:24:41 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/18 12:48:16 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/26 19:22:20 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static t_token	*find_in_lexer(const char *s)
 	};
 	size_t					i;
 
-	i = sizeof(lexer) / sizeof(*lexer);
+	i = sizeof(lexer) / sizeof(t_token);
 	while (i--)
 		if (!ft_memcmp(s, lexer[i].value, lexer[i].size))
 			return ((t_token *)lexer + i);

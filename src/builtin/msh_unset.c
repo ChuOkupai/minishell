@@ -6,11 +6,12 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 16:27:48 by gdinet            #+#    #+#             */
-/*   Updated: 2020/09/26 17:47:14 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/09/26 20:19:57 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
+#include "utils.h"
 
 int		msh_unset(char **argv, t_shell *shell)
 {

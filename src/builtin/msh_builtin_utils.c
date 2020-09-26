@@ -6,12 +6,13 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 16:28:12 by gdinet            #+#    #+#             */
-/*   Updated: 2020/09/26 16:29:39 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/09/26 19:00:35 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 #include "libft.h"
+#include "process.h"
 
 int		msh_check_name(char *name)
 {
