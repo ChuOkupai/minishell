@@ -6,11 +6,7 @@
 #    By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/27 16:09:01 by asoursou          #+#    #+#              #
-<<<<<<< Updated upstream
-#    Updated: 2020/09/26 19:23:51 by asoursou         ###   ########.fr        #
-=======
-#    Updated: 2020/09/26 20:19:30 by gdinet           ###   ########.fr        #
->>>>>>> Stashed changes
+#    Updated: 2020/09/27 12:29:21 by asoursou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 

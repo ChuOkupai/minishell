@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_env_alloc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 18:21:32 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/26 15:27:59 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/09/27 12:41:41 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	*msh_env_clear(t_env *e)
 	ft_memdel(e->status_val);
 	ft_memdel(e->pwd);
 	ft_memdel(e->old_pwd);
+	free(e);
 	return (NULL);
 }
 
@@ -38,8 +39,7 @@ t_env	*msh_env_new(char **env)
 	while (*env && (s = ft_strdup(*env)) && ft_list_push(&e->list, s))
 		++env;
 	e->list = ft_list_rev(e->list);
-	if (*env || msh_env_set(e, "SHELL", MSH) < 0 ||
-	!(e->array = (char **)ft_list_to_array(e->list)))
+	if (*env || msh_env_set(e, "SHELL", MSH) < 0)
 	{
 		ft_memdel(s);
 		e = msh_env_clear(e);
