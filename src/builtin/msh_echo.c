@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_echo.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 16:49:41 by gdinet            #+#    #+#             */
-/*   Updated: 2020/09/26 14:15:02 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/09/28 16:12:20 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int			msh_echo(char **argv, t_shell *shell)
 	(void)shell;
 	i = 1;
 	n = 0;
-	while (argv[i] && argv[i][0] == '-' && !(msh_option_n(argv[i])))
+	while (argv[i] && argv[i][0] == '-' && msh_option_n(argv[i]))
 	{
 		n = 1;
 		i++;

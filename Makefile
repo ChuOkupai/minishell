@@ -6,7 +6,7 @@
 #    By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/27 16:09:01 by asoursou          #+#    #+#              #
-#    Updated: 2020/09/28 17:07:38 by asoursou         ###   ########.fr        #
+#    Updated: 2020/09/28 18:03:50 by asoursou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,8 @@ SUB_SRC	:= msh_is_valid.c \
 		   msh_token_utils.c \
 		   msh_tokenize.c
 SRC		+= $(addprefix parser/, $(SUB_SRC))
-SUB_SRC	:= msh_pipe.c \
+SUB_SRC	:= msh_path.c \
+		   msh_pipe.c \
 		   msh_process_alloc.c \
 		   msh_process_exec.c \
 		   msh_process_utils.c \
