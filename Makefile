@@ -6,7 +6,7 @@
 #    By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/27 16:09:01 by asoursou          #+#    #+#              #
-#    Updated: 2020/09/28 18:03:50 by asoursou         ###   ########.fr        #
+#    Updated: 2020/09/28 21:40:04 by asoursou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SUB_DIR	+= ast \
 		   environment \
 		   parser \
 		   process \
+		   readline \
 		   shell \
 		   utils
 DIRS	:= $(addprefix $(BUILD)/, $(SUB_DIR))
@@ -65,9 +66,13 @@ SUB_SRC	:= msh_path.c \
 		   msh_process_utils.c \
 		   msh_redirect.c
 SRC		+= $(addprefix process/, $(SUB_SRC))
+SUB_SRC	:= msh_readline_clear.c \
+		   msh_readline_init.c \
+		   msh_readline_set_histsize.c \
+		   msh_readline.c
+SRC		+= $(addprefix readline/, $(SUB_SRC))
 SUB_SRC	:= msh_shell_clear.c \
 		   msh_shell_new.c \
-		   msh_shell_readline.c \
 		   msh_shell_run.c
 SRC		+= $(addprefix shell/, $(SUB_SRC))
 SUB_SRC	:= msh_utils.c

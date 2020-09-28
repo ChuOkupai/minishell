@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 18:35:11 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/28 17:49:22 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/28 21:56:29 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ static void	execute_cmds(t_list *l, t_shell *shell)
 	}
 }
 
-static void	interpret(t_shell *s)
+static void	interpret(t_shell *s, const char *str)
 {
 	t_list	*l;
 	int		r;
 
-	if (!(l = msh_tokenize(s->line.buf)))
+	if (!(l = msh_tokenize(str)))
 		return ;
 	if (!(r = msh_is_valid(l)) || r < 0)
 	{
@@ -52,28 +52,15 @@ static void	interpret(t_shell *s)
 	execute_cmds(l, s);
 }
 
-static void	history_add_command(t_history *history, char *command)
-{
-	t_list *l;
-
-	if (history->size == history->histsize)
-	{
-		l = ft_list_at(history->commands, history->size--);
-		ft_list_clear(&l, &free);
-	}
-	if (history->histsize)
-		ft_list_push(&history->commands, ft_strdup(command));
-}
-
 int			msh_shell_run(t_shell *s)
 {
+	char *str;
+
 	s->keep = true;
-	while (s->keep && !msh_shell_readline(s))
+	while (s->keep && (str = msh_readline(&s->readline, s->ps1)))
 	{
-		if (!*s->line.buf)
-			continue ;
-		history_add_command(&s->history, s->line.buf);
-		interpret(s);
+		interpret(s, str);
+		ft_memdel(str);
 	}
 	return (0);
 }

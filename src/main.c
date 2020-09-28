@@ -6,14 +6,14 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/27 16:22:36 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/28 17:53:38 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/28 20:25:12 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 #include "utils.h"
 
-int			main(int ac, char **av, char **env)
+int	main(int ac, char **av, char **env)
 {
 	t_shell	*shell;
 	int		ret;

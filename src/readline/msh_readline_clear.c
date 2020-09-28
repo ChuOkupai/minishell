@@ -1,33 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msh_shell_clear.c                                  :+:      :+:    :+:   */
+/*   msh_readline_clear.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/11 16:10:33 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/28 21:39:13 by asoursou         ###   ########.fr       */
+/*   Created: 2020/09/28 20:58:32 by asoursou          #+#    #+#             */
+/*   Updated: 2020/09/28 21:50:38 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "shell.h"
+#include <unistd.h>
+#include "readline.h"
 
-static void	pwd_clear(t_pwd *p)
+void	msh_readline_clear(t_readline *r)
 {
-	ft_memdel(p->pwd);
-	ft_memdel(p->oldpwd);
-}
-
-void		*msh_shell_clear(t_shell *shell)
-{
-	if (shell)
-	{
-		msh_env_clear(&shell->env);
-		msh_readline_clear(&shell->readline);
-		pwd_clear(&shell->pwd);
-		ft_memdel(shell->ps1);
-		free(shell);
-	}
-	return (NULL);
+	if (r->init)
+		tcsetattr(STDIN_FILENO, TCSAFLUSH, &r->old_termios);
+	ft_list_clear(&r->history.list, &free);
+	if (r->stream)
+		ft_fclose(r->stream);
+	ft_memdel(r->buf);
 }

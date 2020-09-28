@@ -6,44 +6,14 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/06 13:25:49 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/28 17:26:25 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/28 21:32:27 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SHELL_H
 # define SHELL_H
-# include <termios.h>
 # include "environment.h"
-
-/*
-** list:		list of commands (char*)
-** size:		current size of history
-** histsize:	max size of history ($HISTSIZE)
-*/
-typedef struct s_history	t_history;
-struct	s_history
-{
-	t_list	*commands;
-	size_t	size;
-	size_t	histsize;
-};
-
-/*
-** buf:			line buffer
-** ps1:			primary prompt value
-** stream:		input file stream (set to STDIN_FILENO)
-** alloc_size:	max buffer size
-** size:		current buffer size
-*/
-typedef struct s_line	t_line;
-struct	s_line
-{
-	char		*buf;
-	char		*ps1;
-	t_file		*stream;
-	size_t		alloc_size;
-	size_t		size;
-};
+# include "readline.h"
 
 /*
 ** dump_tokens:	show the tokenization process
@@ -69,38 +39,24 @@ struct	s_pwd
 	size_t	size;
 };
 
-/*
-** backup:	save the old termios settings
-** type:	terminal type ($TERM)
-** init:	true if backup has been initialized
-*/
-typedef struct termios	t_termios;
-typedef struct s_terminal	t_terminal;
-struct	s_terminal
-{
-	t_termios	backup;
-	char		*type;
-	bool		init;
-};
+
 
 /*
 ** env:			environment
-** history:		commands history cache
-** line:		line editing cache
+** readline:	line editing and commands history
 ** options:		set of enabled options
 ** pwd:			working directory cache
-** terminal:	terminal settings
+** ps1:			primary prompt value
 ** keep:		loop as long as this variable is set to true
 */
 typedef struct s_shell	t_shell;
 struct	s_shell
 {
 	t_env		env;
-	t_history	history;
-	t_line		line;
+	t_readline	readline;
 	t_option	options;
 	t_pwd		pwd;
-	t_terminal	terminal;
+	char		*ps1;
 	bool		keep;
 };
 
@@ -115,13 +71,6 @@ t_shell	*msh_shell_new(int ac, char **av, char **env);
 ** Returns NULL.
 */
 void	*msh_shell_clear(t_shell *shell);
-
-/*
-** Reads the next line.
-** The line must not be passed to free.
-** Returns -1 on error, else 0.
-*/
-int		msh_shell_readline(t_shell *shell);
 
 /*
 ** Execute a shell that loops indefinitely as long as the user does not exit the

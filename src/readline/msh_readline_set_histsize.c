@@ -1,33 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msh_shell_readline.c                               :+:      :+:    :+:   */
+/*   msh_readline_set_histsize.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/28 17:22:39 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/28 17:59:09 by asoursou         ###   ########.fr       */
+/*   Created: 2020/09/28 20:52:21 by asoursou          #+#    #+#             */
+/*   Updated: 2020/09/28 21:47:59 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell.h"
+#include <stdlib.h>
+#include "readline.h"
 
-int	msh_shell_readline(t_shell *s)
+void	msh_readline_set_histsize(t_readline *r, size_t size)
 {
-	t_line	*l;
-	int		c;
+	t_history	*h;
+	t_list		*l;
 
-	l = &s->line;
-	if (l->ps1)
-		ft_putstr(l->ps1);
-	l->size = 0;
-	while (l->size < l->alloc_size - 1 && (c = ft_fgetc(l->stream)) != FT_EOF)
+	h = &r->history;
+	if (h->size > size)
 	{
-		l->buf[l->size++] = c;
-		ft_putchar(c);
-		if (c == '\n')
-			break ;
+		l = size ? ft_list_at(h->list, size - 1) : NULL;
+		ft_list_clear((size ? &l->next : &h->list), &free);
+
 	}
-	l->buf[l->size] = '\0';
-	return (-(ft_feof(l->stream) || ft_ferror(l->stream)));
+	h->size = size;
 }
