@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_pipe.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 19:25:55 by gdinet            #+#    #+#             */
-/*   Updated: 2020/09/26 20:03:18 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/09/28 17:16:42 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 static void	msh_child(t_list *process, int *p, int fd_in, t_env *env)
 {
 	t_process	*p_content;
+	char		*name;
 
 	p_content = process->content;
 	dup2(fd_in, STDIN_FILENO);
@@ -27,8 +28,13 @@ static void	msh_child(t_list *process, int *p, int fd_in, t_env *env)
 		dup2(p[1], STDOUT_FILENO);
 	close(p[0]);
 	msh_redirect(p_content);
-	if ((execve(p_content->argv[0], p_content->argv, env->array)) == -1)
+	name = msh_path(p_content->argv[0], env);
+	if ((execve(name, p_content->argv, env->array)) == -1)
+	{
+		if (name != p_content->argv[0])
+			free(name);
 		msh_abort(p_content->argv[0]);
+	}
 	exit(0);
 }
 

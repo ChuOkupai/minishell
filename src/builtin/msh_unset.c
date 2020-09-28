@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_unset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 16:27:48 by gdinet            #+#    #+#             */
-/*   Updated: 2020/09/26 20:19:57 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/09/28 15:48:52 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int		msh_unset(char **argv, t_shell *shell)
 			ret = 1;
 		}
 		msh_env_unset(shell->env, argv[i]);
+		i++;
 	}
 	return (ret);
 }

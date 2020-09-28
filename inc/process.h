@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 01:57:36 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/26 20:12:44 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/09/28 17:04:02 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,10 @@ t_redirect_type	msh_redirect_type(const char *value);
 ** Execute processes
 */
 int				msh_process_exec(t_list *process, t_shell *shell);
+
+/*
+** Find for a process into the PATH
+*/
+char			*msh_path(char *name, t_env *env);
 
 #endif

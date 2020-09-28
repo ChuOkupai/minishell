@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_export.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 18:56:27 by gdinet            #+#    #+#             */
-/*   Updated: 2020/09/27 12:30:46 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/28 17:07:17 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ int			msh_export(char **argv, t_shell *shell)
 	const char	*old_value;
 	bool		plus;
 
-	i = 1;
+	i = 0;
 	value = NULL;
-	while (argv[i])
+	while (argv[++i])
 	{
 		plus = msh_find_equal(argv[i], &value);
 		if (!msh_check_name(argv[i]))
