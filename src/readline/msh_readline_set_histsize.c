@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 20:52:21 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/28 21:47:59 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/28 22:00:48 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	msh_readline_set_histsize(t_readline *r, size_t size)
 	{
 		l = size ? ft_list_at(h->list, size - 1) : NULL;
 		ft_list_clear((size ? &l->next : &h->list), &free);
-
 	}
 	h->size = size;
 }

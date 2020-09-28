@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/06 13:25:49 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/28 21:32:27 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/28 22:00:33 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ struct	s_pwd
 	char	*oldpwd;
 	size_t	size;
 };
-
-
 
 /*
 ** env:			environment
