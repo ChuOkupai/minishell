@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msh_unset.c                                        :+:      :+:    :+:   */
+/*   msh_shell_readline.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/26 16:27:48 by gdinet            #+#    #+#             */
-/*   Updated: 2020/09/28 17:05:38 by asoursou         ###   ########.fr       */
+/*   Created: 2020/09/28 17:22:39 by asoursou          #+#    #+#             */
+/*   Updated: 2020/09/28 17:59:09 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin.h"
-#include "utils.h"
+#include "shell.h"
 
-int		msh_unset(char **argv, t_shell *shell)
+int	msh_shell_readline(t_shell *s)
 {
-	int		i;
-	int		ret;
+	t_line	*l;
+	int		c;
 
-	i = 1;
-	ret = 0;
-	while (argv[i])
+	l = &s->line;
+	if (l->ps1)
+		ft_putstr(l->ps1);
+	l->size = 0;
+	while (l->size < l->alloc_size - 1 && (c = ft_fgetc(l->stream)) != FT_EOF)
 	{
-		if (!msh_check_name(argv[i]))
-		{
-			msh_perror("%s: %s: not a valid identifier", argv[0], argv[i]);
-			ret = 1;
-		}
-		msh_env_unset(&shell->env, argv[i]);
+		l->buf[l->size++] = c;
+		ft_putchar(c);
+		if (c == '\n')
+			break ;
 	}
-	return (ret);
+	l->buf[l->size] = '\0';
+	return (-(ft_feof(l->stream) || ft_ferror(l->stream)));
 }

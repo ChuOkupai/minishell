@@ -6,7 +6,7 @@
 #    By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/27 16:09:01 by asoursou          #+#    #+#              #
-#    Updated: 2020/09/27 12:29:21 by asoursou         ###   ########.fr        #
+#    Updated: 2020/09/28 17:07:38 by asoursou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,6 @@ SUB_DIR	+= ast \
 		   parser \
 		   process \
 		   shell \
-		   termcaps \
 		   utils
 DIRS	:= $(addprefix $(BUILD)/, $(SUB_DIR))
 
@@ -48,9 +47,10 @@ SUB_SRC := msh_builtin_utils.c \
 		   msh_pwd.c \
 		   msh_unset.c
 SRC		+= $(addprefix builtin/, $(SUB_SRC))
-SUB_SRC	:= msh_env_alloc.c \
+SUB_SRC	:= msh_env_clear.c \
 		   msh_env_expand.c \
-		   msh_env_update_pwd.c \
+		   msh_env_init.c \
+		   msh_env_setstatus.c \
 		   msh_env_utils.c
 SRC		+= $(addprefix environment/, $(SUB_SRC))
 SUB_SRC	:= msh_is_valid.c \
@@ -64,12 +64,11 @@ SUB_SRC	:= msh_pipe.c \
 		   msh_process_utils.c \
 		   msh_redirect.c
 SRC		+= $(addprefix process/, $(SUB_SRC))
-SUB_SRC	:= msh_shell_run.c \
-		   msh_shell_utils.c
+SUB_SRC	:= msh_shell_clear.c \
+		   msh_shell_new.c \
+		   msh_shell_readline.c \
+		   msh_shell_run.c
 SRC		+= $(addprefix shell/, $(SUB_SRC))
-SUB_SRC	:= msh_termcaps_getc.c \
-		   msh_termcaps_utils.c
-SRC		+= $(addprefix termcaps/, $(SUB_SRC))
 SUB_SRC	:= msh_utils.c
 SRC		+= $(addprefix utils/, $(SUB_SRC))
 SRC		+= main.c

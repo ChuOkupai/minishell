@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/06 13:03:06 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/26 19:27:43 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/28 17:00:21 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 # define MSH_PWDMAX_SIZE		8192
 
-# define MSH_TERMBUFFER_SIZE	2048
+# define MSH_LINE_BUFFERSIZE	256
 
 # define MSH_KEY_UP		256
 # define MSH_KEY_DOWN	257

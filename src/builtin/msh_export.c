@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 18:56:27 by gdinet            #+#    #+#             */
-/*   Updated: 2020/09/27 12:30:46 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/28 17:05:23 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,10 @@ int			msh_export(char **argv, t_shell *shell)
 		}
 		if (plus)
 		{
-			old_value = msh_env_get(shell->env, argv[i]);
+			old_value = msh_env_get(&shell->env, argv[i]);
 			value = ft_strjoin(old_value, value);
 		}
-		msh_env_set(shell->env, argv[i], value);
+		msh_env_set(&shell->env, argv[i], value);
 		if (plus)
 			ft_memdel(value);
 	}

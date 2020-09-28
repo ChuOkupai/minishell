@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/19 14:33:18 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/21 18:27:28 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/28 16:46:23 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,17 @@ static size_t	parse_variable(char **dst, char **src, t_env *env)
 {
 	char		*s;
 	size_t		i;
-	char		tmp;
 	const char	*value;
 
 	s = *src + 1;
 	i = 0;
-	while (s[i] && (ft_isalnum(s[i]) || s[i] == '_') &&
-	!ft_strchr(MSH_STOKEN, s[i]))
+	if (s[i] == '?')
 		++i;
-	tmp = s[i];
-	s[i] = '\0';
-	value = i ? msh_env_get(env, s) : "$";
-	s[i] = tmp;
+	else
+		while (s[i] && (ft_isalnum(s[i]) || s[i] == '_') &&
+		!ft_strchr(MSH_STOKEN, s[i]))
+			++i;
+	value = i ? msh_env_getn(env, s, i) : "$";
 	*src = s + i;
 	if ((i = ft_strlen(value)) && *dst)
 		*dst = (char *)ft_memcpy(*dst, value, i) + i;

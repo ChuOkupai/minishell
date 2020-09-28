@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 17:44:27 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/26 15:55:54 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/09/28 16:45:52 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,29 +17,27 @@
 /*
 ** list:		list of environment variables
 ** array:		contains all the variables stored in the env list.
-** status:		status of the last command ($?)
-** status_val:	status converted as a string
-** pwd:			pwd buffer
-** old_pwd		old pwd buffer
-** pwd_size		size of pwd buffer
+** status:		status of the last command
+** status_val:	status converted as a char*
 */
 typedef struct s_env	t_env;
 struct		s_env
 {
-	t_list		*list;
-	char		**array;
-	int			status;
-	char		*status_val;
-	char		*pwd;
-	char		*old_pwd;
-	size_t		pwd_size;
+	t_list	*list;
+	char	**array;
+	int		status;
+	char	*status_val;
 };
 
 /*
-** Free an environment.
-** Returns NULL.
+** Initialize the environment from an array of environment variables.
 */
-void		*msh_env_clear(t_env *e);
+void		msh_env_init(t_env *env, char **env_array);
+
+/*
+** Clear the environment.
+*/
+void		msh_env_clear(t_env *environment);
 
 /*
 ** Expands a string using the given environment.
@@ -55,29 +53,24 @@ char		*msh_env_expand(t_env *env, char *s);
 const char	*msh_env_get(t_env *env, const char *name);
 
 /*
-** Initialize a new environment from an array of environment variables.
+** Same as msh_env_get except it takes a maximum size for name.
+** Returns NULL if not found.
 */
-t_env		*msh_env_new(char **env);
+const char	*msh_env_getn(t_env *env, const char *name, size_t n);
 
 /*
 ** Add or edit a variable using the given environment.
-** Returns -1 on error, else 0.
 */
-int			msh_env_set(t_env *env, const char *name, const char *value);
+void		msh_env_set(t_env *env, const char *name, const char *value);
 
 /*
 ** Set the $? variable.
 */
-void		msh_env_setstatus(t_env *env, int status);
+void		msh_env_setstatus(t_env *env, int value);
 
 /*
 ** Deletes a variable in the environment.
 */
 void		msh_env_unset(t_env *env, const char *name);
-
-/*
-** Update the pwd variable
-*/
-int			msh_update_pwd(t_env *env);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_process_exec.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 19:07:29 by gdinet            #+#    #+#             */
-/*   Updated: 2020/09/26 20:25:39 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/09/28 17:06:39 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,5 @@ int			msh_process_exec(t_list *process, t_shell *shell)
 		return (fct[builtin](p_content->argv, shell));
 	}
 	else
-		return (msh_pipe(process, shell->env));
+		return (msh_pipe(process, &shell->env));
 }

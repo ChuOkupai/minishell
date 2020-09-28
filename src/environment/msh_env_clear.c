@@ -1,33 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msh_unset.c                                        :+:      :+:    :+:   */
+/*   msh_env_clear.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/26 16:27:48 by gdinet            #+#    #+#             */
-/*   Updated: 2020/09/28 17:05:38 by asoursou         ###   ########.fr       */
+/*   Created: 2020/09/28 15:56:58 by asoursou          #+#    #+#             */
+/*   Updated: 2020/09/28 17:05:54 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin.h"
-#include "utils.h"
+#include <stdlib.h>
+#include "environment.h"
 
-int		msh_unset(char **argv, t_shell *shell)
+void	msh_env_clear(t_env *env)
 {
-	int		i;
-	int		ret;
-
-	i = 1;
-	ret = 0;
-	while (argv[i])
-	{
-		if (!msh_check_name(argv[i]))
-		{
-			msh_perror("%s: %s: not a valid identifier", argv[0], argv[i]);
-			ret = 1;
-		}
-		msh_env_unset(&shell->env, argv[i]);
-	}
-	return (ret);
+	ft_list_clear(&env->list, &free);
+	ft_memdel(env->array);
+	ft_memdel(env->status_val);
 }
