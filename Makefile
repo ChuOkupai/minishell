@@ -6,7 +6,7 @@
 #    By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/27 16:09:01 by asoursou          #+#    #+#              #
-#    Updated: 2020/09/28 21:40:04 by asoursou         ###   ########.fr        #
+#    Updated: 2020/09/30 17:13:20 by asoursou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ BUILD	:= .build
 SUB_DIR	+= ast \
 		   builtin \
 		   environment \
+		   history \
 		   parser \
 		   process \
 		   readline \
@@ -54,6 +55,12 @@ SUB_SRC	:= msh_env_clear.c \
 		   msh_env_setstatus.c \
 		   msh_env_utils.c
 SRC		+= $(addprefix environment/, $(SUB_SRC))
+SUB_SRC	:= msh_history_add.c \
+		   msh_history_clear.c \
+		   msh_history_edit.c \
+		   msh_history_init.c \
+		   msh_history_resize.c
+SRC		+= $(addprefix history/, $(SUB_SRC))
 SUB_SRC	:= msh_is_valid.c \
 		   msh_parse_words.c \
 		   msh_token_utils.c \
@@ -68,7 +75,6 @@ SUB_SRC	:= msh_path.c \
 SRC		+= $(addprefix process/, $(SUB_SRC))
 SUB_SRC	:= msh_readline_clear.c \
 		   msh_readline_init.c \
-		   msh_readline_set_histsize.c \
 		   msh_readline.c
 SRC		+= $(addprefix readline/, $(SUB_SRC))
 SUB_SRC	:= msh_shell_clear.c \

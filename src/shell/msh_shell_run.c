@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 18:35:11 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/28 21:56:29 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/30 17:21:03 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,10 @@ int			msh_shell_run(t_shell *s)
 	char *str;
 
 	s->keep = true;
-	while (s->keep && (str = msh_readline(&s->readline, s->ps1)))
+	while (s->keep && (str = msh_readline(&s->readline, &s->history, s->ps1)))
 	{
+		if (*ft_strwhile(str, &ft_isspace))
+			msh_history_add(&s->history, str);
 		interpret(s, str);
 		ft_memdel(str);
 	}

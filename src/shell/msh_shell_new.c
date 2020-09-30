@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 18:00:53 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/28 21:39:41 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/30 17:19:56 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,9 @@ t_shell		*msh_shell_new(int ac, char **av, char **env)
 	msh_env_init(&s->env, env);
 	if (msh_readline_init(&s->readline, msh_env_get(&s->env, "TERM")) < 0)
 		return (msh_shell_clear(s));
+	msh_history_init(&s->history);
 	if ((var = msh_env_get(&s->env, "HISTSIZE")))
-		msh_readline_set_histsize(&s->readline, ft_strtoul(var, NULL, 10));
+		msh_history_resize(&s->history, ft_atoi(var));
 	s->ps1 = msh_env_expand(&s->env, MSH_PS1);
 	options_init(&s->options, ac, av);
 	return (s);

@@ -1,28 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msh_readline_set_histsize.c                        :+:      :+:    :+:   */
+/*   msh_history_clear.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/28 20:52:21 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/28 22:00:48 by asoursou         ###   ########.fr       */
+/*   Created: 2020/09/30 17:05:14 by asoursou          #+#    #+#             */
+/*   Updated: 2020/09/30 17:06:34 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "readline.h"
+#include "history.h"
 
-void	msh_readline_set_histsize(t_readline *r, size_t size)
+void	msh_history_clear(t_history *h)
 {
-	t_history	*h;
-	t_list		*l;
-
-	h = &r->history;
-	if (h->size > size)
-	{
-		l = size ? ft_list_at(h->list, size - 1) : NULL;
-		ft_list_clear((size ? &l->next : &h->list), &free);
-	}
-	h->size = size;
+	ft_list_clear(&h->list, &free);
 }

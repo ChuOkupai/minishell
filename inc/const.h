@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/06 13:03:06 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/28 20:26:10 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/30 16:44:30 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,7 @@
 # define MSH_UNEXPECTED	"syntax error near unexpected token "
 
 # define MSH_PWDMAX_SIZE		8192
+
+# define MSH_HISTORY_SIZE	64
 
 #endif

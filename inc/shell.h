@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/06 13:25:49 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/28 22:00:33 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/30 16:40:15 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ struct	s_pwd
 
 /*
 ** env:			environment
-** readline:	line editing and commands history
+** readline:	line editing
+** history:		command history
 ** options:		set of enabled options
 ** pwd:			working directory cache
 ** ps1:			primary prompt value
@@ -52,6 +53,7 @@ struct	s_shell
 {
 	t_env		env;
 	t_readline	readline;
+	t_history	history;
 	t_option	options;
 	t_pwd		pwd;
 	char		*ps1;
@@ -71,8 +73,8 @@ t_shell	*msh_shell_new(int ac, char **av, char **env);
 void	*msh_shell_clear(t_shell *shell);
 
 /*
-** Execute a shell that loops indefinitely as long as the user does not exit the
-** program.
+** Execute a shell that loops indefinitely as long as the user does not exit
+** the program.
 ** Returns the exit status.
 */
 int		msh_shell_run(t_shell *shell);

@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 20:52:11 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/28 21:20:07 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/09/30 17:24:55 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@ int	msh_readline_init(t_readline *r, const char *termtype)
 {
 	t_termios termios;
 
+	r->init = false;
+	r->buf = NULL;
+	r->size = 0;
+	r->bufsize = 0;
 	if (!(r->stream = ft_fdopen(STDIN_FILENO, "r")))
 		return (-1);
 	return (0);
