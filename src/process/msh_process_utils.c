@@ -6,11 +6,10 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 18:24:00 by asoursou          #+#    #+#             */
-/*   Updated: 2020/10/03 11:38:22 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/10/03 11:42:56 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "process.h"
 
 static void		print_redirect(t_redirection *r)

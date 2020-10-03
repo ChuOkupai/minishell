@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 18:35:11 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/30 17:21:03 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/10/03 11:54:32 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,5 @@ int			msh_shell_run(t_shell *s)
 		interpret(s, str);
 		ft_memdel(str);
 	}
-	return (0);
+	return (s->env.status);
 }
