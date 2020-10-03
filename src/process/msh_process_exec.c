@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_process_exec.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 19:07:29 by gdinet            #+#    #+#             */
-/*   Updated: 2020/09/28 17:06:39 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/10/03 10:27:35 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,19 @@ int			msh_process_exec(t_list *process, t_shell *shell)
 	t_process			*p_content;
 	static t_fct_ptr	fct[] = {&msh_cd, &msh_echo, &msh_env, &msh_exit,
 	&msh_export, &msh_pwd, &msh_unset};
+	int					input;
+	int					output;
 
 	p_content = process->content;
 	if (!process->next && (builtin = is_builtin(p_content->argv[0])) != -1)
 	{
+		input = dup(STDIN_FILENO);
+		output = dup(STDOUT_FILENO);
 		msh_redirect(p_content);
-		return (fct[builtin](p_content->argv, shell));
+		msh_env_setstatus(&shell->env, fct[builtin](p_content->argv, shell));
+		msh_undirect(input, output);
+		return (shell->env.status);
 	}
-	else
-		return (msh_pipe(process, &shell->env));
+	msh_env_setstatus(&shell->env, msh_pipe(process, &shell->env));
+	return (shell->env.status);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 01:57:36 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/28 17:04:02 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/03 10:18:33 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,11 @@ int				msh_pipe(t_list *process, t_env *env);
 ** Redirect a process
 */
 void			msh_redirect(t_process *process);
+
+/*
+** Redirect back STDIN and STDOUT to their original values
+*/
+void			msh_undirect(int input, int output);
 
 /*
 ** Free a single redirection.

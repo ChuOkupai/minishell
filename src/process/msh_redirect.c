@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 19:51:50 by gdinet            #+#    #+#             */
-/*   Updated: 2020/09/26 20:01:36 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/10/03 10:19:56 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,12 @@ void		msh_redirect(t_process *process)
 		msh_change_fd(r->content);
 		r = r->next;
 	}
+}
+
+void		msh_undirect(int input, int output)
+{
+	dup2(input, STDIN_FILENO);
+	close(input);
+	dup2(output, STDOUT_FILENO);
+	close(output);
 }
