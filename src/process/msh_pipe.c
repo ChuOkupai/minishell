@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_pipe.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 19:25:55 by gdinet            #+#    #+#             */
-/*   Updated: 2020/10/03 16:19:05 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/10/03 18:37:10 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ static void	msh_pipe(t_list *process, t_env *env)
 	t_process	*p_content;
 
 	fd_in = 0;
+	pid = 0;
 	while (process != NULL)
 	{
 		if (pipe(p) < 0 || (pid = fork()) == -1)
@@ -88,6 +89,7 @@ int			msh_process(t_list *process, t_env *env)
 	int			ret;
 	t_process	*p_content;
 
+	ret = 0;
 	msh_pipe(process, env);
 	while (process != NULL)
 	{

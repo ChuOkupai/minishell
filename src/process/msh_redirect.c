@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_redirect.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 19:51:50 by gdinet            #+#    #+#             */
-/*   Updated: 2020/10/03 15:20:17 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/10/03 18:36:18 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ int			msh_redirect(t_process *process)
 	t_redirection	*r;
 
 	l = process->redirection;
-	r = l->content;
 	while (l)
 	{
+		r = l->content;
 		if (!ft_strcmp(r->path, ""))
 			return (msh_perrorr(1, "ambiguous redirect"));
 		msh_change_fd(l->content);
