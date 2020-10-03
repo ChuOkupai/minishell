@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   msh_unset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 16:27:48 by gdinet            #+#    #+#             */
-/*   Updated: 2020/09/28 18:04:25 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/10/01 11:19:13 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 #include "utils.h"
+#include "libft.h"
 
 int		msh_unset(char **argv, t_shell *shell)
 {

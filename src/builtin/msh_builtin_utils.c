@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_builtin_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 16:28:12 by gdinet            #+#    #+#             */
-/*   Updated: 2020/09/26 19:00:35 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/10/01 11:18:12 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int		msh_check_name(char *name)
 	{
 		if (!ft_isalnum(name[i]) && name[i] != '_')
 			return (0);
+		i++;
 	}
 	return (1);
 }

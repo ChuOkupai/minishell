@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_cd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 14:34:39 by gdinet            #+#    #+#             */
-/*   Updated: 2020/09/28 17:04:39 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/10/01 11:45:46 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	msh_cd_home(t_env *env)
 	const char *path;
 
 	if ((path = msh_env_get(env, "HOME")))
-		return (chdir(path) == -1);
+		return (chdir(path) == 0);
 	return (msh_perrorr(1, MSH ": cd: HOME not set"));
 }
 
@@ -52,8 +52,8 @@ static void	update_pwd(t_pwd *pwd)
 
 int			msh_cd(char **argv, t_shell *s)
 {
-	if (!argv[1] && msh_cd_home(&s->env))
-		return (1);
+	if (!argv[1])
+		return (msh_cd_home(&s->env));
 	else if (chdir(argv[1]) == -1)
 	{
 		ft_dprintf(STDERR_FILENO, MSH ": %s: %s\n", argv[0], strerror(errno));
