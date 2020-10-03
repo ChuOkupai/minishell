@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_pipe.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 19:25:55 by gdinet            #+#    #+#             */
-/*   Updated: 2020/09/28 17:16:42 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/03 11:46:33 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,25 @@ static void	msh_child(t_list *process, int *p, int fd_in, t_env *env)
 			free(name);
 		msh_abort(p_content->argv[0]);
 	}
-	exit(0);
+}
+
+static int	msh_wait_child(pid_t pid)
+{
+	int		status;
+
+	while (1)
+	{
+		waitpid(pid, &status, WUNTRACED | WCONTINUED);
+		if (WIFEXITED(status))
+			return (WEXITSTATUS(status));
+		if (WIFSIGNALED(status))
+			return (WTERMSIG(status));
+		if (WIFSTOPPED(status))
+			return (WSTOPSIG(status));
+		if (!WIFEXITED(status) && !WIFSIGNALED(status))
+			break ;
+	}
+	return (EXIT_SUCCESS);
 }
 
 int			msh_pipe(t_list *process, t_env *env)
@@ -52,7 +70,7 @@ int			msh_pipe(t_list *process, t_env *env)
 			msh_abort("process");
 		else if (pid == 0)
 			msh_child(process, p, fd_in, env);
-		wait(&ret);
+		ret = msh_wait_child(pid);
 		fd_in = p[0];
 		close(p[1]);
 		process = process->next;

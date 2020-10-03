@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 17:59:50 by gdinet            #+#    #+#             */
-/*   Updated: 2020/09/26 20:21:24 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/10/03 11:53:39 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		msh_exit(char **argv, t_shell *shell)
 		msh_perror("%s : too many arguments", argv[0]);
 		return (1);
 	}
-	else if (!(*ft_strwhile(argv[1], ft_isdigit)))
+	else if (*ft_strwhile(argv[1], ft_isdigit))
 	{
 		msh_perror("%s : %s : numeric argument required", argv[0], argv[1]);
 		ret = 255;
