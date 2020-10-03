@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 18:56:27 by gdinet            #+#    #+#             */
-/*   Updated: 2020/09/28 18:03:05 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/10/03 10:29:22 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static bool	msh_find_equal(char *arg, char **value)
 	return (false);
 }
 
-int			msh_export(char **argv, t_shell *shell)
+static int	export_args(char **argv, t_shell *shell)
 {
 	int			i;
 	char		*value;
@@ -66,5 +66,25 @@ int			msh_export(char **argv, t_shell *shell)
 		if (plus)
 			ft_memdel(value);
 	}
+	return (0);
+}
+
+static void	print_declare(const char *var)
+{
+	int size;
+
+	size = ft_strchrnul(var, '=') - var;
+	if (!size || !var[size])
+		return ;
+	ft_printf("declare -x %.*s=\"%s\"\n", size, var, var + size + 1);
+}
+
+int			msh_export(char **argv, t_shell *shell)
+{
+	if (argv[1])
+		return (export_args(argv, shell));
+	ft_list_foreach(shell->env.list, (t_gfunction) & print_declare);
+	print_declare("");
+	print_declare("mdr");
 	return (0);
 }
