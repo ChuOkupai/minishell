@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 18:24:00 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/19 13:57:24 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/10/03 11:38:22 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,25 @@ static void		print_redirect(t_redirection *r)
 
 void			msh_process_print(t_process *p)
 {
-	size_t i;
-	size_t n;
+	size_t	i;
+	size_t	n;
+	t_list	*l;
 
 	i = 0;
 	n = ft_memsize((void **)p->argv);
-	ft_putchar('(');
+	l = p->redirection;
 	while (i < n)
 	{
-		ft_printf("%s%c", p->argv[i], (i + 1 == n ? ')' : ' '));
-		++i;
+		ft_putstr(p->argv[i++]);
+		if (i < n || l)
+			ft_putchar(' ');
 	}
-	ft_putchar(' ');
-	ft_list_print(p->redirection, (t_gprint) & print_redirect);
+	while (l)
+	{
+		print_redirect(l->content);
+		if ((l = l->next))
+			ft_putchar(' ');
+	}
 }
 
 t_redirect_type	msh_redirect_type(const char *value)
