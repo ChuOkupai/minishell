@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 19:25:55 by gdinet            #+#    #+#             */
-/*   Updated: 2020/10/03 11:46:33 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/10/03 15:09:21 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ static void	msh_child(t_list *process, int *p, int fd_in, t_env *env)
 	if (process->next != NULL)
 		dup2(p[1], STDOUT_FILENO);
 	close(p[0]);
-	msh_redirect(p_content);
+	if (msh_redirect(p_content))
+		exit(1);
 	name = msh_path(p_content->argv[0], env);
 	if ((execve(name, p_content->argv, env->array)) == -1)
 	{

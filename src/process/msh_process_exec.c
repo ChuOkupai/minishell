@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 19:07:29 by gdinet            #+#    #+#             */
-/*   Updated: 2020/10/03 10:27:35 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/10/03 15:20:52 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,19 @@ int			msh_process_exec(t_list *process, t_shell *shell)
 	int					output;
 
 	p_content = process->content;
+	input = dup(STDIN_FILENO);
+	output = dup(STDOUT_FILENO);
+	if (!p_content->argv[0])
+	{
+		msh_redirect(p_content);
+		msh_undirect(input, output);
+		return (shell->env.status = 0);
+	}
 	if (!process->next && (builtin = is_builtin(p_content->argv[0])) != -1)
 	{
-		input = dup(STDIN_FILENO);
-		output = dup(STDOUT_FILENO);
-		msh_redirect(p_content);
+	
+		if (msh_redirect(p_content))
+			return (shell->env.status = 1);
 		msh_env_setstatus(&shell->env, fct[builtin](p_content->argv, shell));
 		msh_undirect(input, output);
 		return (shell->env.status);

@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 19:51:50 by gdinet            #+#    #+#             */
-/*   Updated: 2020/10/03 10:19:56 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/10/03 15:20:17 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,21 @@ static void	msh_change_fd(t_redirection *r)
 		STDOUT_FILENO, r->path);
 }
 
-void		msh_redirect(t_process *process)
+int			msh_redirect(t_process *process)
 {
-	t_list		*r;
+	t_list			*l;
+	t_redirection	*r;
 
-	r = process->redirection;
-	while (r)
+	l = process->redirection;
+	r = l->content;
+	while (l)
 	{
-		msh_change_fd(r->content);
-		r = r->next;
+		if (!ft_strcmp(r->path, ""))
+			return (msh_perrorr(1, "ambiguous redirect"));
+		msh_change_fd(l->content);
+		l = l->next;
 	}
+	return (0);
 }
 
 void		msh_undirect(int input, int output)

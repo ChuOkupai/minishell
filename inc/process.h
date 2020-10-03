@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 01:57:36 by asoursou          #+#    #+#             */
-/*   Updated: 2020/10/03 10:18:33 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/10/03 14:36:45 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int				msh_pipe(t_list *process, t_env *env);
 /*
 ** Redirect a process
 */
-void			msh_redirect(t_process *process);
+int				msh_redirect(t_process *process);
 
 /*
 ** Redirect back STDIN and STDOUT to their original values
