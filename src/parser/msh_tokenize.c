@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_tokenize.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/07 14:24:41 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/26 19:22:20 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/10/03 13:24:03 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static t_token	*find_in_lexer(const char *s)
 ** Returns NULL on error.
 */
 
-static t_token	*new_token(t_token_type type, char *value)
+static t_token	*new_token(t_token_type type, char *value, size_t size)
 {
 	t_token *t;
 
@@ -57,7 +57,7 @@ static t_token	*new_token(t_token_type type, char *value)
 		return (NULL);
 	t->type = type;
 	t->value = value;
-	t->size = ft_strlen(value);
+	t->size = size;
 	return (t);
 }
 
@@ -79,16 +79,16 @@ static t_token	*next_token(const char *s)
 		else if (*s == '\'')
 		{
 			if (!(s = ft_strchr(s + 1, '\'')))
-				return (new_token(TOKEN_MULTILINE, ft_strdup(s2)));
+				return (new_token(TOKEN_MULTILINE, ft_strdup(s2), '\''));
 		}
 		else if (*s == '"')
 		{
 			while ((s = ft_strchr(s + 1, *s)) && s[-1] == '\\')
 				continue ;
 			if (!s)
-				return (new_token(TOKEN_MULTILINE, ft_strdup(s2)));
+				return (new_token(TOKEN_MULTILINE, ft_strdup(s2), '"'));
 		}
-	return ((n = s - s2) ? new_token(TOKEN_WORD, ft_strndup(s2, n)) : t);
+	return ((n = s - s2) ? new_token(TOKEN_WORD, ft_strndup(s2, n), n) : t);
 }
 
 t_list			*msh_tokenize(const char *s)

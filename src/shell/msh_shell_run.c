@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 18:35:11 by asoursou          #+#    #+#             */
-/*   Updated: 2020/10/03 11:54:32 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/10/03 15:01:12 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ static void	interpret(t_shell *s, const char *str)
 
 	if (!(l = msh_tokenize(str)))
 		return ;
+	if (s->options.dump_tokens)
+		ft_list_print(l, (t_gprint) & msh_token_print);
 	if (!(r = msh_is_valid(l)) || r < 0)
 	{
 		if (r < 0)
@@ -44,8 +46,6 @@ static void	interpret(t_shell *s, const char *str)
 		return ;
 	}
 	msh_parse_words(l, &s->env);
-	if (s->options.dump_tokens)
-		ft_list_print(l, (t_gprint) & msh_token_print);
 	l = msh_ast_build(l);
 	if (s->options.dump_ast)
 		ft_list_print(l, (t_gprint) & msh_astnode_print);
