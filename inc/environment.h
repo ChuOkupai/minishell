@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 17:44:27 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/28 16:45:52 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/10/03 16:27:12 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,9 @@ const char	*msh_env_getn(t_env *env, const char *name, size_t n);
 void		msh_env_set(t_env *env, const char *name, const char *value);
 
 /*
-** Set the $? variable.
+** Set and return the $? variable.
 */
-void		msh_env_setstatus(t_env *env, int value);
+int			msh_env_setstatus(t_env *env, int value);
 
 /*
 ** Deletes a variable in the environment.

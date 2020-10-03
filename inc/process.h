@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 01:57:36 by asoursou          #+#    #+#             */
-/*   Updated: 2020/10/03 14:36:45 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/10/03 15:56:06 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ struct			s_process
 {
 	char	**argv;
 	t_list	*redirection;
+	pid_t	pid;
 };
 typedef struct s_process		t_process;
 
@@ -68,9 +69,9 @@ t_process		*msh_process_new(char **argv, t_list *redirection);
 void			msh_process_print(t_process *process);
 
 /*
-** Execute a pipe-lined list of process.
+** Execute a list of process.
 */
-int				msh_pipe(t_list *process, t_env *env);
+int				msh_process(t_list *process, t_env *env);
 
 /*
 ** Redirect a process

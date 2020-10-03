@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 19:25:55 by gdinet            #+#    #+#             */
-/*   Updated: 2020/10/03 15:09:21 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/10/03 16:19:05 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,11 @@ static void	msh_child(t_list *process, int *p, int fd_in, t_env *env)
 	close(p[0]);
 	if (msh_redirect(p_content))
 		exit(1);
-	name = msh_path(p_content->argv[0], env);
+	if (!(name = msh_path(p_content->argv[0], env)))
+	{
+		msh_perror("%s : command not found", p_content->argv[0]);
+		exit(127);
+	}
 	if ((execve(name, p_content->argv, env->array)) == -1)
 	{
 		if (name != p_content->argv[0])
@@ -57,12 +61,12 @@ static int	msh_wait_child(pid_t pid)
 	return (EXIT_SUCCESS);
 }
 
-int			msh_pipe(t_list *process, t_env *env)
+static void	msh_pipe(t_list *process, t_env *env)
 {
-	pid_t	pid;
-	int		p[2];
-	int		fd_in;
-	int		ret;
+	pid_t		pid;
+	int			p[2];
+	int			fd_in;
+	t_process	*p_content;
 
 	fd_in = 0;
 	while (process != NULL)
@@ -71,9 +75,24 @@ int			msh_pipe(t_list *process, t_env *env)
 			msh_abort("process");
 		else if (pid == 0)
 			msh_child(process, p, fd_in, env);
-		ret = msh_wait_child(pid);
+		p_content = process->content;
+		p_content->pid = pid;
 		fd_in = p[0];
 		close(p[1]);
+		process = process->next;
+	}
+}
+
+int			msh_process(t_list *process, t_env *env)
+{
+	int			ret;
+	t_process	*p_content;
+
+	msh_pipe(process, env);
+	while (process != NULL)
+	{
+		p_content = process->content;
+		ret = msh_wait_child(p_content->pid);
 		process = process->next;
 	}
 	return (ret);

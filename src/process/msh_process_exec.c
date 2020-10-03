@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 19:07:29 by gdinet            #+#    #+#             */
-/*   Updated: 2020/10/03 15:20:52 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/10/03 16:27:42 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,11 @@ int			msh_process_exec(t_list *process, t_shell *shell)
 	}
 	if (!process->next && (builtin = is_builtin(p_content->argv[0])) != -1)
 	{
-	
 		if (msh_redirect(p_content))
 			return (shell->env.status = 1);
 		msh_env_setstatus(&shell->env, fct[builtin](p_content->argv, shell));
 		msh_undirect(input, output);
 		return (shell->env.status);
 	}
-	msh_env_setstatus(&shell->env, msh_pipe(process, &shell->env));
-	return (shell->env.status);
+	return (msh_env_setstatus(&shell->env, msh_process(process, &shell->env)));
 }
