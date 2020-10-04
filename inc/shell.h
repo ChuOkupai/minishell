@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/06 13:25:49 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/30 16:40:15 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/10/04 14:16:31 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ struct	s_pwd
 ** options:		set of enabled options
 ** pwd:			working directory cache
 ** ps1:			primary prompt value
+** ps2:			secondary prompt value
+** line_no:		current line number
 ** keep:		loop as long as this variable is set to true
 */
 typedef struct s_shell	t_shell;
@@ -57,20 +59,27 @@ struct	s_shell
 	t_option	options;
 	t_pwd		pwd;
 	char		*ps1;
+	char		*ps2;
+	size_t		line_no;
 	bool		keep;
 };
 
 /*
 ** Initialize a new shell.
-** Returns NULL on error.
+** Returns -1 on error.
 */
-t_shell	*msh_shell_new(int ac, char **av, char **env);
+int		msh_shell_init(t_shell *shell, int ac, char **av, char **env);
 
 /*
-** Free a shell.
-** Returns NULL.
+** Destroy a shell.
 */
-void	*msh_shell_clear(t_shell *shell);
+void	msh_shell_clear(t_shell *shell);
+
+/*
+** Reads the next multiline command.
+** Returns a list of ASTs.
+*/
+t_list	*msh_shell_read_command(t_shell *shell);
 
 /*
 ** Execute a shell that loops indefinitely as long as the user does not exit

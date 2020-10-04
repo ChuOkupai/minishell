@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/11 17:26:20 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/18 14:22:36 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/10/04 17:43:35 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,19 @@ static int	check(t_list *l, t_pda *a)
 		l = l->next;
 	if (l)
 		msh_perror(MSH_UNEXPECTED "`%s'", msh_token(l)->value);
+	else if (!a->final[s])
+	{
+		if (s == 3 || s == 4)
+			return (-1);
+		msh_perror(MSH_UNEXPECTED "`newline'");
+	}
 	else if (a->stack)
 	{
 		if (a->stack > 0)
 			return (-1);
 		msh_perror(MSH_UNEXPECTED "`)'");
 	}
-	else if (!a->final[s])
-		msh_perror(MSH_UNEXPECTED "`newline'");
-	return (l || a->stack || !a->final[s] ? 0 : a->final[s]);
+	return (l || !a->final[s] ? 0 : a->final[s]);
 }
 
 int			msh_is_valid(t_list *tokens)
@@ -90,8 +94,6 @@ int			msh_is_valid(t_list *tokens)
 		{ 5, 5, TOKEN_RIGHT_PAR, STACK_POP }
 	};
 
-	if (tokens && msh_token(ft_list_last(tokens))->type == TOKEN_MULTILINE)
-		return (-1);
 	if (!initialized)
 		initialized = init(&a, rule, sizeof(rule) / sizeof(*rule));
 	return (check(tokens, &a));

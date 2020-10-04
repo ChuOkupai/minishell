@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/07 15:37:20 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/17 17:50:08 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/10/04 16:16:42 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void	msh_token_clear(t_token *t)
 {
 	if (t->type != TOKEN_WORD && t->type != TOKEN_MULTILINE)
 		return ;
-	free(t->value);
+	if (t->type == TOKEN_WORD)
+		ft_memdel(t->value);
 	free(t);
 }
 

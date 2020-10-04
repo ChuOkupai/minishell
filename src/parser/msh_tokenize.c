@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/07 14:24:41 by asoursou          #+#    #+#             */
-/*   Updated: 2020/10/03 13:24:03 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/10/04 17:22:40 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static t_token	*find_in_lexer(const char *s)
 ** Returns NULL on error.
 */
 
-static t_token	*new_token(t_token_type type, char *value, size_t size)
+static t_token	*new_token(t_token_type type, char *value)
 {
 	t_token *t;
 
@@ -57,7 +57,7 @@ static t_token	*new_token(t_token_type type, char *value, size_t size)
 		return (NULL);
 	t->type = type;
 	t->value = value;
-	t->size = size;
+	t->size = value ? ft_strlen(value) : 0;
 	return (t);
 }
 
@@ -79,16 +79,16 @@ static t_token	*next_token(const char *s)
 		else if (*s == '\'')
 		{
 			if (!(s = ft_strchr(s + 1, '\'')))
-				return (new_token(TOKEN_MULTILINE, ft_strdup(s2), '\''));
+				return (new_token(TOKEN_MULTILINE, "\'"));
 		}
 		else if (*s == '"')
 		{
 			while ((s = ft_strchr(s + 1, *s)) && s[-1] == '\\')
 				continue ;
 			if (!s)
-				return (new_token(TOKEN_MULTILINE, ft_strdup(s2), '"'));
+				return (new_token(TOKEN_MULTILINE, "\""));
 		}
-	return ((n = s - s2) ? new_token(TOKEN_WORD, ft_strndup(s2, n), n) : t);
+	return ((n = s - s2) ? new_token(TOKEN_WORD, ft_strndup(s2, n)) : t);
 }
 
 t_list			*msh_tokenize(const char *s)
@@ -105,6 +105,6 @@ t_list			*msh_tokenize(const char *s)
 			break ;
 		}
 		else
-			s += t->size;
+			s += t->type == TOKEN_MULTILINE ? ft_strlen(s) : t->size;
 	return (ft_list_rev(l));
 }

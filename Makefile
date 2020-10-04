@@ -6,7 +6,7 @@
 #    By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/27 16:09:01 by asoursou          #+#    #+#              #
-#    Updated: 2020/09/30 17:13:20 by asoursou         ###   ########.fr        #
+#    Updated: 2020/10/04 14:13:35 by asoursou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,7 +78,8 @@ SUB_SRC	:= msh_readline_clear.c \
 		   msh_readline.c
 SRC		+= $(addprefix readline/, $(SUB_SRC))
 SUB_SRC	:= msh_shell_clear.c \
-		   msh_shell_new.c \
+		   msh_shell_init.c \
+		   msh_shell_read_command.c \
 		   msh_shell_run.c
 SRC		+= $(addprefix shell/, $(SUB_SRC))
 SUB_SRC	:= msh_utils.c

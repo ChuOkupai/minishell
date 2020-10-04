@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/06 13:03:06 by asoursou          #+#    #+#             */
-/*   Updated: 2020/10/03 10:17:10 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/10/04 11:41:00 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # define MSH_PS1	"\x1B[92m$USER\x1B[0m: \x1B[94m$SHELL\x1B[0m \\$ "
 # define MSH_PS2	"> "
 
-# define MSH_STOKEN	"'\"$~*"
+# define MSH_STOKEN	"'\"$"
 
 # define MSH_UNEXPECTED	"syntax error near unexpected token "
 

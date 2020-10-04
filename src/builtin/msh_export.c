@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 18:56:27 by gdinet            #+#    #+#             */
-/*   Updated: 2020/10/03 10:51:12 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/10/04 10:28:08 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,5 @@ int			msh_export(char **argv, t_shell *shell)
 	if (argv[1])
 		return (export_args(argv, shell));
 	ft_list_foreach(shell->env.list, (t_gfunction) & print_declare);
-	print_declare("");
-	print_declare("mdr");
 	return (0);
 }
