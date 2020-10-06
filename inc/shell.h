@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/06 13:25:49 by asoursou          #+#    #+#             */
-/*   Updated: 2020/10/04 14:16:31 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/10/06 16:54:31 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	msh_shell_clear(t_shell *shell);
 
 /*
 ** Reads the next multiline command.
-** Returns a list of ASTs.
+** Returns a valid list of tokens, or NULL if the expression was invalid.
 */
 t_list	*msh_shell_read_command(t_shell *shell);
 

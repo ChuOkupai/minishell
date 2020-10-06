@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 20:25:45 by asoursou          #+#    #+#             */
-/*   Updated: 2020/10/04 15:32:37 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/10/06 10:36:03 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	msh_readline_clear(t_readline *readline);
 ** If history is not NULL, MSH_KEY_UP and MSH_KEY_DOWN are used to navigate
 ** through the command history.
 ** The line must be passed to free.
-** Returns NULL on error (or Ctrl+C).
+** Returns NULL on error.
 */
 char	*msh_readline(t_readline *readline, const t_history *history,
 		const char *prompt);

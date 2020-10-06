@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/11 17:26:20 by asoursou          #+#    #+#             */
-/*   Updated: 2020/10/04 17:43:35 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/10/06 16:58:29 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "const.h"
 #include "parser.h"
 #include "utils.h"
+
+#define MSH_UNEXPECTED	"syntax error near unexpected token `%s'"
 
 static bool	init(t_pda *a, const t_rule *rule, size_t size)
 {
@@ -60,18 +62,18 @@ static int	check(t_list *l, t_pda *a)
 	while (l && (s = next(l->content, a, a->last[s], s)) >= 0)
 		l = l->next;
 	if (l)
-		msh_perror(MSH_UNEXPECTED "`%s'", msh_token(l)->value);
+		msh_perror(MSH_UNEXPECTED, msh_token(l)->value);
 	else if (!a->final[s])
 	{
 		if (s == 3 || s == 4)
 			return (-1);
-		msh_perror(MSH_UNEXPECTED "`newline'");
+		msh_perror(MSH_UNEXPECTED, "newline");
 	}
 	else if (a->stack)
 	{
 		if (a->stack > 0)
 			return (-1);
-		msh_perror(MSH_UNEXPECTED "`)'");
+		msh_perror(MSH_UNEXPECTED, ")");
 	}
 	return (l || !a->final[s] ? 0 : a->final[s]);
 }
