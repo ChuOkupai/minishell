@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_cd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 14:34:39 by gdinet            #+#    #+#             */
-/*   Updated: 2020/10/03 11:00:27 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/10/15 13:41:21 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int			msh_cd(char **argv, t_shell *s)
 		ft_dprintf(STDERR_FILENO, MSH ": %s: %s\n", argv[0], strerror(errno));
 		return (1);
 	}
-	ft_memdel(s->pwd.oldpwd);
+	ft_delete(s->pwd.oldpwd);
 	s->pwd.oldpwd = s->pwd.pwd ? ft_strdup(s->pwd.pwd) : NULL;
 	update_pwd(&s->pwd);
 	if (msh_env_get(&s->env, "PWD"))

@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 14:42:43 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/21 15:16:24 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/10/15 13:40:51 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void		*msh_astnode_clear(t_list *l)
 	{
 		b = msh_astnode(l);
 		ft_btree_clear(&b, (t_gfunction) & msh_ast_clear);
-		ft_list_pop(&l, NULL);
+		ft_list_pop(&l);
 	}
 	return (NULL);
 }

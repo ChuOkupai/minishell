@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/19 13:43:10 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/19 14:29:18 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/10/15 13:46:28 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void			msh_redirect_clear(t_redirection *r)
 
 void			msh_process_clear(t_process *p)
 {
-	ft_memdeltab((void***)(&p->argv), ft_memsize((void **)p->argv));
-	ft_list_clear(&(p->redirection), (t_gfunction) & msh_redirect_clear);
+	ft_deletetab((void**)p->argv, ft_memsize((void **)p->argv));
+	ft_list_clear(&p->redirection, (t_gfunction) & msh_redirect_clear);
 	free(p);
 }
 

@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 18:56:27 by gdinet            #+#    #+#             */
-/*   Updated: 2020/10/04 10:28:08 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/10/15 13:41:37 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static int	export_args(char **argv, t_shell *shell)
 		}
 		msh_env_set(&shell->env, argv[i], value);
 		if (plus)
-			ft_memdel(value);
+			ft_delete(value);
 	}
 	return (0);
 }

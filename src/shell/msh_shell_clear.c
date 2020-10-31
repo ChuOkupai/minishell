@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/11 16:10:33 by asoursou          #+#    #+#             */
-/*   Updated: 2020/10/04 14:09:42 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/10/15 13:41:59 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 static void	pwd_clear(t_pwd *p)
 {
-	ft_memdel(p->pwd);
-	ft_memdel(p->oldpwd);
+	ft_delete(p->pwd);
+	ft_delete(p->oldpwd);
 }
 
 void		msh_shell_clear(t_shell *s)
@@ -25,6 +25,6 @@ void		msh_shell_clear(t_shell *s)
 	msh_readline_clear(&s->readline);
 	msh_history_clear(&s->history);
 	pwd_clear(&s->pwd);
-	ft_memdel(s->ps1);
-	ft_memdel(s->ps2);
+	ft_delete(s->ps1);
+	ft_delete(s->ps2);
 }

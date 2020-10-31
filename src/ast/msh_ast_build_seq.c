@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 14:03:23 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/19 13:54:12 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/10/15 13:52:18 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,22 @@ static void	create_redirection(t_list **l, t_list **r)
 	tmp = ft_list_popl(l);
 	op = msh_token(tmp);
 	tmp->content = msh_redirect_new(msh_redirect_type(op->value),
-	pop_token(ft_list_pop(l, NULL)));
-	ft_list_pushl(r, tmp);
+	pop_token(ft_list_pop(l)));
+	ft_list_push(r, tmp);
 }
 
 static void	create_process(t_list **seq, t_list *argv, t_list *redir)
 {
 	argv = ft_list_rev(argv);
-	redir = ft_list_rev(redir);
-	ft_list_push(seq, msh_process_new((char**)ft_list_to_array(argv), redir));
+	ft_list_push(seq, ft_list_new(msh_process_new(
+	(char**)ft_list_to_array(argv), ft_list_rev(redir))));
 	ft_list_clear(&argv, NULL);
 }
 
 static void	create_pipeline(t_list **l, t_list **seq, t_list **argv,
 			t_list **redir)
 {
-	ft_list_pop(l, NULL);
+	ft_list_pop(l);
 	create_process(seq, *argv, *redir);
 	*argv = NULL;
 	*redir = NULL;
@@ -65,7 +65,7 @@ t_list		*msh_ast_seq(t_list **l)
 	while ((t = msh_token(*l)))
 		if (t->type == TOKEN_WORD)
 		{
-			ft_list_pushl(&argv, ft_list_popl(l));
+			ft_list_push(&argv, ft_list_popl(l));
 			argv->content = pop_token(t);
 		}
 		else if (t->type == TOKEN_REDIRECT)

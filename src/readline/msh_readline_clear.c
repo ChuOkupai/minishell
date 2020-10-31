@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 20:58:32 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/30 17:08:50 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/10/15 13:41:59 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,5 @@ void	msh_readline_clear(t_readline *r)
 		tcsetattr(STDIN_FILENO, TCSAFLUSH, &r->old_termios);
 	if (r->stream)
 		ft_fclose(r->stream);
-	ft_memdel(r->buf);
+	ft_delete(r->buf);
 }

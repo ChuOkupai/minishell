@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 18:21:20 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/28 17:06:28 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/10/15 13:43:01 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,12 @@ void			msh_env_set(t_env *env, const char *name, const char *value)
 		return ;
 	if ((l = search(env->list, name, ft_strlen(name))))
 	{
-		ft_memdel(l->content);
+		ft_delete(l->content);
 		l->content = s;
 	}
 	else if (!ft_list_push(&env->list, s))
-		ft_memdel(s);
-	ft_memdel(env->array);
+		ft_delete(s);
+	ft_delete(env->array);
 	env->array = (char **)ft_list_to_array(env->list);
 }
 
@@ -70,7 +70,7 @@ void			msh_env_unset(t_env *env, const char *name)
 
 	if (!(l = search(env->list, name, ft_strlen(name))))
 		return ;
-	ft_list_remove_one(&env->list, l->content, &ft_compare_pointer, &free);
-	ft_memdel(env->array);
+	free(ft_list_remove_one(&env->list, l->content));
+	ft_delete(env->array);
 	env->array = (char **)ft_list_to_array(env->list);
 }

@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/06 13:25:49 by asoursou          #+#    #+#             */
-/*   Updated: 2020/10/06 16:54:31 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/10/15 14:55:01 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ struct	s_pwd
 ** ps2:			secondary prompt value
 ** line_no:		current line number
 ** keep:		loop as long as this variable is set to true
+** discard:		ctrl+C flag for readline
 */
 typedef struct s_shell	t_shell;
 struct	s_shell
@@ -62,6 +63,7 @@ struct	s_shell
 	char		*ps2;
 	size_t		line_no;
 	bool		keep;
+	bool		discard;
 };
 
 /*

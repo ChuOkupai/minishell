@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 16:20:33 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/30 17:16:45 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/10/15 13:43:40 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	history_del_last(t_history *h)
 		prev = ft_list_at(h->list, h->size - 1);
 		l = prev->next;
 		prev->next = NULL;
-		ft_list_pop(&l, &free);
+		free(ft_list_pop(&l));
 	}
 }
 
@@ -35,9 +35,9 @@ int			msh_history_add(t_history *h, const char *s)
 
 	if (!h->histsize || !s)
 		return (0);
-	else if (!(s2 = ft_strdup(s)) || !ft_list_push(&h->list, s2))
+	else if (!(s2 = ft_strdup(s)) || !ft_list_push(&h->list, ft_list_new(s2)))
 	{
-		ft_memdel(s2);
+		ft_delete(s2);
 		return (-1);
 	}
 	if (h->size == h->histsize)
