@@ -6,15 +6,13 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 18:56:27 by gdinet            #+#    #+#             */
-/*   Updated: 2020/11/04 14:44:21 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/11/04 16:38:14 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 #include "const.h"
 #include "utils.h"
-#include <unistd.h>
-#include <stdlib.h>
 
 static bool	msh_find_equal(char *arg, char **value)
 {

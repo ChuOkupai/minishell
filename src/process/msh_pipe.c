@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_pipe.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 19:25:55 by gdinet            #+#    #+#             */
-/*   Updated: 2020/10/03 18:37:10 by user42           ###   ########.fr       */
+/*   Updated: 2020/11/04 17:45:40 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include "process.h"
 #include "utils.h"
 
-static void	msh_child(t_list *process, int *p, int fd_in, t_env *env)
+static void	msh_child(t_shell *s, t_list *process, int *p, int fd_in)
 {
 	t_process	*p_content;
 	char		*name;
@@ -29,12 +29,12 @@ static void	msh_child(t_list *process, int *p, int fd_in, t_env *env)
 	close(p[0]);
 	if (msh_redirect(p_content))
 		exit(1);
-	if (!(name = msh_path(p_content->argv[0], env)))
+	if (!(name = msh_path(p_content->argv[0], &s->env)))
 	{
 		msh_perror("%s : command not found", p_content->argv[0]);
 		exit(127);
 	}
-	if ((execve(name, p_content->argv, env->array)) == -1)
+	if ((execve(name, p_content->argv, s->env.array)) == -1)
 	{
 		if (name != p_content->argv[0])
 			free(name);
@@ -44,7 +44,7 @@ static void	msh_child(t_list *process, int *p, int fd_in, t_env *env)
 
 static int	msh_wait_child(pid_t pid)
 {
-	int		status;
+	int status;
 
 	while (1)
 	{
@@ -61,36 +61,36 @@ static int	msh_wait_child(pid_t pid)
 	return (EXIT_SUCCESS);
 }
 
-static void	msh_pipe(t_list *process, t_env *env)
+static void	msh_pipe(t_shell *s, t_list *process)
 {
-	pid_t		pid;
 	int			p[2];
 	int			fd_in;
 	t_process	*p_content;
 
 	fd_in = 0;
-	pid = 0;
-	while (process != NULL)
+	while (process)
 	{
-		if (pipe(p) < 0 || (pid = fork()) == -1)
+		s->pid = 0;
+		if (pipe(p) < 0 || (s->pid = fork()) == -1)
 			msh_abort("process");
-		else if (pid == 0)
-			msh_child(process, p, fd_in, env);
+		else if (!s->pid)
+			msh_child(s, process, p, fd_in);
 		p_content = process->content;
-		p_content->pid = pid;
+		p_content->pid = s->pid;
 		fd_in = p[0];
 		close(p[1]);
+		s->pid = 0;
 		process = process->next;
 	}
 }
 
-int			msh_process(t_list *process, t_env *env)
+int			msh_process(t_shell *s, t_list *process)
 {
 	int			ret;
 	t_process	*p_content;
 
 	ret = 0;
-	msh_pipe(process, env);
+	msh_pipe(s, process);
 	while (process != NULL)
 	{
 		p_content = process->content;

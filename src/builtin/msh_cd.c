@@ -6,17 +6,16 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 14:34:39 by gdinet            #+#    #+#             */
-/*   Updated: 2020/10/15 13:41:21 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/11/04 16:36:43 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <errno.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
-#include <errno.h>
-#include "builtin.h"
-#include "libft.h"
 #include "const.h"
+#include "shell.h"
 #include "utils.h"
 
 static int	msh_cd_home(t_env *env)
@@ -33,7 +32,7 @@ static void	update_pwd(t_pwd *pwd)
 	if (!pwd->size)
 	{
 		pwd->size = 128;
-		if (!(pwd->pwd = malloc(sizeof(char) * pwd->size)))
+		if (!(pwd->pwd = ft_new(sizeof(char) * pwd->size)))
 			msh_abort("environment");
 	}
 	if (!getcwd(pwd->pwd, pwd->size))

@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   msh_exit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 17:59:50 by gdinet            #+#    #+#             */
-/*   Updated: 2020/10/03 11:53:39 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/11/04 16:37:04 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin.h"
-#include "libft.h"
+#include "shell.h"
 #include "utils.h"
 
 int		msh_exit(char **argv, t_shell *shell)

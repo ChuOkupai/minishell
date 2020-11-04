@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/19 14:33:18 by asoursou          #+#    #+#             */
-/*   Updated: 2020/10/03 15:00:23 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/11/04 16:14:52 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char			*msh_env_expand(t_env *env, char *s)
 	size_t	n;
 
 	n = parse_word(NULL, s, env);
-	if (!(d = malloc((n + 1) * sizeof(char))))
+	if (!(d = ft_new((n + 1) * sizeof(char))))
 		return (NULL);
 	d[n] = '\0';
 	parse_word(d, s, env);

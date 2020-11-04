@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/07 14:24:41 by asoursou          #+#    #+#             */
-/*   Updated: 2020/10/15 13:44:11 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/11/04 16:14:57 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static t_token	*new_token(t_token_type type, char *value)
 {
 	t_token *t;
 
-	if (!value || !(t = malloc(sizeof(t_token))))
+	if (!value || !(t = ft_new(sizeof(t_token))))
 		return (NULL);
 	t->type = type;
 	t->value = value;

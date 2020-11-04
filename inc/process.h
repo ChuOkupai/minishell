@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 01:57:36 by asoursou          #+#    #+#             */
-/*   Updated: 2020/10/03 15:56:06 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/11/04 17:14:37 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void			msh_process_print(t_process *process);
 /*
 ** Execute a list of process.
 */
-int				msh_process(t_list *process, t_env *env);
+int				msh_process(t_shell *shell, t_list *process);
 
 /*
 ** Redirect a process

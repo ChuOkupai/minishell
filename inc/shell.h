@@ -6,12 +6,13 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/06 13:25:49 by asoursou          #+#    #+#             */
-/*   Updated: 2020/10/15 14:55:01 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/11/04 17:49:25 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SHELL_H
 # define SHELL_H
+# include <stddef.h>
 # include "environment.h"
 # include "readline.h"
 
@@ -50,6 +51,7 @@ struct	s_pwd
 ** line_no:		current line number
 ** keep:		loop as long as this variable is set to true
 ** discard:		ctrl+C flag for readline
+** pid:			current process pid
 */
 typedef struct s_shell	t_shell;
 struct	s_shell
@@ -64,6 +66,7 @@ struct	s_shell
 	size_t		line_no;
 	bool		keep;
 	bool		discard;
+	pid_t		pid;
 };
 
 /*
@@ -78,16 +81,25 @@ int		msh_shell_init(t_shell *shell, int ac, char **av, char **env);
 void	msh_shell_clear(t_shell *shell);
 
 /*
-** Reads the next multiline command.
-** Returns a valid list of tokens, or NULL if the expression was invalid.
-*/
-t_list	*msh_shell_read_command(t_shell *shell);
-
-/*
 ** Execute a shell that loops indefinitely as long as the user does not exit
 ** the program.
 ** Returns the exit status.
 */
 int		msh_shell_run(t_shell *shell);
+
+/*
+** PRIVATE FUNCTIONS
+*/
+
+/*
+** Reset signal functions for current shell.
+*/
+void	msh_shell_hook(t_shell *shell);
+
+/*
+** Reads the next multiline command.
+** Returns a valid list of tokens, or NULL if the expression was invalid.
+*/
+t_list	*msh_shell_read_command(t_shell *shell);
 
 #endif

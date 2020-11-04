@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_process_exec.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 19:07:29 by gdinet            #+#    #+#             */
-/*   Updated: 2020/10/03 18:36:58 by user42           ###   ########.fr       */
+/*   Updated: 2020/11/04 17:15:28 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,15 @@ int			msh_process_exec(t_list *process, t_shell *shell)
 	{
 		msh_redirect(p_content);
 		msh_undirect(input, output);
-		return (shell->env.status = 0);
+		return (msh_env_setstatus(&shell->env, 0));
 	}
 	if (!process->next && (builtin = is_builtin(p_content->argv[0])) != -1)
 	{
 		if (msh_redirect(p_content))
-			return (shell->env.status = 1);
+			return (msh_env_setstatus(&shell->env, 1));
 		msh_env_setstatus(&shell->env, fct[builtin](p_content->argv, shell));
 		msh_undirect(input, output);
 		return (shell->env.status);
 	}
-	return (msh_env_setstatus(&shell->env, msh_process(process, &shell->env)));
+	return (msh_env_setstatus(&shell->env, msh_process(shell, process)));
 }

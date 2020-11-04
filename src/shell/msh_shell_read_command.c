@@ -6,41 +6,26 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/04 13:03:48 by asoursou          #+#    #+#             */
-/*   Updated: 2020/10/31 19:24:05 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/11/04 18:00:57 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <signal.h>
 #include "const.h"
 #include "parser.h"
 #include "shell.h"
 #include "utils.h"
-
-static t_shell	*g_shell;
-
-static void		discard_entry(int signal)
-{
-	(void)signal;
-	ft_putchar('\n');
-	if (!g_shell)
-		return ;
-	if (g_shell->ps1)
-		ft_putstr(g_shell->ps1);
-	g_shell->discard = true;
-	msh_env_setstatus(&g_shell->env, 130);
-}
 
 static char		*join(t_shell *s, char *s1, const char *s2, const char *prompt)
 {
 	char *s3;
 	char *s4;
 
-	if (g_shell->discard)
+	if (s->discard)
 		return (ft_delete(s1));
 	s3 = msh_readline(&s->readline, &s->history, prompt);
 	if (s1)
 	{
-		s4 = ft_strjoin3((g_shell->discard ? NULL : s1), s2, s3);
+		s4 = ft_strjoin3((s->discard ? NULL : s1), s2, s3);
 		ft_delete(s1);
 		ft_delete(s3);
 		return (s4);
@@ -97,12 +82,9 @@ t_list			*msh_shell_read_command(t_shell *s)
 {
 	t_list *l;
 
-	g_shell = s;
-	g_shell->discard = false;
-	signal(SIGINT, &discard_entry);
-	signal(SIGQUIT, &discard_entry);
+	s->discard = false;
 	l = readline_ps1(s, join(s, NULL, NULL, s->ps1));
 	msh_parse_words(l, &s->env);
-	g_shell = NULL;
+	s = NULL;
 	return (l);
 }

@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   msh_builtin_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 16:28:12 by gdinet            #+#    #+#             */
-/*   Updated: 2020/10/03 11:00:26 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/11/04 16:34:53 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin.h"
 #include "libft.h"
-#include "process.h"
 
 int		msh_check_name(char *name)
 {

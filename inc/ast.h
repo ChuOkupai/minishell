@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ast.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 01:05:52 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/26 19:36:04 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/11/04 16:51:06 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef AST_H
 # define AST_H
-# include "environment.h"
-# include "process.h"
+# include "shell.h"
 
 /*
 ** All possible node types in the abstract syntax tree (AST).
@@ -42,12 +41,6 @@ typedef struct s_ast	t_ast;
 ** Clear a list of ASTs.
 */
 void		*msh_astnode_clear(t_list *asts);
-
-/*
-** Get the AST node stored in a list of ASTs.
-** Returns NULL if the element does not exist.
-*/
-t_btree		*msh_astnode(t_list *element);
 
 /*
 ** Creates a new AST node.

@@ -6,13 +6,12 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 17:35:12 by gdinet            #+#    #+#             */
-/*   Updated: 2020/09/28 18:04:11 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/11/04 16:28:59 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin.h"
+#include "shell.h"
 #include "utils.h"
-#include "libft.h"
 
 int	msh_env(char **argv, t_shell *shell)
 {

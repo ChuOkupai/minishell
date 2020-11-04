@@ -6,18 +6,13 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/19 13:18:30 by asoursou          #+#    #+#             */
-/*   Updated: 2020/10/15 13:54:06 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/11/04 16:44:48 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "ast.h"
 #include "process.h"
-
-t_btree		*msh_astnode(t_list *element)
-{
-	return (element ? element->content : NULL);
-}
 
 static void	print_sequence(t_list *seq)
 {

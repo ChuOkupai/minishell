@@ -6,20 +6,20 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 14:03:23 by asoursou          #+#    #+#             */
-/*   Updated: 2020/10/15 13:52:18 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/11/04 16:32:53 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "ast.h"
 #include "parser.h"
+#include "process.h"
 
 static char	*pop_token(t_token *t)
 {
 	char *value;
 
 	value = t->value;
-	free(t);
+	ft_delete(t);
 	return (value);
 }
 
