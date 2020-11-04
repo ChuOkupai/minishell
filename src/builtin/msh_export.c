@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 18:56:27 by gdinet            #+#    #+#             */
-/*   Updated: 2020/10/15 13:41:37 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/11/04 14:44:21 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,11 @@ static void	print_declare(const char *var)
 	i = ft_strchrnul(var, '=') - var;
 	if (!var[i])
 		return ;
-	ft_printf("declare -x %.*s=\"%s\"\n", i, var, var + i + 1);
+	ft_printf("declare -x %.*s=\"", i, var);
+	var += i;
+	while (*(++var))
+		*var == '"' ? ft_putstr("\\\"") : ft_putchar(*var);
+	ft_putstr("\"\n");
 }
 
 int			msh_export(char **argv, t_shell *shell)
