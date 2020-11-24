@@ -1,27 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   readline_clear.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/27 16:22:36 by asoursou          #+#    #+#             */
-/*   Updated: 2020/11/24 14:33:12 by asoursou         ###   ########.fr       */
+/*   Created: 2020/09/28 20:58:32 by asoursou          #+#    #+#             */
+/*   Updated: 2020/11/24 17:56:05 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell.h"
-#include "utils.h"
+#include <stdlib.h>
+#include <unistd.h>
+#include "readline.h"
 
-int	main(int ac, char **av, char **env)
+void	readline_clear(t_readline *r)
 {
-	t_shell	shell;
-	int		ret;
-
-	ft_bzero(&shell, sizeof(t_shell));
-	if (shell_init(&shell, ac, av, env) < 0)
-		msh_abort("initialization");
-	ret = shell_run(&shell);
-	shell_clear(&shell);
-	return (ret);
+	return ;
+	if (r->init)
+		tcsetattr(STDIN_FILENO, TCSAFLUSH, &r->old_termios);
 }

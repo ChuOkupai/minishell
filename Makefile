@@ -6,7 +6,7 @@
 #    By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/27 16:09:01 by asoursou          #+#    #+#              #
-#    Updated: 2020/11/04 16:04:25 by asoursou         ###   ########.fr        #
+#    Updated: 2020/11/24 16:38:57 by asoursou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,57 +33,56 @@ DIRS	:= $(addprefix $(BUILD)/, $(SUB_DIR))
 
 # FILES
 NAME	:= minishell
-SUB_SRC	:= msh_ast_build_seq.c \
-		   msh_ast_build.c \
-		   msh_ast_exec.c \
-		   msh_ast_utils.c \
-		   msh_astnode_alloc.c \
-		   msh_astnode_utils.c
+SUB_SRC	:= ast_build_seq.c \
+		   ast_build.c \
+		   ast_exec.c \
+		   ast_utils.c \
+		   astnode_alloc.c \
+		   astnode_utils.c
 SRC		:= $(addprefix ast/, $(SUB_SRC))
-SUB_SRC := msh_builtin_utils.c \
-		   msh_cd.c \
-		   msh_echo.c \
-		   msh_env.c \
-		   msh_exit.c \
-		   msh_export.c \
-		   msh_pwd.c \
-		   msh_unset.c
+SUB_SRC := builtin_cd.c \
+		   builtin_echo.c \
+		   builtin_env.c \
+		   builtin_exit.c \
+		   builtin_export.c \
+		   builtin_pwd.c \
+		   builtin_unset.c \
+		   builtin_utils.c
 SRC		+= $(addprefix builtin/, $(SUB_SRC))
-SUB_SRC	:= msh_env_clear.c \
-		   msh_env_expand.c \
-		   msh_env_init.c \
-		   msh_env_setstatus.c \
-		   msh_env_utils.c
+SUB_SRC	:= env_clear.c \
+		   env_expand.c \
+		   env_init.c \
+		   env_setstatus.c \
+		   env_utils.c
 SRC		+= $(addprefix environment/, $(SUB_SRC))
-SUB_SRC	:= msh_history_add.c \
-		   msh_history_clear.c \
-		   msh_history_edit.c \
-		   msh_history_init.c \
-		   msh_history_resize.c
+SUB_SRC	:= history_add.c \
+		   history_clear.c \
+		   history_edit.c \
+		   history_init.c \
+		   history_resize.c
 SRC		+= $(addprefix history/, $(SUB_SRC))
-SUB_SRC	:= msh_is_valid.c \
-		   msh_parse_words.c \
-		   msh_token_utils.c \
-		   msh_tokenize.c
+SUB_SRC	:= is_valid.c \
+		   parse_words.c \
+		   token_utils.c \
+		   tokenize.c
 SRC		+= $(addprefix parser/, $(SUB_SRC))
-SUB_SRC	:= msh_path.c \
-		   msh_pipe.c \
-		   msh_process_alloc.c \
-		   msh_process_exec.c \
-		   msh_process_utils.c \
-		   msh_redirect.c
+SUB_SRC	:= process_alloc.c \
+		   process_exec.c \
+		   process_run.c \
+		   process_utils.c \
+		   redirect.c
 SRC		+= $(addprefix process/, $(SUB_SRC))
-SUB_SRC	:= msh_readline_clear.c \
-		   msh_readline_init.c \
-		   msh_readline.c
+SUB_SRC	:= readline_clear.c \
+		   readline_init.c \
+		   readline.c
 SRC		+= $(addprefix readline/, $(SUB_SRC))
-SUB_SRC	:= msh_shell_clear.c \
-		   msh_shell_hook.c \
-		   msh_shell_init.c \
-		   msh_shell_read_command.c \
-		   msh_shell_run.c
+SUB_SRC	:= shell_clear.c \
+		   shell_hook.c \
+		   shell_init.c \
+		   shell_read_command.c \
+		   shell_run.c
 SRC		+= $(addprefix shell/, $(SUB_SRC))
-SUB_SRC	:= msh_utils.c
+SUB_SRC	:= utils.c
 SRC		+= $(addprefix utils/, $(SUB_SRC))
 SRC		+= main.c
 DEP		:= $(SRC:%.c=$(BUILD)/%.d)

@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/11 17:08:34 by asoursou          #+#    #+#             */
-/*   Updated: 2020/09/21 17:56:48 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/11/24 13:55:35 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,35 +103,35 @@ typedef struct s_pda	t_pda;
 ** Checks if the given list of tokens is a valid expression.
 ** Returns 1 if the expression is valid, 0 if invalid, -1 if multiline.
 */
-int		msh_is_valid(t_list *tokens);
+int		is_valid(t_list *tokens);
 
 /*
 ** Expands all tokens of type TOKEN_WORD into arguments.
 ** The list of tokens MUST be valid before calling this function.
 */
-void	msh_parse_words(t_list *tokens, t_env *env);
+void	parse_words(t_list *tokens, t_env *env);
 
 /*
 ** Get the token stored in a list of tokens.
 ** Returns NULL if the element does not exist.
 */
-t_token	*msh_token(t_list *element);
+t_token	*token(t_list *element);
 
 /*
 ** Free a token of type TOKEN_WORD or TOKEN_MULTILINE.
 ** If the token is already from the g_lexer, nothing happens.
 */
-void	msh_token_clear(t_token *token);
+void	token_clear(t_token *token);
 
 /*
 ** Prints a token to the standard ouput.
 */
-void	msh_token_print(t_token *token);
+void	token_print(t_token *token);
 
 /*
 ** Creates a list of tokens from a string.
 ** Returns the new list of tokens.
 */
-t_list	*msh_tokenize(const char *string);
+t_list	*tokenize(const char *string);
 
 #endif

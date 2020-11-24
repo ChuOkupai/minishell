@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/06 13:25:49 by asoursou          #+#    #+#             */
-/*   Updated: 2020/11/04 17:49:25 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/11/24 14:00:45 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,19 +73,19 @@ struct	s_shell
 ** Initialize a new shell.
 ** Returns -1 on error.
 */
-int		msh_shell_init(t_shell *shell, int ac, char **av, char **env);
+int		shell_init(t_shell *shell, int ac, char **av, char **env);
 
 /*
 ** Destroy a shell.
 */
-void	msh_shell_clear(t_shell *shell);
+void	shell_clear(t_shell *shell);
 
 /*
 ** Execute a shell that loops indefinitely as long as the user does not exit
 ** the program.
 ** Returns the exit status.
 */
-int		msh_shell_run(t_shell *shell);
+int		shell_run(t_shell *shell);
 
 /*
 ** PRIVATE FUNCTIONS
@@ -94,12 +94,12 @@ int		msh_shell_run(t_shell *shell);
 /*
 ** Reset signal functions for current shell.
 */
-void	msh_shell_hook(t_shell *shell);
+void	shell_hook(t_shell *shell);
 
 /*
 ** Reads the next multiline command.
 ** Returns a valid list of tokens, or NULL if the expression was invalid.
 */
-t_list	*msh_shell_read_command(t_shell *shell);
+t_list	*shell_read_command(t_shell *shell);
 
 #endif

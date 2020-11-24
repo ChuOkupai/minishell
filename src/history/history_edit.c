@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   history_edit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/27 16:22:36 by asoursou          #+#    #+#             */
-/*   Updated: 2020/11/24 14:33:12 by asoursou         ###   ########.fr       */
+/*   Created: 2020/09/30 17:04:40 by asoursou          #+#    #+#             */
+/*   Updated: 2020/11/24 15:19:21 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell.h"
-#include "utils.h"
+#include <stdlib.h>
+#include "history.h"
 
-int	main(int ac, char **av, char **env)
+int	history_edit(t_history *h, const char *s, size_t i)
 {
-	t_shell	shell;
-	int		ret;
+	char	*s2;
+	t_list	*l;
 
-	ft_bzero(&shell, sizeof(t_shell));
-	if (shell_init(&shell, ac, av, env) < 0)
-		msh_abort("initialization");
-	ret = shell_run(&shell);
-	shell_clear(&shell);
-	return (ret);
+	if (!h->histsize || !s || i >= h->size)
+		return (0);
+	else if (!(s2 = ft_strdup(s)))
+		return (-1);
+	l = ft_list_at(h->list, i);
+	free(l->content);
+	l->content = s2;
+	return (0);
 }

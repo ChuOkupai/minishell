@@ -1,27 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   astnode_alloc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/27 16:22:36 by asoursou          #+#    #+#             */
-/*   Updated: 2020/11/24 14:33:12 by asoursou         ###   ########.fr       */
+/*   Created: 2020/09/18 14:42:43 by asoursou          #+#    #+#             */
+/*   Updated: 2020/11/24 14:48:17 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell.h"
+#include "ast.h"
 #include "utils.h"
 
-int	main(int ac, char **av, char **env)
+void		*astnode_clear(t_list *l)
 {
-	t_shell	shell;
-	int		ret;
+	t_btree *b;
 
-	ft_bzero(&shell, sizeof(t_shell));
-	if (shell_init(&shell, ac, av, env) < 0)
-		msh_abort("initialization");
-	ret = shell_run(&shell);
-	shell_clear(&shell);
-	return (ret);
+	while (l)
+	{
+		b = ft_list_pop(&l);
+		ft_btree_clear(&b, (t_gfunction) & ast_clear);
+	}
+	return (NULL);
+}
+
+t_btree		*astnode_new(t_ast_type type, t_list *sequence)
+{
+	t_ast *a;
+
+	if (!(a = ft_new(sizeof(t_ast))))
+		msh_abort("ast");
+	a->type = type;
+	a->sequence = type == AST_PROCESS ? sequence : NULL;
+	return (ft_btree_new(a));
 }

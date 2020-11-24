@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   shell_clear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/27 16:22:36 by asoursou          #+#    #+#             */
-/*   Updated: 2020/11/24 14:33:12 by asoursou         ###   ########.fr       */
+/*   Created: 2020/09/11 16:10:33 by asoursou          #+#    #+#             */
+/*   Updated: 2020/11/24 15:24:38 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "shell.h"
-#include "utils.h"
 
-int	main(int ac, char **av, char **env)
+static void	pwd_clear(t_pwd *p)
 {
-	t_shell	shell;
-	int		ret;
+	ft_delete(p->pwd);
+	ft_delete(p->oldpwd);
+}
 
-	ft_bzero(&shell, sizeof(t_shell));
-	if (shell_init(&shell, ac, av, env) < 0)
-		msh_abort("initialization");
-	ret = shell_run(&shell);
-	shell_clear(&shell);
-	return (ret);
+void		shell_clear(t_shell *s)
+{
+	env_clear(&s->env);
+	readline_clear(&s->readline);
+	history_clear(&s->history);
+	pwd_clear(&s->pwd);
+	ft_delete(s->ps1);
+	ft_delete(s->ps2);
 }

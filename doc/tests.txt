@@ -9,3 +9,7 @@ Collection of malicious tests:
 (echo 1 && echo 2) > f # fail with minishell?
 echo ;;
 echo $ \$USER $USER '$' '\$' '\$USER' '$USER' "$" "\$" "\$USER" "$USER"
+exit a b
+exit 1 2
+exit a 1
+exit 1 a

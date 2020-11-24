@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   env_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/27 16:22:36 by asoursou          #+#    #+#             */
-/*   Updated: 2020/11/24 14:33:12 by asoursou         ###   ########.fr       */
+/*   Created: 2020/08/31 18:21:32 by asoursou          #+#    #+#             */
+/*   Updated: 2020/11/24 17:06:33 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell.h"
-#include "utils.h"
+#include "environment.h"
 
-int	main(int ac, char **av, char **env)
+void	env_init(t_env *env, char **env_array)
 {
-	t_shell	shell;
-	int		ret;
+	char *s;
 
-	ft_bzero(&shell, sizeof(t_shell));
-	if (shell_init(&shell, ac, av, env) < 0)
-		msh_abort("initialization");
-	ret = shell_run(&shell);
-	shell_clear(&shell);
-	return (ret);
+	while (*env_array && (s = ft_strdup(*env_array)))
+	{
+		if (!ft_list_push(&env->list, ft_list_new(s)))
+		{
+			ft_delete(s);
+			break ;
+		}
+		++env_array;
+	}
+	env->list = ft_list_rev(env->list);
+	env_set(env, "SHELL", "minishell");
 }

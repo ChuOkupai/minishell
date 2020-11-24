@@ -1,27 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/27 16:22:36 by asoursou          #+#    #+#             */
-/*   Updated: 2020/11/24 14:33:12 by asoursou         ###   ########.fr       */
+/*   Created: 2020/09/26 16:27:48 by gdinet            #+#    #+#             */
+/*   Updated: 2020/11/24 14:51:27 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell.h"
+#include "builtin.h"
 #include "utils.h"
 
-int	main(int ac, char **av, char **env)
+int	builtin_unset(char **argv, t_shell *shell)
 {
-	t_shell	shell;
+	int		i;
 	int		ret;
 
-	ft_bzero(&shell, sizeof(t_shell));
-	if (shell_init(&shell, ac, av, env) < 0)
-		msh_abort("initialization");
-	ret = shell_run(&shell);
-	shell_clear(&shell);
+	i = 1;
+	ret = 0;
+	while (argv[i])
+	{
+		if (!check_name(argv[i]))
+		{
+			msh_perror("%s: %s: not a valid identifier", argv[0], argv[i]);
+			ret = 1;
+		}
+		env_unset(&shell->env, argv[i]);
+		i++;
+	}
 	return (ret);
 }

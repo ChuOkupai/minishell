@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 17:15:40 by gdinet            #+#    #+#             */
-/*   Updated: 2020/11/04 16:28:50 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/11/24 14:13:20 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 /*
 ** Check if a variable name is valid
 */
-int		msh_check_name(char *name);
+int	check_name(char *name);
 
 /*
 ** The echo utility writes any specified operands, separated by single blank
@@ -26,36 +26,36 @@ int		msh_check_name(char *name);
 ** The following option is available:
 ** -n    Do not print the trailing newline character.
 */
-int		msh_echo(char **argv, t_shell *shell);
+int	builtin_echo(char **argv, t_shell *shell);
 
 /*
 ** Print working directory name
 */
-int		msh_pwd(char **argv, t_shell *shell);
+int	builtin_pwd(char **argv, t_shell *shell);
 
 /*
 ** Export arguments as environment variables
 */
-int		msh_export(char **argv, t_shell *shell);
+int	builtin_export(char **argv, t_shell *shell);
 
 /*
 ** Change the current working directory
 */
-int		msh_cd(char **argv, t_shell *shell);
+int	builtin_cd(char **argv, t_shell *shell);
 
 /*
 ** Print the list of environment variables
 */
-int		msh_env(char **argv, t_shell *shell);
+int	builtin_env(char **argv, t_shell *shell);
 
 /*
 ** Exit the minishell
 */
-int		msh_exit(char **argv, t_shell *shell);
+int	builtin_exit(char **argv, t_shell *shell);
 
 /*
 ** Unset an environment variable
 */
-int		msh_unset(char **argv, t_shell *shell);
+int	builtin_unset(char **argv, t_shell *shell);
 
 #endif

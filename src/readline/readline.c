@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   readline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/27 16:22:36 by asoursou          #+#    #+#             */
-/*   Updated: 2020/11/24 14:33:12 by asoursou         ###   ########.fr       */
+/*   Created: 2020/09/28 20:49:00 by asoursou          #+#    #+#             */
+/*   Updated: 2020/11/24 18:55:46 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell.h"
-#include "utils.h"
+#include "readline.h"
 
-int	main(int ac, char **av, char **env)
+char	*readline(t_readline *r, const t_history *h, const char *prompt)
 {
-	t_shell	shell;
+	char	*s;
 	int		ret;
 
-	ft_bzero(&shell, sizeof(t_shell));
-	if (shell_init(&shell, ac, av, env) < 0)
-		msh_abort("initialization");
-	ret = shell_run(&shell);
-	shell_clear(&shell);
-	return (ret);
+	(void)h;
+	if (prompt)
+		ft_putstr(prompt);
+	ret = ft_get_next_line(r->fd, &s);
+	r->eof = ret < 1;
+	return (s);
 }

@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   builtin_pwd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/27 16:22:36 by asoursou          #+#    #+#             */
-/*   Updated: 2020/11/24 14:33:12 by asoursou         ###   ########.fr       */
+/*   Created: 2020/09/21 17:43:09 by gdinet            #+#    #+#             */
+/*   Updated: 2020/11/24 14:50:01 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include "shell.h"
 #include "utils.h"
 
-int	main(int ac, char **av, char **env)
+int	builtin_pwd(char **argv, t_shell *shell)
 {
-	t_shell	shell;
-	int		ret;
+	char	*buf;
 
-	ft_bzero(&shell, sizeof(t_shell));
-	if (shell_init(&shell, ac, av, env) < 0)
-		msh_abort("initialization");
-	ret = shell_run(&shell);
-	shell_clear(&shell);
-	return (ret);
+	if (argv[1] && argv[1][0] == '-' && argv[1][1] &&
+		(argv[1][2] || argv[1][1] != '-'))
+		return (msh_perrorr(1, "%s: %s: invalid option", argv[0], argv[1]));
+	if (!(buf = ft_new(sizeof(char) * shell->pwd.size)))
+		return (1);
+	buf = getcwd(buf, shell->pwd.size);
+	ft_putendl(buf);
+	ft_delete(buf);
+	return (0);
 }
