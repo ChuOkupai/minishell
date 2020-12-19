@@ -6,50 +6,39 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 20:25:45 by asoursou          #+#    #+#             */
-/*   Updated: 2020/11/24 18:05:19 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/12/18 20:20:31 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef READLINE_H
 # define READLINE_H
-# include <termios.h>
-# include "history.h"
+# include "libft.h"
 
 /*
-** old_termios:	save the old termios settings
-** fd:			input file descriptor
-** eof:			end-of-file indicator
-** init:		true if old_termios has been initialized
+** stream:	input file stream
+** buf:		temporary buffer (in case of Ctrl+C)
 */
 typedef struct s_readline	t_readline;
-typedef struct termios	t_termios;
 struct	s_readline
 {
-	t_termios	old_termios;
-	int			fd;
-	bool		eof;
-	bool		init;
+	t_file	*stream;
+	char	*buf;
 };
 
-/*
-** Initialize the readline structure.
-** Returns -1 on error, else 0.
-*/
-int		readline_init(t_readline *readline, const char *termtype, int fd);
+void	readline_clear(t_readline *readline);
+int		readline_init(t_readline *readline);
 
 /*
-** Clear the readline structure.
+** Stores the current line to the buffer.
+** This line will be automatically send for the next call to readline.
 */
-void	readline_clear(t_readline *readline);
+void	readline_keep(t_readline *readline, char *buf);
 
 /*
 ** Reads the next line.
-** If history is not NULL, MSH_KEY_UP and MSH_KEY_DOWN are used to navigate
-** through the command history.
 ** The allocated line must be passed to free.
 ** Returns NULL on error.
 */
-char	*readline(t_readline *readline, const t_history *history,
-		const char *prompt);
+char	*readline(t_readline *readline, const char *prompt);
 
 #endif

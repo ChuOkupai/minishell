@@ -1,0 +1,27 @@
+echo *
+echo ***
+echo .*
+echo .*/
+echo */
+echo */*
+echo /lib*/*
+echo /lib*/ld*
+echo ./*/*/*.txt
+ls */*/*.txt
+echo env/*/*
+echo env/*/*/*
+echo env/*/*/*/*
+echo env/dir0/*
+echo env/dir1/**
+echo env/*/a*
+echo env/*/*a
+echo env/*/b*
+echo env/*/b*b
+echo env/*ir/
+echo env/file* env/*/file*
+< *
+< unknown*
+cat < env/*o
+echo 1 > ./tmp/wildcard-file1; cat < ./tmp/wildcard-*1; rm ./tmp/wildcard-file1
+export WILCARD='*' ; echo $WILCARD
+export WILCARD='*' ; cat < $WILCARD

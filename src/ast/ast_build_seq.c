@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 14:03:23 by asoursou          #+#    #+#             */
-/*   Updated: 2020/11/24 14:45:04 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/12/11 14:41:36 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,67 +14,59 @@
 #include "parser.h"
 #include "process.h"
 
-static char	*pop_token(t_token *t)
+static t_list		*create_arg(t_list **l)
 {
-	char *value;
+	t_list *dst;
 
-	value = t->value;
-	ft_delete(t);
-	return (value);
+	dst = ft_list_popl(l);
+	dst->content = token_pop(dst->content);
+	return (dst);
 }
 
-static void	create_redirection(t_list **l, t_list **r)
+static t_list		*create_redirection(t_list **l)
 {
-	t_list	*tmp;
-	t_token	*op;
+	t_token		*redir;
+	t_redir_op	op;
+	t_list		*dst;
 
-	tmp = ft_list_popl(l);
-	op = token(tmp);
-	tmp->content = redirect_new(redirect_type(op->value),
-	pop_token(ft_list_pop(l)));
-	ft_list_push(r, tmp);
+	redir = ft_list_pop(l);
+	op = redir_op(redir->value);
+	dst = ft_list_popl(l);
+	dst->content = redir_new(op, token_pop(dst->content));
+	return (dst);
 }
 
-static void	create_process(t_list **seq, t_list *argv, t_list *redir)
+static t_process	*create_process(t_list **l)
 {
-	argv = ft_list_rev(argv);
-	ft_list_push(seq, ft_list_new(process_new(
-	(char**)ft_list_to_array(argv), ft_list_rev(redir))));
-	ft_list_clear(&argv, NULL);
-}
+	t_list	*argv;
+	t_list	*redir;
+	t_token	*t;
 
-static void	create_pipeline(t_list **l, t_list **seq, t_list **argv,
-			t_list **redir)
-{
-	ft_list_pop(l);
-	create_process(seq, *argv, *redir);
-	*argv = NULL;
-	*redir = NULL;
-}
-
-t_list		*ast_seq(t_list **l)
-{
-	t_list		*seq;
-	t_list		*argv;
-	t_list		*redir;
-	t_token		*t;
-
-	seq = NULL;
 	argv = NULL;
 	redir = NULL;
-	while ((t = token(*l)))
+	while (*l && (t = (*l)->content))
 		if (t->type == TOKEN_WORD)
-		{
-			ft_list_push(&argv, ft_list_popl(l));
-			argv->content = pop_token(t);
-		}
+			ft_list_push(&argv, create_arg(l));
 		else if (t->type == TOKEN_REDIRECT)
-			create_redirection(l, &redir);
-		else if (t->type == TOKEN_PIPE)
-			create_pipeline(l, &seq, &argv, &redir);
+			ft_list_push(&redir, create_redirection(l));
 		else
 			break ;
-	if (argv || redir)
-		create_process(&seq, argv, redir);
-	return (ft_list_rev(seq));
+	if (!argv && !redir)
+		return (NULL);
+	return (process_new(ft_list_rev(argv), ft_list_rev(redir)));
+}
+
+t_btree				*ast_build_seq(t_list **l)
+{
+	t_list		*seq;
+	t_process	*p;
+
+	seq = NULL;
+	while ((p = create_process(l)))
+	{
+		ft_list_push(&seq, ft_list_new(p));
+		if (*l && token((*l)->content)->type == TOKEN_PIPE)
+			ft_list_pop(l);
+	}
+	return (astnode_new(AST_JOB, ft_list_rev(seq)));
 }

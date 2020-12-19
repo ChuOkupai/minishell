@@ -6,47 +6,41 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 16:49:41 by gdinet            #+#    #+#             */
-/*   Updated: 2020/11/24 14:49:48 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/12/15 17:39:44 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static int	option_n(char *arg)
+static int	is_n(int c)
 {
-	int		n;
-
-	n = 1;
-	while (n && arg[n])
-	{
-		if (arg[n] == 'n')
-			n++;
-		else
-			n = 0;
-	}
-	return (n);
+	return (c == 'n');
 }
 
-int			builtin_echo(char **argv, t_shell *shell)
+static void	print(char **s, bool put_space)
 {
-	int		i;
-	int		n;
+	if (!*s)
+		return ;
+	if (put_space)
+		ft_putchar(' ');
+	ft_putstr(*s);
+	print(s + 1, true);
+}
 
-	(void)shell;
-	i = 1;
-	n = 0;
-	while (argv[i] && argv[i][0] == '-' && option_n(argv[i]))
+int			builtin_echo(char **av, t_shell *s)
+{
+	bool option_n;
+
+	(void)s;
+	option_n = false;
+	while (*(++av) && **av == '-')
 	{
-		n = 1;
-		i++;
+		if (!is_n((*av)[1]) || *ft_strwhile(*av + 2, &is_n))
+			break ;
+		option_n = true;
 	}
-	while (argv[i])
-	{
-		ft_putstr(argv[i]);
-		if (argv[++i])
-			ft_putchar(' ');
-	}
-	if (!n)
+	print(av, false);
+	if (!option_n)
 		ft_putchar('\n');
 	return (0);
 }

@@ -1,0 +1,25 @@
+exit
+exit 0
+exit 1
+exit 16 32
+exit -8
+exit 255
+exit 256
+exit 513
+exit invalid
+exit invalid0
+exit a b
+exit a b c
+exit 3 a
+exit 5 a b
+exit a 7 b
+exit a b 11
+exit -9223372036854775808
+exit -9223372036854775809
+exit 9223372036854775807
+exit 9223372036854775808
+exit 18446744073709551615
+exit 18446744073709551616
+exit 96 | exit 69
+exit 69 | exit 96
+exit 1 | exit 2 | exit 3

@@ -6,21 +6,41 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 17:35:12 by gdinet            #+#    #+#             */
-/*   Updated: 2020/11/24 17:49:40 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/12/16 13:20:10 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <errno.h>
-#include <string.h>
-#include "shell.h"
+#include "builtin.h"
 #include "utils.h"
 
-#define MSH_ERROR	"minishell: %s: %s: %s"
-
-int	builtin_env(char **argv, t_shell *shell)
+static int	usage(void)
 {
-	if (argv[1])
-		return (msh_perrorr(1, MSH_ERROR, *argv, argv[1], strerror(EINVAL)));
-	ft_list_foreach(shell->env.list, (t_gfunction) & ft_putendl);
+	ft_putendl("env: env");
+	ft_putstr("    Displays all the variables with their associated value");
+	ft_putendl(" in the environment.");
+	return (2);
+}
+
+static void	print(char **t)
+{
+	const char *eq;
+
+	if (!*t)
+		return ;
+	eq = ft_strchr(*t, '=');
+	if (eq)
+		ft_putendl(*t);
+	print(t + 1);
+}
+
+int			builtin_env(char **av, t_shell *s)
+{
+	if (av[1])
+	{
+		if (!ft_strcmp(av[1], "--help"))
+			return (usage());
+		return (msh_perrorr(*av, ARG_TOOMANY, 1));
+	}
+	print(s->env.array);
 	return (0);
 }

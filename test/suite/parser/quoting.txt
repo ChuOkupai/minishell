@@ -1,0 +1,20 @@
+''
+""
+echo 'hello'
+echo "hello"
+echo 'foo\'bar'
+echo "foo\"bar"
+echo 'abc''def'
+echo 'abc'"def"
+echo "abc"'def'
+echo "abc""def"
+echo I\'m' '$USER'!'
+echo \$VAR $VAR
+echo '\$VAR' '$VAR'
+echo "\$VAR" "$VAR"
+echo \$ $ \$USER $USER
+echo '\$' '$' '\$USER' '$USER'
+echo "\$" "$" "\$USER" "$USER"
+echo \$? $?
+echo '\$?' '$?'
+echo "\$?" "$?"

@@ -1,0 +1,13 @@
+;
+|
+<
+>
+>>
+; ./tmp/file
+| ./tmp/file
+< ./tmp/file
+> ./tmp/file
+>> ./tmp/file
+> <
+> ./tmp/file <
+> < ./tmp/file

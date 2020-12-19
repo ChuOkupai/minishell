@@ -6,83 +6,91 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 18:56:27 by gdinet            #+#    #+#             */
-/*   Updated: 2020/11/24 17:48:26 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/12/15 18:52:54 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include "builtin.h"
-#include "utils.h"
 
-#define MSH_INVALID_ID	"minishell: %s: %s: not a valid identifier"
-
-static bool	find_equal(char *arg, char **value)
+static int	usage(void)
 {
-	int		i;
-
-	i = 0;
-	while (arg[i])
-	{
-		if (arg[i] == '=')
-		{
-			arg[i] = '\0';
-			*value = arg + i + 1;
-			return (false);
-		}
-		if (arg[i] == '+' && arg[i + 1] == '=')
-		{
-			arg[i] = '\0';
-			*value = arg + i + 2;
-			return (true);
-		}
-		i++;
-	}
-	return (false);
+	ft_putendl("export: export [NAME[[=|+=]VALUE] ...]");
+	ft_putendl("    Set export attribute for shell variables.");
+	ft_putendl("    ");
+	ft_putstr("    Marks each NAME for automatic export to the environment");
+	ft_putendl(" of subsequently");
+	ft_putendl("    executed commands.");
+	ft_putendl("    If VALUE is supplied, assign VALUE before exporting.");
+	ft_putstr("    If the operator += is used, it concatenates the VALUE");
+	ft_putendl(" to the already existing one.");
+	ft_putendl("    ");
+	ft_putendl("    Exit Status:");
+	ft_putendl("    Returns success unless NAME is invalid.");
+	return (2);
 }
 
-static int	export_args(char **av, t_shell *shell)
+static int	print_env(char **t)
 {
-	int			i;
-	char		*value;
-	const char	*old_value;
-	bool		plus;
+	const char *s;
+	const char *eq;
 
+	while (*t)
+	{
+		s = *t++;
+		eq = ft_strchr(s, '=');
+		if (!eq)
+		{
+			ft_printf("declare -x %.*s\n", (int)(eq - s), s);
+			continue ;
+		}
+		ft_printf("declare -x %.*s=\"", (int)(eq - s), s);
+		s = eq;
+		while (*(++s))
+			if (ft_strchr("\\\"", *s))
+				ft_printf("\\%c", *s);
+			else
+				ft_putchar(*s);
+		ft_putstr("\"\n");
+	}
+	return (0);
+}
+
+static int	export(t_env *env, char *s)
+{
+	size_t	n;
+	char	*op;
+	bool	plus;
+
+	n = ft_isdigit(*s) ? 0 : env_varlen(s);
+	op = s + n;
+	if (n && !*op)
+	{
+		env_set(env, s, NULL);
+		return (0);
+	}
+	plus = *op == '+';
+	op += plus;
+	if (!n || *op != '=')
+		return (-1);
+	++op;
+	plus ? env_appendn(env, s, op, n) : env_setn(env, s, op, n);
+	return (0);
+}
+
+int			builtin_export(char **av, t_shell *s)
+{
+	int		r;
+	size_t	i;
+
+	if (!av[1])
+		return (print_env(s->env.array));
+	else if (!ft_strcmp(av[1], "--help"))
+		return (usage());
+	r = 0;
 	i = 0;
-	value = NULL;
 	while (av[++i])
-	{
-		plus = find_equal(av[i], &value);
-		if (!check_name(av[i]))
-			return (msh_perrorr(1, MSH_INVALID_ID, *av, av[i]));
-		if (plus)
-		{
-			old_value = env_get(&shell->env, av[i]);
-			value = ft_strjoin(old_value, value);
-		}
-		env_set(&shell->env, av[i], value);
-		if (plus)
-			ft_delete(value);
-	}
-	return (0);
-}
-
-static void	print_declare(const char *var)
-{
-	int i;
-
-	i = ft_strchrnul(var, '=') - var;
-	if (!var[i])
-		return ;
-	ft_printf("declare -x %.*s=\"", i, var);
-	var += i;
-	while (*(++var))
-		*var == '"' ? ft_putstr("\\\"") : ft_putchar(*var);
-	ft_putstr("\"\n");
-}
-
-int			builtin_export(char **argv, t_shell *shell)
-{
-	if (argv[1])
-		return (export_args(argv, shell));
-	ft_list_foreach(shell->env.list, (t_gfunction) & print_declare);
-	return (0);
+		if (export(&s->env, av[i]) < 0)
+			r = ft_dprintf(STDERR_FILENO, INVALID_ID, *av, av[i]);
+	return (!!r);
 }

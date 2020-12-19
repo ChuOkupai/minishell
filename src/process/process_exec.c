@@ -5,61 +5,41 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/16 19:07:29 by gdinet            #+#    #+#             */
-/*   Updated: 2020/11/24 17:32:36 by asoursou         ###   ########.fr       */
+/*   Created: 2020/12/05 18:46:57 by asoursou          #+#    #+#             */
+/*   Updated: 2020/12/09 00:52:58 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <unistd.h>
+#include <errno.h>
 #include <stdlib.h>
+#include <unistd.h>
+#include "builtin.h"
 #include "process.h"
 #include "utils.h"
-#include "shell.h"
-#include "builtin.h"
 
-typedef int	(*t_fct_ptr)(char **, t_shell *);
-
-static t_fct_ptr	get_builtin(const char *name)
+static void	clear_on_exit(t_shell *s, int ret)
 {
-	static char			*fct_name[] = { "cd", "echo", "env", "exit", "export",
-						"pwd", "unset" };
-	static t_fct_ptr	fct_ptr[] = { &builtin_cd, &builtin_echo, &builtin_env,
-						&builtin_exit, &builtin_export, &builtin_pwd,
-						&builtin_unset };
-	size_t				i;
-
-	i = sizeof(fct_name) / sizeof(*fct_name);
-	while (i--)
-		if (!ft_strcmp(name, fct_name[i]))
-			return (fct_ptr[i]);
-	return (NULL);
+	shell_clear(s);
+	exit(ret);
 }
 
-int					process_exec(t_list *process, t_shell *shell)
+void		process_exec(t_process *p, t_shell *s)
 {
-	t_process	*p_content;
-	int			input;
-	int			output;
-	t_fct_ptr	builtin_func;
+	t_builtin	func;
+	char		*bin;
 
-	p_content = process->content;
-	input = dup(STDIN_FILENO);
-	output = dup(STDOUT_FILENO);
-	if (!p_content->argv[0])
-	{
-		redirect(p_content);
-		undirect(input, output);
-		return (env_setstatus(&shell->env, 0));
-	}
-	if (!process->next && (builtin_func = get_builtin(p_content->argv[0])))
-	{
-		if (redirect(p_content))
-			return (env_setstatus(&shell->env, 1));
-		env_setstatus(&shell->env, builtin_func(p_content->argv, shell));
-		undirect(input, output);
-		return (shell->env.status);
-	}
-	return (env_setstatus(&shell->env, process_run(shell, process)));
+	if (process_redirect(p) < 0)
+		clear_on_exit(s, 1);
+	else if (!*p->argv)
+		clear_on_exit(s, 0);
+	func = get_builtin(*p->argv);
+	if (func)
+		clear_on_exit(s, func(p->argv, s));
+	bin = env_abspath(&s->env, *p->argv);
+	if (!bin)
+		clear_on_exit(s, msh_perrorr(*p->argv, "command not found", 127));
+	execve(bin, p->argv, s->env.array);
+	if (msh_isdir(bin))
+		errno = EISDIR;
+	clear_on_exit(s, msh_perrorr(bin, msh_strerrno(), 126));
 }

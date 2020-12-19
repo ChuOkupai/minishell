@@ -1,0 +1,21 @@
+export =A
+export A=
+export A=4
+export A+=2
+export \$A=6
+export A=0 B=1
+export A=0 B\ =1 C=2
+export A='"foo"bar'
+export A= ; export | grep '^declare -x A='
+export A=4 ; export | grep '^declare -x A='
+export A+=2 ; export | grep '^declare -x A='
+export \$A=6 ; export | grep '^declare -x A='
+export VAR1=0 VAR2=1 ; export | sort | grep '^declare -x VAR'
+export VAR1=0 VAR2\ =1 VAR3=2 ; export | sort | grep '^declare -x VAR'
+export A=foobar ; export | grep '^declare -x A='
+export | sort | sed -e '/^declare -x _/d' -e '/^declare -x SHLVL/d'
+export A; export | grep '^declare -x A$'
+export A=''; export | grep '^declare -x A='
+export USER=GHOST; export | grep '^declare -x USER='
+export A='a"b"'; export | grep '^declare -x A='
+export A=prefix ; export A+=postfix ; export | grep '^declare -x A='

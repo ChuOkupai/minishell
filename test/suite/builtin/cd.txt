@@ -1,0 +1,9 @@
+cd
+cd -
+cd path
+cd - path
+cd path1 path2
+cd env/dir0 ; env | grep PWD
+cd env/dir0 ; cd - ; env | grep PWD
+unset HOME ; cd
+unset OLDPWD ; cd -

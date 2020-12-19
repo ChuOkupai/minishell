@@ -1,4 +1,0 @@
-$HISTSIZE
-
-if HISTSIZE not found
-	inf

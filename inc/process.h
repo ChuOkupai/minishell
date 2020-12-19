@@ -6,101 +6,79 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 01:57:36 by asoursou          #+#    #+#             */
-/*   Updated: 2020/11/24 16:38:27 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/12/19 12:30:20 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PROCESS_H
 # define PROCESS_H
-# include "environment.h"
+# include "redir.h"
 # include "shell.h"
 
 /*
-** All existing redirections.
-*/
-enum			e_redirect_type
-{
-	REDIR_INPUT,
-	REDIR_HEREDOC_INPUT,
-	REDIR_OUTPUT,
-	REDIR_APPENDING_OUTPUT
-};
-typedef enum e_redirect_type	t_redirect_type;
-
-/*
-** List of all redirections for one process.
-** type:	type of the redirection
-** path:	path to the redirected file
-*/
-struct			s_redirect
-{
-	t_redirect_type	type;
-	char			*path;
-};
-typedef struct s_redirect	t_redirect;
-
-/*
 ** Represents a single process.
-** argv:		an array which contains command arguments
+** args:		list of arguments before expansion
+** argv:		array of arguments after expansion
 ** redirection:	a list which contains redirections
+** terminated:	true if the process is terminated
+** status:		return value
+** pid:			current process pid
 */
-struct			s_process
+struct		s_process
 {
+	t_list	*args;
 	char	**argv;
 	t_list	*redirection;
+	bool	terminated;
+	int		status;
 	pid_t	pid;
 };
-typedef struct s_process		t_process;
+typedef struct s_process	t_process;
+
+t_process	*process_new(t_list *args, t_list *redirection);
+void		process_clear(t_process *p);
 
 /*
-** Free a single process.
+** Launch a process.
 */
-void			process_clear(t_process *p);
+void		process_exec(t_process *p, t_shell *s);
 
 /*
-** Creates a new single process.
+** Expand all the arguments stored in the process.
 */
-t_process		*process_new(char **argv, t_list *redirection);
+void		process_expand(t_process *p, const t_env *env);
+
+/*
+** Fork a process.
+** Arguments and redirects are removed in the parent.
+** Returns the value of fork.
+*/
+pid_t		process_fork(t_process *p);
+
+/*
+** Kill the current process using the given signal if it is not terminated.
+*/
+void		process_kill(const t_process *p, int signum);
 
 /*
 ** Print a single process.
 */
-void			process_print(t_process *process);
+void		process_print(const t_process *p);
 
 /*
-** Execute a list of process.
+** Do all redirections of a process.
+** Returns -1 on error, elso 0.
 */
-int				process_run(t_shell *shell, t_list *process);
+int			process_redirect(const t_process *p);
 
 /*
-** Redirect a process
+** Mark the current process as terminated with the given status.
 */
-int				redirect(t_process *process);
+void		process_terminate(t_process *p, int status);
 
 /*
-** Redirect back STDIN and STDOUT to their original values
+** Returns a process structure, from a generic pointer type.
 */
-void			undirect(int input, int output);
-
-/*
-** Free a single redirection.
-*/
-void			redirect_clear(t_redirect *r);
-
-/*
-** Creates a new redirection.
-*/
-t_redirect		*redirect_new(t_redirect_type type, char *path);
-
-/*
-** Get the redirection type from a string.
-** Returns -1 if unknown.
-*/
-t_redirect_type	redirect_type(const char *value);
-
-/*
-** Execute processes
-*/
-int				process_exec(t_list *process, t_shell *shell);
+t_process	*process(void *content);
 
 #endif

@@ -1,15 +1,85 @@
-Collection of malicious tests:
-
-""
-''
 > f
 < f
 > f # with non writable file
 < f # with non readable file
-(echo 1 && echo 2) > f # fail with minishell?
-echo ;;
-echo $ \$USER $USER '$' '\$' '\$USER' '$USER' "$" "\$" "\$USER" "$USER"
+< $undef_var
+> $undef_var
+< prefix$undef_var
+> prefix$undef_var
+> * (with 0 valid input, 1 and 2+)
+< * (with 0 valid input, 1 and 2+)
+ls d || echo "error: $?"; echo "ret: $?"
+echo a > a | echo b > * | echo c > c
+
+echo
+echo 42
+echo 1 2
+echo foo bar baz
+echo -n
+echo -o
+echo -nn
+echo -no
+echo -nno
+echo -nno
+echo show_n -n
+echo -n no_newline
+echo -n foo bar baz
+
+exit
+exit 0
+exit 1
+exit 255
+exit 256
+exit 513
+exit invalid
+exit invalid0
 exit a b
-exit 1 2
-exit a 1
-exit 1 a
+exit 3 a
+
+export
+export A=
+export A=4
+export A+=2
+export \$A=6
+export A=0 B=1
+export A=0 B\ =1 C=2
+export A='"foo"bar'
+
+unset
+unset A=
+unset A=4
+unset A+=2
+unset \$A=6
+unset A B
+unset A B\ =1 C
+
+cd
+cd -
+cd path
+cd - path
+cd path1 path2
+
+export FOO=bar VAR=FOO
+export $VAR=baz
+echo $VAR $FOO
+
+export VAR=*
+echo "$VAR" $VAR
+
+export OLDPWD=fakepath
+cd -
+
+unset HOME
+cd
+
+echo \x '\x' "\x"
+echo \' '\' "\""
+echo $VAR '$VAR' "$VAR" # if VAR exists or not
+echo \$VAR '\$VAR' "\$VAR" # if VAR exists or not
+echo a # comment
+
+echo *
+echo .*
+echo */
+export S='*' ; echo $S
+export S='*' ; cat < $S

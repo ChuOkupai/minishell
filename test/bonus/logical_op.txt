@@ -1,0 +1,12 @@
+echo 1 && echo 2
+ls && echo ok
+ls unknown && echo ok || echo ls_error
+(ls unknown || echo ls_error)
+((ls unknown || echo ls_error) && echo command done)
+echo 1 || echo 2 && echo 3
+echo 1 || (echo 2 && echo 3)
+(echo 1 || echo 2) && echo 3
+echo 1 && echo 2 || echo 3
+echo 1 && (echo 2 || echo 3)
+(echo 1 && echo 2) || echo 3
+cat < unknown || echo car_error || echo unused_cmd

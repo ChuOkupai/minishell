@@ -1,0 +1,14 @@
+echo
+echo 42
+echo 1 2
+echo foo bar baz
+echo -n
+echo -o
+echo -nn
+echo -no
+echo -nno
+echo -nno
+echo word -n
+echo -n no_newline
+echo -n foo bar baz
+echo -n -n -n word

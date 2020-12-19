@@ -1,0 +1,12 @@
+< $unknown
+< check.sh
+cat < check.sh
+cat < unknwon
+cat < check.sh < unknwon
+cat < unknwon < check.sh
+cat < check.sh < suite/buitlin/env.txt
+cat < check.sh < unknown < suite/buitlin/env.txt
+cat < check.sh | cat -e
+cat < check.sh < suite/buitlin/env.txt | cat -e
+cat < check.sh < unknown < suite/buitlin/env.txt | cat -e
+head < ./env/dir0/a | tr a x

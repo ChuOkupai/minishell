@@ -6,44 +6,17 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/11 17:08:34 by asoursou          #+#    #+#             */
-/*   Updated: 2020/11/24 13:55:35 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/12/09 03:43:43 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
-# include "environment.h"
+# include "libft.h"
+# include "token.h"
 
-/*
-** All known symbols type.
-*/
-enum	e_token_type
-{
-	TOKEN_WORD,
-	TOKEN_REDIRECT,
-	TOKEN_PIPE,
-	TOKEN_SEMICOLON,
-	TOKEN_LOGICAL_OP,
-	TOKEN_LEFT_PAR,
-	TOKEN_RIGHT_PAR,
-	TOKEN_MULTILINE,
-	TOKEN_SIZE
-};
-typedef enum e_token_type	t_token_type;
-
-/*
-** Represents a token.
-** type:	type of the token
-** value:	graphical representation
-** size:	size of value (avoid calls to ft_strlen)
-*/
-struct	s_token
-{
-	t_token_type	type;
-	char			*value;
-	size_t			size;
-};
-typedef struct s_token	t_token;
+# define ERR_UNEXPECT	"minishell: syntax error near unexpected token `%s'\n"
+# define STATE_SIZE		6
 
 /*
 ** All known stack events.
@@ -77,27 +50,27 @@ struct	s_rule
 };
 typedef struct s_rule	t_rule;
 
-# define STATE_SIZE	6
-# if STATE_SIZE < 1
-#  error "Illegal value set for variable STATE_SIZE"
-# endif
-
 /*
 ** The pushdown automaton used for minishell.
 ** final:	is final state?
 ** last:	temporary array for O(k) complexity where k is the number of rules
 **			for the given state
-** rule:	all transitions rules of the FSM
+** rules:	all transitions rules of the FSM
 ** stack:	used for parenthesis detection
 */
 struct	s_pda
 {
 	bool			final[STATE_SIZE];
 	int				last[STATE_SIZE];
-	const t_rule	*rule;
+	const t_rule	*rules;
 	int				stack;
 };
 typedef struct s_pda	t_pda;
+
+/*
+** This function is called by is_valid.
+*/
+void	pda_init(t_pda *p);
 
 /*
 ** Checks if the given list of tokens is a valid expression.
@@ -106,32 +79,9 @@ typedef struct s_pda	t_pda;
 int		is_valid(t_list *tokens);
 
 /*
-** Expands all tokens of type TOKEN_WORD into arguments.
-** The list of tokens MUST be valid before calling this function.
-*/
-void	parse_words(t_list *tokens, t_env *env);
-
-/*
-** Get the token stored in a list of tokens.
-** Returns NULL if the element does not exist.
-*/
-t_token	*token(t_list *element);
-
-/*
-** Free a token of type TOKEN_WORD or TOKEN_MULTILINE.
-** If the token is already from the g_lexer, nothing happens.
-*/
-void	token_clear(t_token *token);
-
-/*
-** Prints a token to the standard ouput.
-*/
-void	token_print(t_token *token);
-
-/*
 ** Creates a list of tokens from a string.
 ** Returns the new list of tokens.
 */
-t_list	*tokenize(const char *string);
+t_list	*tokenize(const char *s);
 
 #endif

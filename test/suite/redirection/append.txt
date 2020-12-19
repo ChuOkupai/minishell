@@ -1,0 +1,5 @@
+>> $unknown
+>> ./tmp/file1 ; ls ./tmp/file1 ; rm ./tmp/file1
+echo line1 >> ./tmp/file1 ; cat ./tmp/file1 ; rm ./tmp/file1
+echo line1 >> ./tmp/file1 ; echo line2 >> ./tmp/file1 ; cat ./tmp/file1 ; rm ./tmp/file1
+echo line1 >> ./tmp/file1 ; cat ./tmp/file1 ; rm ./tmp/file1

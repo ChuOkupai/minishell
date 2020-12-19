@@ -1,0 +1,8 @@
+cat << eof \nabc \neof
+cat << 'eof' \nabc \neof
+cat << * \ntest \ntest2 \ntest3 \n*test4 \ntest5* \n*
+cat << $a \na \n$a
+cat << 'pre'fix \nl1 \nl2 \nprefix
+cat << $v'$v'"$v" \n$v$v$v
+cat << *'*'"*" \n***
+cat << "$a" | cat << "$e"of \na \nb \n$a\nline1 \nline2 \n$eof

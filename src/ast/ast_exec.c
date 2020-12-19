@@ -6,24 +6,44 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 14:45:28 by asoursou          #+#    #+#             */
-/*   Updated: 2020/11/24 14:47:39 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/12/11 15:01:47 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ast.h"
-#include "process.h"
-#include "shell.h"
+#include "job.h"
 
-int	ast_exec(t_btree *root, t_shell *shell)
+typedef int	(*t_evaluate)(t_btree *, t_shell *);
+
+static int	eval_and(t_btree *r, t_shell *s)
 {
-	t_ast	*a;
-	int		r;
+	int ret;
 
-	a = ast(root);
-	if (a->type == AST_PROCESS)
-		return (process_exec(a->sequence, shell));
-	r = ast_exec(root->left, shell);
-	if (a->type == AST_AND)
-		return (r ? r : ast_exec(root->right, shell));
-	return (r ? ast_exec(root->right, shell) : 0);
+	ret = ast_exec(r->left, s);
+	if (ret)
+		return (ret);
+	return (ast_exec(r->right, s));
+}
+
+static int	eval_or(t_btree *r, t_shell *s)
+{
+	if (ast_exec(r->left, s))
+		return (ast_exec(r->right, s));
+	return (0);
+}
+
+static int	eval_job(t_btree *r, t_shell *s)
+{
+	return (env_setstatus(&s->env, job_exec(ast(r)->sequence, s)));
+}
+
+int			ast_exec(t_btree *r, t_shell *s)
+{
+	static const t_evaluate eval_func[AST_SIZE] = {
+		&eval_and, &eval_or, &eval_job
+	};
+
+	if (s->discard)
+		return (s->env.status.value);
+	return (eval_func[ast(r)->type](r, s));
 }

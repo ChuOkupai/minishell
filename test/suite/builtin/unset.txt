@@ -1,0 +1,10 @@
+unset
+unset A=
+unset A=4
+unset A+=2
+unset \$A=6
+unset A B
+unset A B\ =1 C
+unset USER ; env | grep USER
+unset USER ; env | grep USER
+unset USER PWD ; env | sort | grep -E "USER|PWD"
