@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 14:34:39 by gdinet            #+#    #+#             */
-/*   Updated: 2020/12/15 14:50:20 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/12/22 16:04:41 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 
 #define ERR_CD		"minishell: cd: %s: %s\n"
 #define ERR_NOTSET	"minishell: cd: %s not set\n"
-#define ERR_CWD		"cd: error retrieving current directory: %s: %s\n"
-#define ARG_0		"getcwd: cannot access parent directories"
 
 static int	usage(void)
 {

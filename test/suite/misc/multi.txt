@@ -2,3 +2,4 @@ export | sort | sed -e '/^declare -x _/d' -e '/^declare -x SHLVL/d' > ./tmp/f ; 
 env | sort | sed -e '/^_/d' -e '/^SHLVL/d' && echo ok
 cat < Makefile | wc -l > ./tmp/out1 | pwd > ./tmp/out2 | wc -l ; cat ./tmp/out1 ./tmp/out2
 echo abx foo zzz def bar aaa baz abc | tr a x | tr b y > ./tmp/out ; cat ./tmp/out
+export '?'=READ_ONLY || echo $?; env | grep '^?='

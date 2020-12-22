@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 15:42:15 by asoursou          #+#    #+#             */
-/*   Updated: 2020/12/19 15:24:50 by asoursou         ###   ########.fr       */
+/*   Updated: 2020/12/22 16:05:03 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	catch_ctrl_backslash(int signal)
 	}
 	else
 	{
-		ft_putstr("\b\b  \b\b\n");
+		ft_putstr("\033[0G\033[K");
 		if (g_shell->showps2 && g_shell->ps2)
 			ft_putstr_fd(g_shell->ps2, STDERR_FILENO);
 		else if (g_shell->ps1)
