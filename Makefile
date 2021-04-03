@@ -12,7 +12,7 @@
 
 # COMPILATION
 FT		:= libft
-CC		:= gcc
+CC		:= clang
 CFLAGS	:= -Wall -Wextra -Werror -Wpedantic -Wvla -Ofast -fno-builtin
 DFLAGS	= -MP -MMD -MF $(BUILD)/$*.d -MT $@
 IFLAGS	:= -isystem./$(FT)/inc -I./inc -I./inc/private
